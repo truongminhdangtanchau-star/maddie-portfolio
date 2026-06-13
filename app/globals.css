@@ -1,3 +1,61 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fff7fb;
+  color: #24151d;
+}
+
+section {
+  scroll-margin-top: 110px;
+}
+
+/* ABOUT */
+
+@keyframes aboutFloat {
+  0% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+}
+
+@keyframes aboutReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-image-float {
+  animation: aboutFloat 6s ease-in-out infinite;
+}
+
+.about-content-reveal {
+  animation: aboutReveal 900ms ease-out both;
+}
+
+/* SPOTIFY STYLE CARD */
+
 @keyframes spotifyShine {
   0% {
     transform: translateX(-120%) rotate(12deg);
@@ -67,7 +125,10 @@
 .spotify-progress {
   animation: spotifyProgress 7s ease-in-out infinite;
 }
-@keyframes experienceReveal {
+
+/* HERO */
+
+@keyframes heroReveal {
   from {
     opacity: 0;
     transform: translateY(28px);
@@ -79,7 +140,21 @@
   }
 }
 
-@keyframes experienceBar {
+@keyframes heroCardFloat {
+  0% {
+    transform: translateY(0px) rotate(1deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(-1deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(1deg);
+  }
+}
+
+@keyframes heroBar {
   0% {
     transform: scaleY(0.45);
     opacity: 0.55;
@@ -96,90 +171,7 @@
   }
 }
 
-@keyframes experiencePulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
-  }
-
-  70% {
-    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
-  }
-}
-
-@keyframes experienceProgress {
-  0% {
-    width: 22%;
-  }
-
-  50% {
-    width: 88%;
-  }
-
-  100% {
-    width: 62%;
-  }
-}
-
-.experience-card {
-  animation: experienceReveal 850ms ease-out both;
-}
-
-.experience-card:nth-child(2) {
-  animation-delay: 140ms;
-}
-
-.experience-card:nth-child(3) {
-  animation-delay: 280ms;
-}
-
-.experience-bar,
-.experience-mini-bar {
-  transform-origin: bottom;
-  animation: experienceBar 1.35s ease-in-out infinite;
-}
-
-.experience-dot {
-  animation: experiencePulse 2.6s ease-in-out infinite;
-}
-
-.experience-progress {
-  animation: experienceProgress 6s ease-in-out infinite;
-}
-
-@keyframes contactBar {
-  0% {
-    transform: scaleY(0.45);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0.55);
-    opacity: 0.65;
-  }
-}
-
-@keyframes contactReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes contactProgress {
+@keyframes heroProgress {
   0% {
     width: 20%;
   }
@@ -189,109 +181,87 @@
   }
 
   100% {
-    width: 64%;
+    width: 66%;
   }
 }
 
-.contact-card {
-  animation: contactReveal 850ms ease-out both;
-}
-
-.contact-bar {
-  transform-origin: bottom;
-  animation: contactBar 1.35s ease-in-out infinite;
-}
-
-.contact-progress {
-  animation: contactProgress 6s ease-in-out infinite;
-}
-
-@keyframes experienceReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes experienceBar {
+@keyframes musicSymbolFloat {
   0% {
-    transform: scaleY(0.45);
-    opacity: 0.55;
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+    opacity: 0.14;
   }
 
   50% {
-    transform: scaleY(1);
-    opacity: 1;
+    transform: translate3d(18px, -24px, 0) rotate(10deg);
+    opacity: 0.32;
   }
 
   100% {
-    transform: scaleY(0.55);
-    opacity: 0.65;
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+    opacity: 0.14;
   }
 }
 
-@keyframes experiencePulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
-  }
-
-  70% {
-    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
-  }
+.hero-reveal {
+  animation: heroReveal 900ms ease-out both;
 }
 
-@keyframes experienceProgress {
-  0% {
-    width: 22%;
-  }
-
-  50% {
-    width: 88%;
-  }
-
-  100% {
-    width: 62%;
-  }
+.hero-card-float {
+  animation: heroCardFloat 6.5s ease-in-out infinite;
 }
 
-.experience-card {
-  animation: experienceReveal 850ms ease-out both;
-}
-
-.experience-card:nth-child(2) {
-  animation-delay: 140ms;
-}
-
-.experience-card:nth-child(3) {
-  animation-delay: 280ms;
-}
-
-.experience-bar,
-.experience-mini-bar {
+.hero-bar {
   transform-origin: bottom;
-  animation: experienceBar 1.35s ease-in-out infinite;
+  animation: heroBar 1.35s ease-in-out infinite;
 }
 
-.experience-dot {
-  animation: experiencePulse 2.6s ease-in-out infinite;
+.hero-progress {
+  animation: heroProgress 6s ease-in-out infinite;
 }
 
-.experience-progress {
-  animation: experienceProgress 6s ease-in-out infinite;
+.music-symbol {
+  position: absolute;
+  color: rgba(219, 39, 119, 0.5);
+  font-weight: 700;
+  line-height: 1;
+  animation: musicSymbolFloat 7s ease-in-out infinite;
 }
 
-html {
-  scroll-behavior: smooth;
+.music-symbol-1 {
+  left: 8%;
+  top: 18%;
+  font-size: 5rem;
 }
+
+.music-symbol-2 {
+  right: 12%;
+  top: 16%;
+  font-size: 4rem;
+  animation-delay: 700ms;
+}
+
+.music-symbol-3 {
+  left: 46%;
+  top: 12%;
+  font-size: 3.5rem;
+  animation-delay: 1.2s;
+}
+
+.music-symbol-4 {
+  right: 28%;
+  bottom: 16%;
+  font-size: 4.5rem;
+  animation-delay: 1.8s;
+}
+
+.music-symbol-5 {
+  left: 14%;
+  bottom: 18%;
+  font-size: 6rem;
+  animation-delay: 2.3s;
+}
+
+/* NAVBAR PIANO */
 
 @keyframes pianoGlow {
   0% {
@@ -317,9 +287,116 @@ html {
   animation: pianoGlow 900ms ease-in-out;
 }
 
-section {
-  scroll-margin-top: 110px;
+/* SHARED MUSIC BARS */
+
+@keyframes musicBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
 }
+
+.music-bar {
+  transform-origin: bottom;
+  animation: musicBar 1.35s ease-in-out infinite;
+}
+
+/* EXPERIENCE */
+
+@keyframes experienceReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes experienceBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes experiencePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
+  }
+
+  70% {
+    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+@keyframes experienceProgress {
+  0% {
+    width: 22%;
+  }
+
+  50% {
+    width: 88%;
+  }
+
+  100% {
+    width: 62%;
+  }
+}
+
+.experience-card {
+  animation: experienceReveal 850ms ease-out both;
+}
+
+.experience-card:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.experience-card:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.experience-bar,
+.experience-mini-bar {
+  transform-origin: bottom;
+  animation: experienceBar 1.35s ease-in-out infinite;
+}
+
+.experience-dot {
+  animation: experiencePulse 2.6s ease-in-out infinite;
+}
+
+.experience-progress {
+  animation: experienceProgress 6s ease-in-out infinite;
+}
+
+/* PROJECTS */
 
 @keyframes projectReveal {
   from {
@@ -431,6 +508,56 @@ section {
   animation-delay: 1.6s;
 }
 
+/* CERTIFICATES */
+
+@keyframes certificateReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes certificateProgress {
+  0% {
+    width: 18%;
+  }
+
+  50% {
+    width: 86%;
+  }
+
+  100% {
+    width: 58%;
+  }
+}
+
+.certificate-card {
+  animation: certificateReveal 800ms ease-out both;
+}
+
+.certificate-card:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.certificate-card:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.certificate-card:nth-child(4) {
+  animation-delay: 360ms;
+}
+
+.certificate-progress {
+  animation: certificateProgress 5.8s ease-in-out infinite;
+}
+
+/* SKILLS */
+
 @keyframes skillReveal {
   from {
     opacity: 0;
@@ -489,4 +616,62 @@ section {
 
 .skill-progress {
   animation: skillProgress 6s ease-in-out infinite;
+}
+
+/* CONTACT */
+
+@keyframes contactBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes contactReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contactProgress {
+  0% {
+    width: 20%;
+  }
+
+  50% {
+    width: 92%;
+  }
+
+  100% {
+    width: 64%;
+  }
+}
+
+.contact-card {
+  animation: contactReveal 850ms ease-out both;
+}
+
+.contact-bar {
+  transform-origin: bottom;
+  animation: contactBar 1.35s ease-in-out infinite;
+}
+
+.contact-progress {
+  animation: contactProgress 6s ease-in-out infinite;
 }
