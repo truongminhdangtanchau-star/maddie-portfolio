@@ -1,26 +1,492 @@
-@import "tailwindcss";
+@keyframes spotifyShine {
+  0% {
+    transform: translateX(-120%) rotate(12deg);
+    opacity: 0;
+  }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  35% {
+    opacity: 0.35;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  70% {
+    opacity: 0;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  100% {
+    transform: translateX(120%) rotate(12deg);
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes spotifyProgress {
+  0% {
+    width: 18%;
+  }
+
+  50% {
+    width: 72%;
+  }
+
+  100% {
+    width: 68%;
+  }
+}
+
+.spotify-card {
+  isolation: isolate;
+}
+
+.spotify-card::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.35), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(217, 70, 239, 0.22), transparent 32%),
+    radial-gradient(circle at 50% 90%, rgba(251, 207, 232, 0.18), transparent 35%);
+  filter: blur(18px);
+}
+
+.spotify-shine::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -35%;
+  height: 140%;
+  width: 28%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  animation: spotifyShine 5.5s ease-in-out infinite;
+}
+
+.spotify-progress {
+  animation: spotifyProgress 7s ease-in-out infinite;
+}
+@keyframes experienceReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes experienceBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes experiencePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
+  }
+
+  70% {
+    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+@keyframes experienceProgress {
+  0% {
+    width: 22%;
+  }
+
+  50% {
+    width: 88%;
+  }
+
+  100% {
+    width: 62%;
+  }
+}
+
+.experience-card {
+  animation: experienceReveal 850ms ease-out both;
+}
+
+.experience-card:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.experience-card:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.experience-bar,
+.experience-mini-bar {
+  transform-origin: bottom;
+  animation: experienceBar 1.35s ease-in-out infinite;
+}
+
+.experience-dot {
+  animation: experiencePulse 2.6s ease-in-out infinite;
+}
+
+.experience-progress {
+  animation: experienceProgress 6s ease-in-out infinite;
+}
+
+@keyframes contactBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes contactReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contactProgress {
+  0% {
+    width: 20%;
+  }
+
+  50% {
+    width: 92%;
+  }
+
+  100% {
+    width: 64%;
+  }
+}
+
+.contact-card {
+  animation: contactReveal 850ms ease-out both;
+}
+
+.contact-bar {
+  transform-origin: bottom;
+  animation: contactBar 1.35s ease-in-out infinite;
+}
+
+.contact-progress {
+  animation: contactProgress 6s ease-in-out infinite;
+}
+
+@keyframes experienceReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes experienceBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes experiencePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
+  }
+
+  70% {
+    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+@keyframes experienceProgress {
+  0% {
+    width: 22%;
+  }
+
+  50% {
+    width: 88%;
+  }
+
+  100% {
+    width: 62%;
+  }
+}
+
+.experience-card {
+  animation: experienceReveal 850ms ease-out both;
+}
+
+.experience-card:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.experience-card:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.experience-bar,
+.experience-mini-bar {
+  transform-origin: bottom;
+  animation: experienceBar 1.35s ease-in-out infinite;
+}
+
+.experience-dot {
+  animation: experiencePulse 2.6s ease-in-out infinite;
+}
+
+.experience-progress {
+  animation: experienceProgress 6s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes pianoGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(236, 72, 153, 0);
+  }
+
+  50% {
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.28);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+.piano-key {
+  box-shadow:
+    inset 0 -8px 14px rgba(36, 21, 29, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.piano-key:hover {
+  animation: pianoGlow 900ms ease-in-out;
+}
+
+section {
+  scroll-margin-top: 110px;
+}
+
+@keyframes projectReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes projectBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes projectProgress {
+  0% {
+    width: 18%;
+  }
+
+  50% {
+    width: 90%;
+  }
+
+  100% {
+    width: 64%;
+  }
+}
+
+@keyframes projectSymbolFloat {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: translate3d(16px, -22px, 0) rotate(10deg);
+    opacity: 0.24;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+    opacity: 0.1;
+  }
+}
+
+.project-card {
+  animation: projectReveal 850ms ease-out both;
+}
+
+.project-card:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.project-card:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.project-bar,
+.project-mini-bar {
+  transform-origin: bottom;
+  animation: projectBar 1.35s ease-in-out infinite;
+}
+
+.project-progress {
+  animation: projectProgress 6s ease-in-out infinite;
+}
+
+.project-symbol {
+  position: absolute;
+  color: rgba(219, 39, 119, 0.55);
+  font-weight: 700;
+  line-height: 1;
+  animation: projectSymbolFloat 7s ease-in-out infinite;
+}
+
+.project-symbol-1 {
+  left: 8%;
+  top: 18%;
+  font-size: 5rem;
+}
+
+.project-symbol-2 {
+  right: 10%;
+  top: 20%;
+  font-size: 4rem;
+  animation-delay: 900ms;
+}
+
+.project-symbol-3 {
+  right: 24%;
+  bottom: 14%;
+  font-size: 5.5rem;
+  animation-delay: 1.6s;
+}
+
+@keyframes skillReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skillBar {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.65;
+  }
+}
+
+@keyframes skillProgress {
+  0% {
+    width: 18%;
+  }
+
+  50% {
+    width: 86%;
+  }
+
+  100% {
+    width: 62%;
+  }
+}
+
+.skill-card {
+  animation: skillReveal 850ms ease-out both;
+}
+
+.skill-card:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.skill-bar {
+  transform-origin: bottom;
+  animation: skillBar 1.35s ease-in-out infinite;
+}
+
+.skill-progress {
+  animation: skillProgress 6s ease-in-out infinite;
 }

@@ -9,7 +9,7 @@ import Contact from "../components/Contact";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-[#F7F1E8]">
+    <main className="min-h-screen overflow-x-hidden bg-[#fff7fb] text-[#24151d]">
       <Navbar />
       <Hero />
       <About />
