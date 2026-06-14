@@ -13,18 +13,18 @@ export default function About() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 flex items-center justify-between gap-6">
-          <p className="text-sm uppercase tracking-[0.32em] text-pink-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]">
             [ {about.label} ]
           </p>
 
-          <div className="hidden h-px flex-1 bg-gradient-to-r from-pink-200 to-transparent md:block" />
+          <div className="hidden h-px flex-1 bg-gradient-to-r from-pink-300 to-transparent md:block" />
 
-          <p className="hidden text-sm italic text-pink-400 md:block">
-            soft discipline · creative coordination · campaign taste
+          <p className="hidden text-sm font-semibold italic text-[#F72D9A] md:block">
+            Client servicing · Campaign coordination · Entertainment focus
           </p>
         </div>
 
-        <div className="grid items-center gap-14 md:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid items-center gap-14 md:grid-cols-[0.85fr_1.15fr]">
           <div className="about-image-float relative mx-auto w-full max-w-md">
             <div className="absolute -left-6 -top-6 h-full w-full rounded-[2.25rem] bg-pink-200/60 blur-sm" />
 
@@ -64,11 +64,11 @@ export default function About() {
               <div className="mt-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">
-                      Creative Account Executive
+                    <h3 className="text-2xl font-black tracking-[-0.04em] text-white">
+                      Campaign Coordinator
                     </h3>
                     <p className="mt-1 text-sm text-pink-100/60">
-                      Music · Entertainment · Brand Campaigns
+                      Client Flow · Timeline · Reporting
                     </p>
                   </div>
 
@@ -103,33 +103,33 @@ export default function About() {
                     Campaign Flow
                   </span>
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-pink-100/70">
-                    Artist-side Energy
+                    Creative Support
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="absolute -bottom-5 -right-4 rounded-full border border-pink-200 bg-white/90 px-5 py-3 text-sm font-medium text-pink-600 shadow-lg backdrop-blur">
-              Available for creative teams
+            <div className="absolute -bottom-5 -right-4 rounded-full border border-pink-200 bg-white/90 px-5 py-3 text-sm font-semibold text-[#F72D9A] shadow-lg backdrop-blur">
+              Open to creative teams
             </div>
           </div>
 
           <div className="about-content-reveal">
-            <p className="mb-5 text-sm uppercase tracking-[0.28em] text-pink-400">
-              From client servicing to creative campaign coordination
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
+              Client servicing meets creative execution
             </p>
 
-            <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
+            <h2 className="headline-wipe max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
               {about.headline}
             </h2>
 
-            <div className="mt-10 space-y-6 text-lg leading-8 text-[#6f4a5d]">
-              {about.paragraphs.map((paragraph) => (
+            <div className="mt-8 max-w-3xl space-y-5 text-lg font-medium leading-8 text-[#6f4a5d]">
+              {about.paragraphs.slice(0, 2).map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-9 flex flex-wrap gap-4">
               <a
                 href={profile.linkedin}
                 target="_blank"
@@ -150,23 +150,23 @@ export default function About() {
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-semibold text-pink-500">12</p>
-                <p className="mt-2 text-sm leading-6 text-[#7b5a69]">
-                  client accounts managed across campaign delivery
+                <p className="text-3xl font-black text-[#F72D9A]">12</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
+                  client accounts managed
                 </p>
               </div>
 
               <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-semibold text-pink-500">2+</p>
-                <p className="mt-2 text-sm leading-6 text-[#7b5a69]">
-                  years in client-facing campaign operations
+                <p className="text-3xl font-black text-[#F72D9A]">2+</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
+                  years in client-facing work
                 </p>
               </div>
 
               <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-semibold text-pink-500">∞</p>
-                <p className="mt-2 text-sm leading-6 text-[#7b5a69]">
-                  interest in music, entertainment, and creative brands
+                <p className="text-3xl font-black text-[#F72D9A]">4</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
+                  focus areas: accounts, campaigns, reports, coordination
                 </p>
               </div>
             </div>

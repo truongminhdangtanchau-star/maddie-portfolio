@@ -28,7 +28,7 @@ export default function Projects() {
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-16 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-sm uppercase tracking-[0.32em] text-pink-500">
+            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]">
               [ Selected Work ]
             </p>
 
@@ -36,21 +36,20 @@ export default function Projects() {
               <span className="project-bar h-10 w-2 rounded-full bg-pink-300" />
               <span className="project-bar h-24 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
               <span className="project-bar h-16 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
-              <span className="project-bar h-28 w-2 rounded-full bg-pink-400 [animation-delay:360ms]" />
+              <span className="project-bar h-28 w-2 rounded-full bg-pink-500 [animation-delay:360ms]" />
               <span className="project-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
             </div>
           </div>
 
           <div>
-            <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
-              Campaign work shaped like a playlist: structured, trackable, and
-              ready for creative teams.
+            <h2 className="headline-wipe max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
+              Campaign projects built for coordination, reporting, and client
+              clarity.
             </h2>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#6f4a5d]">
-              Selected work across client communication, campaign coordination,
-              reporting, and execution support. Less “random task list”, more
-              “this person can keep a campaign alive without summoning chaos.”
+            <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]">
+              Selected work across campaign flow, client communication,
+              prospect operations, reporting, and review meetings.
             </p>
           </div>
         </div>
@@ -59,13 +58,13 @@ export default function Projects() {
           {projectList.map((project, index) => (
             <article
               key={project.title}
-              className="project-card group relative flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/75 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.24)]"
+              className="project-card readable-reveal group relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.24)]"
             >
               <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/70" />
 
               <div className="relative">
                 <div className="mb-8 flex items-start justify-between gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)]">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
                     {index === 0 ? (
                       <svg
                         className="h-7 w-7"
@@ -114,20 +113,20 @@ export default function Projects() {
                     )}
                   </div>
 
-                  <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-pink-500">
+                  <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A]">
                     Track {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <p className="text-sm uppercase tracking-[0.24em] text-pink-500">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#F72D9A]">
                   {project.category || project.type}
                 </p>
 
-                <h3 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.045em] text-[#24151d]">
+                <h3 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#24151d]">
                   {project.title}
                 </h3>
 
-                <p className="mt-6 text-base leading-7 text-[#6f4a5d]">
+                <p className="mt-5 text-base font-medium leading-7 text-[#6f4a5d]">
                   {project.description}
                 </p>
               </div>
@@ -137,15 +136,15 @@ export default function Projects() {
                   <span className="project-mini-bar h-5 w-1.5 rounded-full bg-pink-300" />
                   <span className="project-mini-bar h-10 w-1.5 rounded-full bg-rose-300 [animation-delay:100ms]" />
                   <span className="project-mini-bar h-7 w-1.5 rounded-full bg-fuchsia-300 [animation-delay:200ms]" />
-                  <span className="project-mini-bar h-12 w-1.5 rounded-full bg-pink-400 [animation-delay:300ms]" />
+                  <span className="project-mini-bar h-12 w-1.5 rounded-full bg-pink-500 [animation-delay:300ms]" />
                   <span className="project-mini-bar h-8 w-1.5 rounded-full bg-rose-300 [animation-delay:400ms]" />
                 </div>
 
                 <div className="h-1.5 overflow-hidden rounded-full bg-pink-100">
-                  <div className="project-progress h-full rounded-full bg-gradient-to-r from-pink-300 via-rose-300 to-fuchsia-300" />
+                  <div className="project-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
                 </div>
 
-                <div className="mt-5 flex items-center justify-between text-xs uppercase tracking-[0.2em] text-[#8a6475]">
+                <div className="mt-5 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6475]">
                   <span>Campaign Flow</span>
                   <span>0{index + 1}</span>
                 </div>

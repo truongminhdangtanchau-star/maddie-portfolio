@@ -1,6 +1,10 @@
+import Image from "next/image";
 import { certificates } from "../data/portfolio";
 
 export default function Certificates() {
+  const education = certificates[0];
+  const certificateList = certificates.slice(1);
+
   return (
     <section
       id="certificates"
@@ -8,11 +12,12 @@ export default function Certificates() {
     >
       <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-pink-200/45 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-fuchsia-200/35 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/50 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-sm uppercase tracking-[0.32em] text-pink-500">
+            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]">
               [ Education & Certificates ]
             </p>
 
@@ -20,50 +25,92 @@ export default function Certificates() {
               <span className="music-bar h-8 w-2 rounded-full bg-pink-300" />
               <span className="music-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
               <span className="music-bar h-10 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
-              <span className="music-bar h-20 w-2 rounded-full bg-pink-400 [animation-delay:360ms]" />
+              <span className="music-bar h-20 w-2 rounded-full bg-pink-500 [animation-delay:360ms]" />
               <span className="music-bar h-12 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
             </div>
           </div>
 
           <div>
-            <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
-              Academic background and certificates that support professional
-              communication, business thinking, and execution discipline.
+            <h2 className="headline-wipe max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
+              Education background with practical certificates for client-facing
+              creative work.
             </h2>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#6f4a5d]">
-              A compact view of Maddie&apos;s education and qualifications,
-              presented with the softness of a creative portfolio and the
-              clarity recruiters still require, tragically.
+            <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]">
+              A focused view of business education, office capability, English
+              communication, and professional learning discipline.
             </p>
           </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {certificates.map((item, index) => (
+        <div className="education-feature-card readable-reveal relative mb-8 overflow-hidden rounded-[2.75rem] border border-pink-200/80 bg-white/85 p-6 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-8">
+          <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-pink-200/50 blur-3xl" />
+
+          <div className="grid items-center gap-8 md:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative overflow-hidden rounded-[2.25rem] border border-pink-200 bg-[#24151d] p-4 shadow-[0_24px_80px_rgba(36,21,29,0.20)]">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] bg-pink-50">
+                <Image
+                  src="/Tôn Đức Thắng.png"
+                  alt="Ton Duc Thang University"
+                  fill
+                  className="object-cover"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#24151d]/65 via-[#24151d]/10 to-white/10" />
+
+                <div className="absolute bottom-5 left-5 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+                  Education Background
+                </div>
+              </div>
+            </div>
+
+            <div className="readable-reveal">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
+                Ton Duc Thang University
+              </p>
+
+              <h3 className="max-w-3xl text-4xl font-black leading-tight tracking-[-0.05em] text-[#24151d] md:text-5xl">
+                {education.name}
+              </h3>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <span className="rounded-full bg-pink-100 px-4 py-2 text-sm font-semibold text-[#F72D9A]">
+                  {education.issuer}
+                </span>
+
+                <span className="rounded-full border border-pink-200 bg-white/80 px-4 py-2 text-sm font-medium text-[#7b5a69]">
+                  {education.year}
+                </span>
+
+                <span className="rounded-full border border-pink-200 bg-white/80 px-4 py-2 text-sm font-medium text-[#7b5a69]">
+                  International Business · English Program
+                </span>
+              </div>
+
+              <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]">
+                A business foundation for client communication, campaign
+                coordination, documentation, reporting, and multicultural
+                teamwork.
+              </p>
+
+              <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100">
+                <div className="education-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {certificateList.map((item, index) => (
             <article
               key={item.name}
-              className="certificate-card group relative overflow-hidden rounded-[2rem] border border-pink-200/80 bg-white/75 p-7 shadow-[0_24px_70px_rgba(219,39,119,0.12)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_30px_90px_rgba(219,39,119,0.20)]"
+              className="certificate-card group relative overflow-hidden rounded-[2rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_24px_70px_rgba(219,39,119,0.12)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_30px_90px_rgba(219,39,119,0.20)]"
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/60" />
 
               <div className="relative flex items-start justify-between gap-6">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)]">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
                   {index === 0 ? (
-                    <svg
-                      className="h-7 w-7"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M22 10 12 5 2 10l10 5 10-5Z" />
-                      <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
-                    </svg>
-                  ) : index === 1 ? (
                     <svg
                       className="h-7 w-7"
                       viewBox="0 0 24 24"
@@ -76,7 +123,7 @@ export default function Certificates() {
                     >
                       <path d="M12 3 14.7 8.5 21 9.4 16.5 13.8 17.5 20 12 17.1 6.5 20 7.5 13.8 3 9.4 9.3 8.5 12 3Z" />
                     </svg>
-                  ) : index === 2 ? (
+                  ) : index === 1 ? (
                     <svg
                       className="h-7 w-7"
                       viewBox="0 0 24 24"
@@ -111,29 +158,33 @@ export default function Certificates() {
                   )}
                 </div>
 
-                <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-pink-500">
-                  {String(index + 1).padStart(2, "0")}
+                <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A]">
+                  0{index + 1}
                 </span>
               </div>
 
               <div className="relative mt-8">
-                <h3 className="text-2xl font-semibold leading-tight tracking-[-0.035em] text-[#24151d]">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#F72D9A]">
+                  Certificate
+                </p>
+
+                <h3 className="text-2xl font-black leading-tight tracking-[-0.035em] text-[#24151d]">
                   {item.name}
                 </h3>
 
                 <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <p className="rounded-full bg-pink-100/80 px-4 py-2 text-sm font-medium text-pink-700">
+                  <p className="rounded-full bg-pink-100/80 px-4 py-2 text-sm font-semibold text-[#F72D9A]">
                     {item.issuer}
                   </p>
 
-                  <p className="rounded-full border border-pink-200 bg-white/70 px-4 py-2 text-sm text-[#7b5a69]">
+                  <p className="rounded-full border border-pink-200 bg-white/70 px-4 py-2 text-sm font-medium text-[#7b5a69]">
                     {item.year}
                   </p>
                 </div>
               </div>
 
               <div className="relative mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100">
-                <div className="certificate-progress h-full rounded-full bg-gradient-to-r from-pink-300 via-rose-300 to-fuchsia-300" />
+                <div className="certificate-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
               </div>
             </article>
           ))}
