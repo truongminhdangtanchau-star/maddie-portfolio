@@ -17,7 +17,7 @@ export const profile = {
 export const about = {
   label: "About",
   headline:
-    "I connect client communication with creative campaign execution.",
+    "Client Campaign Execution.",
   eyebrow: "Client servicing · Campaign coordination · Entertainment focus",
   paragraphs: [
     "My background covers account management, campaign coordination, client communication, reporting, and cross-functional teamwork.",
