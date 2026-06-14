@@ -1318,3 +1318,160 @@ section {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* =========================================================
+   ABOUT CLEAN VINYL VERSION
+   ========================================================= */
+
+.about-clean-vinyl-stage {
+  min-height: 38rem;
+}
+
+.about-clean-vinyl-glow {
+  position: absolute;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle, rgba(247, 45, 154, 0.22), rgba(247, 45, 154, 0) 68%);
+  filter: blur(24px);
+}
+
+.about-clean-vinyl-disc {
+  position: relative;
+  display: flex;
+  width: 23rem;
+  height: 23rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at center, #f9a8d4 0 4%, #f72d9a 5% 12%, #2d1922 13% 44%, #171217 45% 100%);
+  box-shadow:
+    inset 0 0 0 10px rgba(255, 255, 255, 0.04),
+    inset 0 0 0 22px rgba(255, 255, 255, 0.025),
+    0 30px 90px rgba(36, 21, 29, 0.28),
+    0 0 40px rgba(247, 45, 154, 0.15);
+  animation: aboutCleanVinylSpin 8s linear infinite;
+  will-change: transform;
+}
+
+.about-clean-vinyl-ring {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+}
+
+.about-clean-vinyl-ring-1 {
+  inset: 1.25rem;
+}
+
+.about-clean-vinyl-ring-2 {
+  inset: 2.4rem;
+}
+
+.about-clean-vinyl-ring-3 {
+  inset: 3.55rem;
+}
+
+.about-clean-vinyl-ring-4 {
+  inset: 4.7rem;
+}
+
+.about-clean-vinyl-photo {
+  position: relative;
+  z-index: 2;
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+  border: 4px solid #f9a8d4;
+  border-radius: 9999px;
+  background: #fce7f3;
+  box-shadow:
+    0 0 0 8px rgba(255, 255, 255, 0.06),
+    0 0 25px rgba(247, 45, 154, 0.28);
+  animation: aboutCleanVinylCounterSpin 8s linear infinite;
+}
+
+.about-clean-tonearm {
+  position: absolute;
+  top: 7rem;
+  right: 4.5rem;
+  width: 8.5rem;
+  height: 0.65rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #f5d4e2, #ffffff);
+  transform: rotate(28deg);
+  transform-origin: right center;
+  box-shadow: 0 8px 18px rgba(36, 21, 29, 0.16);
+}
+
+.about-clean-tonearm::before {
+  content: "";
+  position: absolute;
+  top: -0.55rem;
+  right: -0.55rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 9999px;
+  background: #f7d7e5;
+  box-shadow: 0 8px 18px rgba(36, 21, 29, 0.18);
+}
+
+.about-clean-tonearm-head {
+  position: absolute;
+  left: -0.45rem;
+  top: -0.35rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.35rem;
+  background: #f472b6;
+  box-shadow: 0 0 18px rgba(244, 114, 182, 0.45);
+}
+
+@keyframes aboutCleanVinylSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aboutCleanVinylCounterSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-clean-vinyl-stage {
+    min-height: 28rem;
+  }
+
+  .about-clean-vinyl-glow {
+    width: 19rem;
+    height: 19rem;
+  }
+
+  .about-clean-vinyl-disc {
+    width: 17rem;
+    height: 17rem;
+  }
+
+  .about-clean-vinyl-photo {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .about-clean-tonearm {
+    top: 5.2rem;
+    right: 2.2rem;
+    width: 6.5rem;
+  }
+}
