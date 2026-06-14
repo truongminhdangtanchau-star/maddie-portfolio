@@ -4,6 +4,7 @@
   --hot-pink: #f72d9a;
   --pink: #ec4899;
   --soft-pink: #fce7f3;
+  --page-pink: #fdebf4;
   --ink: #24151d;
   --muted: #6f4a5d;
   --line: rgba(244, 114, 182, 0.35);
@@ -20,7 +21,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  background: #fff7fb;
+  background: var(--page-pink);
   color: var(--ink);
 }
 
@@ -81,55 +82,359 @@ section {
 }
 
 /* =========================================================
-   HERO TYPOGRAPHY + MARQUEE
+   UNIFIED SECTION BACKGROUND
    ========================================================= */
 
-.hero-glow-title {
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.18),
-    0 0 26px rgba(247, 45, 154, 0.16);
+.hero-stage,
+#about,
+#experience,
+#projects,
+#certificates,
+#skills,
+#contact {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(249, 168, 212, 0.34), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(217, 70, 239, 0.18), transparent 32%),
+    radial-gradient(circle at 50% 80%, rgba(251, 207, 232, 0.32), transparent 36%),
+    var(--page-pink);
 }
+
+/* =========================================================
+   UNIFIED GLOW HEADINGS
+   ========================================================= */
+
+.hero-glow-title,
+.about-glow-heading,
+.experience-glow-heading,
+.projects-glow-heading,
+.skills-glow-heading,
+.certificates-glow-heading,
+.contact-glow-heading,
+.hero-card-title-glow,
+.experience-role-glow,
+.projects-title-glow,
+.skills-title-glow,
+.certificates-title-glow,
+.certificates-card-title-glow {
+  color: var(--hot-pink);
+  background: linear-gradient(
+    110deg,
+    #f72d9a 0%,
+    #ec4899 28%,
+    #f9a8d4 52%,
+    #ffffff 62%,
+    #f72d9a 82%,
+    #be185d 100%
+  );
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow:
+    0 0 1px rgba(36, 21, 29, 0.65),
+    0 0 18px rgba(247, 45, 154, 0.22),
+    0 0 42px rgba(247, 45, 154, 0.18);
+  -webkit-text-stroke: 1px rgba(36, 21, 29, 0.14);
+  animation: unifiedHeadingGlowShift 5.5s ease-in-out infinite;
+}
+
+.hero-card-title-glow,
+.experience-role-glow,
+.projects-title-glow,
+.skills-title-glow,
+.certificates-title-glow,
+.certificates-card-title-glow {
+  text-transform: none;
+  -webkit-text-stroke: 0.7px rgba(36, 21, 29, 0.12);
+}
+
+@keyframes unifiedHeadingGlowShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes unifiedHeadingGlowIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px) scale(0.98);
+    filter: blur(8px);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.about-heading-glow-in,
+.contact-heading-glow-in {
+  animation:
+    unifiedHeadingGlowIn 1150ms cubic-bezier(0.16, 1, 0.3, 1) both,
+    unifiedHeadingGlowShift 5.5s ease-in-out infinite 1150ms;
+}
+
+@keyframes unifiedTitleWipe {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-22px);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+.experience-role-wipe,
+.projects-title-wipe,
+.skills-title-wipe,
+.certificates-title-wipe {
+  animation:
+    unifiedTitleWipe 960ms cubic-bezier(0.16, 1, 0.3, 1) both,
+    unifiedHeadingGlowShift 5.5s ease-in-out infinite 960ms;
+}
+
+/* =========================================================
+   SHARED REVEALS
+   ========================================================= */
+
+@keyframes unifiedRevealLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-28px);
+    filter: blur(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes unifiedRevealRight {
+  0% {
+    opacity: 0;
+    transform: translateX(32px) scale(0.98);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.about-reveal-left,
+.contact-reveal-left {
+  animation: unifiedRevealLeft 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.about-reveal-right,
+.contact-reveal-right {
+  animation: unifiedRevealRight 950ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes unifiedCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.experience-card-enter,
+.project-card-enter,
+.skill-card-enter,
+.certificate-card-enter,
+.contact-card-enter {
+  animation: unifiedCardEnter 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes aboutStatEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.about-stat-enter {
+  animation: aboutStatEnter 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* =========================================================
+   SHARED GLOW CARDS
+   ========================================================= */
+
+.hero-card-glow,
+.experience-card-glow,
+.project-card-glow,
+.skill-card-glow,
+.education-feature-glow,
+.certificate-card-glow,
+.contact-shell-glow,
+.contact-console-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-card-glow::before,
+.experience-card-glow::before,
+.project-card-glow::before,
+.skill-card-glow::before,
+.education-feature-glow::before,
+.certificate-card-glow::before,
+.contact-shell-glow::before,
+.contact-console-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(247, 45, 154, 0.24),
+      rgba(249, 168, 212, 0.08),
+      rgba(217, 70, 239, 0.2)
+    );
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.hero-card-glow::before {
+  opacity: 0.75;
+}
+
+.experience-card-glow:hover::before,
+.project-card-glow:hover::before,
+.skill-card-glow:hover::before,
+.education-feature-glow:hover::before,
+.certificate-card-glow:hover::before,
+.contact-shell-glow:hover::before,
+.contact-console-glow:hover::before {
+  opacity: 1;
+}
+
+/* =========================================================
+   SHARED ICON + PILL GLOW
+   ========================================================= */
+
+.project-icon-glow,
+.skill-icon-glow,
+.certificate-icon-glow {
+  color: #fce7f3;
+  box-shadow:
+    0 14px 35px rgba(36, 21, 29, 0.18),
+    0 0 0 rgba(247, 45, 154, 0);
+  animation: unifiedIconGlow 4.2s ease-in-out infinite;
+}
+
+@keyframes unifiedIconGlow {
+  0% {
+    box-shadow:
+      0 14px 35px rgba(36, 21, 29, 0.18),
+      0 0 0 rgba(247, 45, 154, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 14px 35px rgba(36, 21, 29, 0.18),
+      0 0 26px rgba(247, 45, 154, 0.5);
+  }
+
+  100% {
+    box-shadow:
+      0 14px 35px rgba(36, 21, 29, 0.18),
+      0 0 0 rgba(247, 45, 154, 0);
+  }
+}
+
+.skill-pill-glow,
+.experience-bullet-glow {
+  box-shadow: 0 10px 28px rgba(219, 39, 119, 0.04);
+}
+
+.skill-pill-glow:hover,
+.experience-bullet-glow:hover {
+  box-shadow: 0 14px 34px rgba(219, 39, 119, 0.13);
+}
+
+@keyframes skillPillEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.94);
+    filter: blur(3px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.skill-pill-enter {
+  animation: skillPillEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* =========================================================
+   MARQUEE + TYPEWRITER
+   ========================================================= */
 
 .hero-marquee-wrap {
   position: relative;
 }
 
-/* New seamless marquee. Use with two repeated <span> items. */
 .hero-marquee-track {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: heroMarqueeSeamless 20s linear infinite;
+  animation: heroMarqueeMove 26s linear infinite;
 }
 
 .hero-marquee-track span {
   display: inline-flex;
   flex-shrink: 0;
-  padding-right: 2rem;
+  padding-right: 2.5rem;
   white-space: nowrap;
+  color: var(--hot-pink);
   font-size: 0.78rem;
   font-weight: 900;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--hot-pink);
 }
 
-/* Legacy fallback. Keeps old JSX from exploding, because apparently mercy matters. */
-.hero-marquee {
-  display: inline-block;
-  min-width: 200%;
-  padding-left: 100%;
-  white-space: nowrap;
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--hot-pink);
-  will-change: transform;
-  animation: heroMarqueeLegacy 18s linear infinite;
-}
-
-@keyframes heroMarqueeSeamless {
+@keyframes heroMarqueeMove {
   from {
     transform: translateX(0);
   }
@@ -138,18 +443,6 @@ section {
     transform: translateX(-50%);
   }
 }
-
-@keyframes heroMarqueeLegacy {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* TYPEWRITER HEADINGS */
 
 .typewriter-line {
   display: block;
@@ -220,14 +513,16 @@ section {
    ========================================================= */
 
 @keyframes heroReveal {
-  from {
+  0% {
     opacity: 0;
     transform: translateY(28px);
+    filter: blur(5px);
   }
 
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
@@ -313,85 +608,168 @@ section {
 }
 
 /* =========================================================
-   FLOATING MUSIC SYMBOLS
+   SLOW FALLING MUSIC RAIN
    ========================================================= */
 
-@keyframes musicSymbolFloat {
+.hero-rain-icon,
+.music-rain-icon {
+  position: absolute;
+  top: -14%;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+  color: rgba(247, 45, 154, 0.16);
+  text-shadow:
+    0 0 12px rgba(247, 45, 154, 0.12),
+    0 0 28px rgba(247, 45, 154, 0.08);
+  will-change: transform, opacity;
+  animation-name: musicRainFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes musicRainFall {
   0% {
-    transform: translate3d(0, 0, 0) rotate(-8deg);
+    transform: translate3d(0, -15vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  8% {
     opacity: 0.12;
   }
 
-  50% {
-    transform: translate3d(16px, -22px, 0) rotate(10deg);
-    opacity: 0.26;
+  30% {
+    transform: translate3d(14px, 30vh, 0) rotate(8deg);
+    opacity: 0.16;
+  }
+
+  60% {
+    transform: translate3d(-12px, 65vh, 0) rotate(-10deg);
+    opacity: 0.2;
+  }
+
+  85% {
+    opacity: 0.15;
   }
 
   100% {
-    transform: translate3d(0, 0, 0) rotate(-8deg);
-    opacity: 0.12;
+    transform: translate3d(10px, 115vh, 0) rotate(12deg);
+    opacity: 0;
   }
 }
 
-.music-symbol {
-  position: absolute;
-  color: rgba(219, 39, 119, 0.5);
-  font-weight: 700;
-  line-height: 1;
-  will-change: transform, opacity;
-  animation: musicSymbolFloat 7s ease-in-out infinite;
-}
-
-.music-symbol-1 {
-  left: 8%;
-  top: 18%;
-  font-size: 5rem;
-}
-
-.music-symbol-2 {
-  right: 12%;
-  top: 16%;
-  font-size: 4rem;
-  animation-delay: 700ms;
-}
-
-.music-symbol-3 {
-  left: 46%;
-  top: 12%;
-  font-size: 3.5rem;
-  animation-delay: 1.2s;
-}
-
-.music-symbol-4 {
-  right: 28%;
-  bottom: 16%;
-  font-size: 4.5rem;
-  animation-delay: 1.8s;
-}
-
-.music-symbol-5 {
-  left: 14%;
-  bottom: 18%;
-  font-size: 6rem;
-  animation-delay: 2.3s;
-}
-
-.music-symbol-6 {
-  right: 8%;
-  top: 42%;
-  font-size: 3.2rem;
-  animation-delay: 1.4s;
-}
-
-.music-symbol-7 {
-  left: 28%;
-  bottom: 8%;
+.hero-rain-1,
+.music-rain-1 {
+  left: 3%;
   font-size: 3rem;
-  animation-delay: 2.1s;
+  animation-duration: 28s;
+  animation-delay: -4s;
+}
+
+.hero-rain-2,
+.music-rain-2 {
+  left: 9%;
+  font-size: 3.6rem;
+  animation-duration: 34s;
+  animation-delay: -16s;
+}
+
+.hero-rain-3,
+.music-rain-3 {
+  left: 16%;
+  font-size: 2.6rem;
+  animation-duration: 31s;
+  animation-delay: -9s;
+}
+
+.hero-rain-4,
+.music-rain-4 {
+  left: 24%;
+  font-size: 3.2rem;
+  animation-duration: 38s;
+  animation-delay: -23s;
+}
+
+.hero-rain-5,
+.music-rain-5 {
+  left: 33%;
+  font-size: 4.2rem;
+  animation-duration: 35s;
+  animation-delay: -13s;
+}
+
+.hero-rain-6,
+.music-rain-6 {
+  left: 43%;
+  font-size: 2.5rem;
+  animation-duration: 41s;
+  animation-delay: -28s;
+}
+
+.hero-rain-7,
+.music-rain-7 {
+  left: 52%;
+  font-size: 2.8rem;
+  animation-duration: 30s;
+  animation-delay: -7s;
+}
+
+.hero-rain-8,
+.music-rain-8 {
+  left: 61%;
+  font-size: 2.5rem;
+  animation-duration: 37s;
+  animation-delay: -19s;
+}
+
+.hero-rain-9,
+.music-rain-9 {
+  left: 69%;
+  font-size: 3.1rem;
+  animation-duration: 33s;
+  animation-delay: -11s;
+}
+
+.hero-rain-10,
+.music-rain-10 {
+  left: 77%;
+  font-size: 2.7rem;
+  animation-duration: 43s;
+  animation-delay: -31s;
+}
+
+.hero-rain-11,
+.music-rain-11 {
+  left: 85%;
+  font-size: 3.8rem;
+  animation-duration: 36s;
+  animation-delay: -15s;
+}
+
+.hero-rain-12,
+.music-rain-12 {
+  left: 93%;
+  font-size: 2.5rem;
+  animation-duration: 40s;
+  animation-delay: -25s;
+}
+
+.hero-rain-13 {
+  left: 47%;
+  font-size: 2.8rem;
+  animation-duration: 45s;
+  animation-delay: -34s;
+}
+
+.hero-rain-14 {
+  left: 72%;
+  font-size: 3.4rem;
+  animation-duration: 39s;
+  animation-delay: -22s;
 }
 
 /* =========================================================
-   VINYL RECORD PLAYER
+   GENERIC VINYL RECORD PLAYER
    ========================================================= */
 
 .record-player {
@@ -520,7 +898,7 @@ section {
 }
 
 /* =========================================================
-   NAVBAR PIANO
+   NAVBAR PIANO + BRAND VINYL
    ========================================================= */
 
 @keyframes pianoGlow {
@@ -546,8 +924,6 @@ section {
 .piano-key:hover {
   animation: pianoGlow 900ms ease-in-out;
 }
-
-/* NAVBAR MUSIC NOTES */
 
 @keyframes navNoteBurst {
   0% {
@@ -593,8 +969,6 @@ section {
   animation-delay: 240ms;
   text-shadow: 0 0 14px rgba(236, 72, 153, 0.35);
 }
-
-/* NAVBAR MINI VINYL */
 
 .brand-logo {
   isolation: isolate;
@@ -692,7 +1066,7 @@ section {
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #f72d9a;
+  background: var(--hot-pink);
   color: white;
   font-size: 0.72rem;
   line-height: 1;
@@ -757,215 +1131,6 @@ section {
 }
 
 /* =========================================================
-   ABOUT
-   ========================================================= */
-
-@keyframes aboutFloat {
-  0% {
-    transform: translateY(0) rotate(-0.8deg);
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(0.8deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(-0.8deg);
-  }
-}
-
-@keyframes aboutReveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.about-image-float {
-  animation: aboutFloat 7s ease-in-out infinite;
-}
-
-.about-content-reveal {
-  animation: aboutReveal 900ms ease-out both;
-}
-
-/* ABOUT MINI VINYL */
-
-.about-mini-vinyl-wrap {
-  position: relative;
-  display: flex;
-  width: 3.25rem;
-  height: 3.25rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 14px 35px rgba(244, 114, 182, 0.25);
-}
-
-.about-mini-vinyl-disc {
-  position: relative;
-  display: flex;
-  width: 3rem;
-  height: 3rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background:
-    radial-gradient(
-      circle at center,
-      #fce7f3 0 8%,
-      #f72d9a 9% 25%,
-      #3a2431 26% 48%,
-      #171217 49% 100%
-    );
-  will-change: transform;
-  animation: aboutMiniVinylSpin 3s linear infinite;
-}
-
-.about-mini-vinyl-disc::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-}
-
-.about-mini-vinyl-disc::after {
-  content: "";
-  position: absolute;
-  inset: 13px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-}
-
-.about-mini-vinyl-ring {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-}
-
-.about-mini-vinyl-ring-1 {
-  inset: 10px;
-}
-
-.about-mini-vinyl-ring-2 {
-  inset: 16px;
-}
-
-.about-mini-vinyl-center {
-  position: relative;
-  z-index: 2;
-  width: 1.45rem;
-  height: 1.45rem;
-  overflow: hidden;
-  border: 2px solid #f9a8d4;
-  border-radius: 9999px;
-  background: #fce7f3;
-  animation: aboutMiniVinylReverseSpin 3s linear infinite;
-}
-
-@keyframes aboutMiniVinylSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes aboutMiniVinylReverseSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-/* SPOTIFY STYLE CARD */
-
-@keyframes spotifyShine {
-  0% {
-    transform: translateX(-120%) rotate(12deg);
-    opacity: 0;
-  }
-
-  35% {
-    opacity: 0.35;
-  }
-
-  70% {
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(120%) rotate(12deg);
-    opacity: 0;
-  }
-}
-
-@keyframes spotifyProgress {
-  0% {
-    width: 18%;
-  }
-
-  50% {
-    width: 72%;
-  }
-
-  100% {
-    width: 68%;
-  }
-}
-
-.spotify-card {
-  isolation: isolate;
-}
-
-.spotify-card::before {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.35), transparent 35%),
-    radial-gradient(circle at 80% 10%, rgba(217, 70, 239, 0.22), transparent 32%),
-    radial-gradient(circle at 50% 90%, rgba(251, 207, 232, 0.18), transparent 35%);
-  filter: blur(18px);
-}
-
-.spotify-shine::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: -35%;
-  height: 140%;
-  width: 28%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.35),
-    transparent
-  );
-  animation: spotifyShine 5.5s ease-in-out infinite;
-}
-
-.spotify-progress {
-  animation: spotifyProgress 7s ease-in-out infinite;
-}
-
-/* =========================================================
    SHARED MUSIC BARS + PROGRESS
    ========================================================= */
 
@@ -997,21 +1162,32 @@ section {
   animation: musicBar 1.35s ease-in-out infinite;
 }
 
+@keyframes sharedProgress {
+  0% {
+    width: 18%;
+  }
+
+  50% {
+    width: 90%;
+  }
+
+  100% {
+    width: 64%;
+  }
+}
+
+.experience-progress,
+.project-progress,
+.skill-progress,
+.certificate-progress,
+.education-progress,
+.contact-progress {
+  animation: sharedProgress 6s ease-in-out infinite;
+}
+
 /* =========================================================
    EXPERIENCE
    ========================================================= */
-
-@keyframes experienceReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 @keyframes experiencePulse {
   0% {
@@ -1027,124 +1203,98 @@ section {
   }
 }
 
-@keyframes experienceProgress {
-  0% {
-    width: 22%;
-  }
+.experience-dot,
+.experience-dot-glow {
+  animation:
+    experiencePulse 2.6s ease-in-out infinite,
+    unifiedIconGlow 4s ease-in-out infinite;
+}
 
-  50% {
-    width: 88%;
+@keyframes experienceLineGrow {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
   }
 
   100% {
-    width: 62%;
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
   }
 }
 
-.experience-card {
-  animation: experienceReveal 850ms ease-out both;
-}
-
-.experience-card:nth-child(2) {
-  animation-delay: 140ms;
-}
-
-.experience-card:nth-child(3) {
-  animation-delay: 280ms;
-}
-
-.experience-dot {
-  animation: experiencePulse 2.6s ease-in-out infinite;
-}
-
-.experience-progress {
-  animation: experienceProgress 6s ease-in-out infinite;
+.experience-line-grow {
+  transform-origin: top;
+  animation: experienceLineGrow 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* =========================================================
-   PROJECTS
+   BACKGROUND FLOAT NOTES
    ========================================================= */
 
-@keyframes projectReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.about-float-note,
+.experience-float-note,
+.projects-float-note,
+.skills-float-note,
+.certificates-float-note,
+.contact-float-note,
+.project-symbol {
+  position: absolute;
+  color: rgba(247, 45, 154, 0.16);
+  font-weight: 900;
+  line-height: 1;
+  animation: floatNote 7s ease-in-out infinite;
 }
 
-@keyframes projectProgress {
+@keyframes floatNote {
   0% {
-    width: 18%;
+    transform: translateY(0) rotate(-8deg);
+    opacity: 0.12;
   }
 
   50% {
-    width: 90%;
-  }
-
-  100% {
-    width: 64%;
-  }
-}
-
-@keyframes projectSymbolFloat {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(-8deg);
-    opacity: 0.1;
-  }
-
-  50% {
-    transform: translate3d(16px, -22px, 0) rotate(10deg);
+    transform: translateY(-18px) rotate(8deg);
     opacity: 0.24;
   }
 
   100% {
-    transform: translate3d(0, 0, 0) rotate(-8deg);
-    opacity: 0.1;
+    transform: translateY(0) rotate(-8deg);
+    opacity: 0.12;
   }
 }
 
-.project-card {
-  animation: projectReveal 850ms ease-out both;
-}
-
-.project-card:nth-child(2) {
-  animation-delay: 140ms;
-}
-
-.project-card:nth-child(3) {
-  animation-delay: 280ms;
-}
-
-.project-progress {
-  animation: projectProgress 6s ease-in-out infinite;
-}
-
-.project-symbol {
-  position: absolute;
-  color: rgba(219, 39, 119, 0.55);
-  font-weight: 700;
-  line-height: 1;
-  animation: projectSymbolFloat 7s ease-in-out infinite;
-}
-
+.about-float-note-1,
+.experience-float-note-1,
+.projects-float-note-1,
+.skills-float-note-1,
+.certificates-float-note-1,
+.contact-float-note-1,
 .project-symbol-1 {
   left: 8%;
   top: 18%;
   font-size: 5rem;
 }
 
+.about-float-note-2,
+.experience-float-note-2,
+.projects-float-note-2,
+.skills-float-note-2,
+.certificates-float-note-2,
+.contact-float-note-2,
 .project-symbol-2 {
   right: 10%;
   top: 20%;
-  font-size: 4rem;
+  font-size: 4.3rem;
   animation-delay: 900ms;
 }
 
+.about-float-note-3,
+.experience-float-note-3,
+.projects-float-note-3,
+.skills-float-note-3,
+.certificates-float-note-3,
+.contact-float-note-3,
 .project-symbol-3 {
   right: 24%;
   bottom: 14%;
@@ -1153,174 +1303,7 @@ section {
 }
 
 /* =========================================================
-   CERTIFICATES + EDUCATION
-   ========================================================= */
-
-@keyframes certificateReveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes certificateProgress {
-  0% {
-    width: 18%;
-  }
-
-  50% {
-    width: 86%;
-  }
-
-  100% {
-    width: 58%;
-  }
-}
-
-@keyframes educationProgress {
-  0% {
-    width: 20%;
-  }
-
-  50% {
-    width: 84%;
-  }
-
-  100% {
-    width: 58%;
-  }
-}
-
-.certificate-card {
-  animation: certificateReveal 800ms ease-out both;
-}
-
-.certificate-card:nth-child(2) {
-  animation-delay: 120ms;
-}
-
-.certificate-card:nth-child(3) {
-  animation-delay: 240ms;
-}
-
-.certificate-card:nth-child(4) {
-  animation-delay: 360ms;
-}
-
-.certificate-progress {
-  animation: certificateProgress 5.8s ease-in-out infinite;
-}
-
-.education-feature-card {
-  animation: readableReveal 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.education-progress {
-  animation: educationProgress 6s ease-in-out infinite;
-}
-
-/* =========================================================
-   SKILLS
-   ========================================================= */
-
-@keyframes skillReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes skillProgress {
-  0% {
-    width: 18%;
-  }
-
-  50% {
-    width: 86%;
-  }
-
-  100% {
-    width: 62%;
-  }
-}
-
-.skill-card {
-  animation: skillReveal 850ms ease-out both;
-}
-
-.skill-card:nth-child(2) {
-  animation-delay: 140ms;
-}
-
-.skill-progress {
-  animation: skillProgress 6s ease-in-out infinite;
-}
-
-/* =========================================================
-   CONTACT
-   ========================================================= */
-
-@keyframes contactReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes contactProgress {
-  0% {
-    width: 20%;
-  }
-
-  50% {
-    width: 92%;
-  }
-
-  100% {
-    width: 64%;
-  }
-}
-
-.contact-card {
-  animation: contactReveal 850ms ease-out both;
-}
-
-.contact-progress {
-  animation: contactProgress 6s ease-in-out infinite;
-}
-
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-
-/* =========================================================
-   ABOUT CLEAN VINYL VERSION
+   ABOUT CLEAN VINYL VERSION - BIG AVATAR
    ========================================================= */
 
 .about-clean-vinyl-stage {
@@ -1329,75 +1312,101 @@ section {
 
 .about-clean-vinyl-glow {
   position: absolute;
-  width: 25rem;
-  height: 25rem;
+  width: 28rem;
+  height: 28rem;
   border-radius: 9999px;
   background:
-    radial-gradient(circle, rgba(247, 45, 154, 0.22), rgba(247, 45, 154, 0) 68%);
-  filter: blur(24px);
+    radial-gradient(circle, rgba(247, 45, 154, 0.28), rgba(247, 45, 154, 0) 68%);
+  filter: blur(30px);
 }
 
 .about-clean-vinyl-disc {
   position: relative;
   display: flex;
-  width: 23rem;
-  height: 23rem;
+  width: 24.5rem;
+  height: 24.5rem;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
   background:
-    radial-gradient(circle at center, #f9a8d4 0 4%, #f72d9a 5% 12%, #2d1922 13% 44%, #171217 45% 100%);
+    radial-gradient(circle at center, #fce7f3 0 15%, #f72d9a 16% 19%, #3a1d2b 20% 42%, #171217 43% 100%);
   box-shadow:
-    inset 0 0 0 10px rgba(255, 255, 255, 0.04),
-    inset 0 0 0 22px rgba(255, 255, 255, 0.025),
+    inset 0 0 0 10px rgba(255, 255, 255, 0.045),
+    inset 0 0 0 24px rgba(255, 255, 255, 0.026),
+    inset 0 0 0 46px rgba(255, 255, 255, 0.016),
     0 30px 90px rgba(36, 21, 29, 0.28),
-    0 0 40px rgba(247, 45, 154, 0.15);
-  animation: aboutCleanVinylSpin 8s linear infinite;
+    0 0 48px rgba(247, 45, 154, 0.2);
+  animation: aboutCleanVinylSpin 7s linear infinite;
   will-change: transform;
+}
+
+.about-clean-vinyl-disc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.025),
+      rgba(247, 45, 154, 0.12),
+      rgba(255, 255, 255, 0.02)
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .about-clean-vinyl-ring {
   position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.075);
   border-radius: 9999px;
 }
 
 .about-clean-vinyl-ring-1 {
-  inset: 1.25rem;
+  inset: 1.1rem;
 }
 
 .about-clean-vinyl-ring-2 {
-  inset: 2.4rem;
+  inset: 2.25rem;
 }
 
 .about-clean-vinyl-ring-3 {
-  inset: 3.55rem;
+  inset: 3.4rem;
 }
 
 .about-clean-vinyl-ring-4 {
-  inset: 4.7rem;
+  inset: 4.55rem;
 }
 
 .about-clean-vinyl-photo {
   position: relative;
-  z-index: 2;
-  width: 7.5rem;
-  height: 7.5rem;
+  z-index: 3;
+  width: 13rem;
+  height: 13rem;
   overflow: hidden;
-  border: 4px solid #f9a8d4;
+  border: 5px solid #f9a8d4;
   border-radius: 9999px;
   background: #fce7f3;
   box-shadow:
-    0 0 0 8px rgba(255, 255, 255, 0.06),
-    0 0 25px rgba(247, 45, 154, 0.28);
-  animation: aboutCleanVinylCounterSpin 8s linear infinite;
+    0 0 0 9px rgba(255, 255, 255, 0.08),
+    0 0 0 15px rgba(247, 45, 154, 0.12),
+    0 0 35px rgba(247, 45, 154, 0.38);
+  animation: aboutCleanVinylCounterSpin 7s linear infinite;
+  will-change: transform;
+}
+
+.about-clean-vinyl-photo img {
+  object-position: center 38% !important;
 }
 
 .about-clean-tonearm {
   position: absolute;
-  top: 7rem;
-  right: 4.5rem;
-  width: 8.5rem;
+  top: 6.35rem;
+  right: 3.5rem;
+  z-index: 5;
+  width: 9rem;
   height: 0.65rem;
   border-radius: 9999px;
   background: linear-gradient(90deg, #f5d4e2, #ffffff);
@@ -1449,29 +1458,266 @@ section {
   }
 }
 
+/* =========================================================
+   SPOTIFY SHINE + CERTIFICATES IMAGE
+   ========================================================= */
+
+@keyframes spotifyShine {
+  0% {
+    transform: translateX(-120%) rotate(12deg);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.35;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(120%) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+.spotify-card {
+  isolation: isolate;
+}
+
+.spotify-shine::before,
+.certificate-image-shine::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -35%;
+  height: 140%;
+  width: 28%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  animation: spotifyShine 5.8s ease-in-out infinite;
+}
+
+@keyframes certificatesImageEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(-26px) scale(0.97);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.certificates-image-enter {
+  animation: certificatesImageEnter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* =========================================================
+   CONTACT ORBIT
+   ========================================================= */
+
+.contact-orbit-stage {
+  isolation: isolate;
+}
+
+.contact-orbit {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(247, 45, 154, 0.24);
+  box-shadow:
+    0 0 26px rgba(247, 45, 154, 0.12),
+    inset 0 0 26px rgba(247, 45, 154, 0.08);
+}
+
+.contact-orbit-1 {
+  width: 13rem;
+  height: 13rem;
+  animation: orbitSpin 16s linear infinite;
+}
+
+.contact-orbit-2 {
+  width: 10rem;
+  height: 10rem;
+  border-style: dashed;
+  animation: orbitSpinReverse 12s linear infinite;
+}
+
+.contact-orbit-3 {
+  width: 7rem;
+  height: 7rem;
+  border-color: rgba(217, 70, 239, 0.28);
+  animation: orbitSpin 9s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitSpinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.contact-core {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 6.6rem;
+  height: 6.6rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at center, #ffffff 0 18%, #fce7f3 19% 38%, var(--hot-pink) 39% 72%, #be185d 73% 100%);
+  box-shadow:
+    0 20px 60px rgba(219, 39, 119, 0.28),
+    0 0 42px rgba(247, 45, 154, 0.34);
+  animation: contactCorePulse 3.6s ease-in-out infinite;
+}
+
+.contact-core-note {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+}
+
+@keyframes contactCorePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.045);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.contact-badge {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid rgba(244, 114, 182, 0.38);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 0.55rem 0.8rem;
+  color: var(--hot-pink);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 42px rgba(219, 39, 119, 0.16);
+  backdrop-filter: blur(14px);
+  animation: badgeFloat 4.8s ease-in-out infinite;
+}
+
+.contact-badge-1 {
+  left: 1.2rem;
+  top: 2.5rem;
+}
+
+.contact-badge-2 {
+  right: 1.4rem;
+  top: 4.3rem;
+  animation-delay: 700ms;
+}
+
+.contact-badge-3 {
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 1.2s;
+}
+
+@keyframes badgeFloat {
+  0% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -8px;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+/* =========================================================
+   MOBILE CLEANUP
+   ========================================================= */
+
 @media (max-width: 768px) {
   .about-clean-vinyl-stage {
-    min-height: 28rem;
+    min-height: 30rem;
   }
 
   .about-clean-vinyl-glow {
+    width: 21rem;
+    height: 21rem;
+  }
+
+  .about-clean-vinyl-disc {
     width: 19rem;
     height: 19rem;
   }
 
-  .about-clean-vinyl-disc {
-    width: 17rem;
-    height: 17rem;
-  }
-
   .about-clean-vinyl-photo {
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 9.75rem;
+    height: 9.75rem;
   }
 
   .about-clean-tonearm {
-    top: 5.2rem;
-    right: 2.2rem;
-    width: 6.5rem;
+    top: 5.25rem;
+    right: 1.8rem;
+    width: 6.8rem;
+  }
+
+  .hero-rain-10,
+  .hero-rain-11,
+  .hero-rain-12,
+  .hero-rain-13,
+  .hero-rain-14,
+  .music-rain-10,
+  .music-rain-11,
+  .music-rain-12 {
+    display: none;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

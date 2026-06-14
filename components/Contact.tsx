@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/portfolio";
 
@@ -225,25 +226,15 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="contact-orbit-stage relative mb-8 flex h-64 items-center justify-center">
-                  <div className="contact-orbit contact-orbit-1" />
-                  <div className="contact-orbit contact-orbit-2" />
-                  <div className="contact-orbit contact-orbit-3" />
-
-                  <div className="contact-core">
-                    <span className="contact-core-note">♪</span>
-                  </div>
-
-                  <div className="contact-badge contact-badge-1">
-                    Email
-                  </div>
-
-                  <div className="contact-badge contact-badge-2">
-                    Call
-                  </div>
-
-                  <div className="contact-badge contact-badge-3">
-                    LinkedIn
+                <div className="relative mb-8 overflow-hidden rounded-[1.75rem] border border-pink-200 bg-pink-50/70 p-3 shadow-sm">
+                  <div className="relative h-64 w-full overflow-hidden rounded-[1.35rem]">
+                    <Image
+                      src="/vnhi.png"
+                      alt="Vnhi"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 500px"
+                    />
                   </div>
                 </div>
 
