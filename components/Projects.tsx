@@ -43,9 +43,9 @@ export default function Projects() {
       id="projects"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
-      <div className="pointer-events-none absolute -left-28 top-24 h-96 w-96 rounded-full bg-pink-200/45 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-20 h-96 w-96 rounded-full bg-fuchsia-200/35 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/55 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 top-24 h-[34rem] w-[34rem] rounded-full bg-pink-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-10 h-[36rem] w-[36rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/55 blur-3xl" />
 
       <div
         className={[
@@ -53,9 +53,9 @@ export default function Projects() {
           isVisible ? "readable-reveal" : "opacity-0",
         ].join(" ")}
       >
-        <div className="project-symbol project-symbol-1">♪</div>
-        <div className="project-symbol project-symbol-2">♫</div>
-        <div className="project-symbol project-symbol-3">♬</div>
+        <div className="projects-float-note projects-float-note-1">♪</div>
+        <div className="projects-float-note projects-float-note-2">♫</div>
+        <div className="projects-float-note projects-float-note-3">♬</div>
       </div>
 
       <div className="relative mx-auto max-w-7xl">
@@ -64,7 +64,7 @@ export default function Projects() {
             <p
               className={[
                 "text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
-                isVisible ? "readable-reveal" : "opacity-0",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
             >
               [ Selected Work ]
@@ -73,8 +73,9 @@ export default function Projects() {
             <div
               className={[
                 "mt-8 hidden items-end gap-2 md:flex",
-                isVisible ? "readable-reveal [animation-delay:120ms]" : "opacity-0",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
+              style={{ animationDelay: "120ms" }}
             >
               <span className="project-bar h-10 w-2 rounded-full bg-pink-300" />
               <span className="project-bar h-24 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
@@ -87,8 +88,8 @@ export default function Projects() {
           <div>
             <h2
               className={[
-                "max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl",
-                isVisible ? "headline-wipe" : "opacity-0",
+                "projects-glow-heading max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-[-0.065em] md:text-6xl lg:text-7xl",
+                isVisible ? "about-heading-glow-in" : "opacity-0",
               ].join(" ")}
             >
               Campaign projects built for coordination, reporting, and client
@@ -97,9 +98,10 @@ export default function Projects() {
 
             <p
               className={[
-                "mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                isVisible ? "readable-reveal [animation-delay:180ms]" : "opacity-0",
+                "mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
+              style={{ animationDelay: "220ms" }}
             >
               Selected work across campaign flow, client communication,
               prospect operations, reporting, and review meetings.
@@ -112,12 +114,13 @@ export default function Projects() {
             <article
               key={project.title}
               className={[
-                "project-card group relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.24)]",
+                "project-card-glow group relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.24)]",
                 isVisible ? "project-card-enter" : "opacity-0",
               ].join(" ")}
-              style={{ animationDelay: `${300 + index * 160}ms` }}
+              style={{ animationDelay: `${320 + index * 170}ms` }}
             >
-              <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/70" />
+              <div className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/75" />
+              <div className="pointer-events-none absolute -bottom-16 left-6 h-40 w-40 rounded-full bg-rose-100/60 blur-2xl" />
 
               <div className="relative">
                 <div
@@ -125,9 +128,9 @@ export default function Projects() {
                     "mb-8 flex items-start justify-between gap-4",
                     isVisible ? "readable-reveal" : "opacity-0",
                   ].join(" ")}
-                  style={{ animationDelay: `${420 + index * 160}ms` }}
+                  style={{ animationDelay: `${450 + index * 170}ms` }}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
+                  <div className="project-icon-glow flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
                     {index === 0 ? (
                       <svg
                         className="h-7 w-7"
@@ -176,7 +179,7 @@ export default function Projects() {
                     )}
                   </div>
 
-                  <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A]">
+                  <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A] shadow-sm">
                     Track {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -186,17 +189,17 @@ export default function Projects() {
                     "text-sm font-semibold uppercase tracking-[0.24em] text-[#F72D9A]",
                     isVisible ? "readable-reveal" : "opacity-0",
                   ].join(" ")}
-                  style={{ animationDelay: `${500 + index * 160}ms` }}
+                  style={{ animationDelay: `${520 + index * 170}ms` }}
                 >
                   {project.category || project.type}
                 </p>
 
                 <h3
                   className={[
-                    "mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#24151d]",
-                    isVisible ? "headline-wipe" : "opacity-0",
+                    "projects-title-glow mt-5 text-3xl font-black leading-tight tracking-[-0.045em]",
+                    isVisible ? "projects-title-wipe" : "opacity-0",
                   ].join(" ")}
-                  style={{ animationDelay: `${580 + index * 160}ms` }}
+                  style={{ animationDelay: `${600 + index * 170}ms` }}
                 >
                   {project.title}
                 </h3>
@@ -206,7 +209,7 @@ export default function Projects() {
                     "mt-5 text-base font-medium leading-7 text-[#6f4a5d]",
                     isVisible ? "readable-reveal" : "opacity-0",
                   ].join(" ")}
-                  style={{ animationDelay: `${700 + index * 160}ms` }}
+                  style={{ animationDelay: `${720 + index * 170}ms` }}
                 >
                   {project.description}
                 </p>
@@ -217,7 +220,7 @@ export default function Projects() {
                   "relative mt-10",
                   isVisible ? "readable-reveal" : "opacity-0",
                 ].join(" ")}
-                style={{ animationDelay: `${820 + index * 160}ms` }}
+                style={{ animationDelay: `${860 + index * 170}ms` }}
               >
                 <div className="mb-5 flex items-end gap-1.5">
                   <span className="project-mini-bar h-5 w-1.5 rounded-full bg-pink-300" />

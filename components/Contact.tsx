@@ -37,22 +37,32 @@ export default function Contact() {
       id="contact"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
-      <div className="pointer-events-none absolute -left-28 bottom-10 h-96 w-96 rounded-full bg-pink-200/45 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 top-20 h-80 w-80 rounded-full bg-fuchsia-200/35 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/60 blur-3xl" />
+      <div className="pointer-events-none absolute -left-28 bottom-10 h-[34rem] w-[34rem] rounded-full bg-pink-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute -right-28 top-20 h-[36rem] w-[36rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/60 blur-3xl" />
+
+      <div className="pointer-events-none absolute inset-0">
+        <div className="contact-float-note contact-float-note-1">♪</div>
+        <div className="contact-float-note contact-float-note-2">♫</div>
+        <div className="contact-float-note contact-float-note-3">♬</div>
+      </div>
 
       <div className="relative mx-auto max-w-7xl">
         <div
           className={[
-            "contact-card relative overflow-hidden rounded-[2.5rem] border border-pink-200/80 bg-white/75 p-7 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-12",
-            isVisible ? "readable-reveal" : "opacity-0",
+            "contact-shell-glow relative overflow-hidden rounded-[2.75rem] border border-pink-200/80 bg-white/78 p-7 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-12",
+            isVisible ? "contact-card-enter" : "opacity-0",
           ].join(" ")}
         >
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-pink-200/55 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-fuchsia-100/70 blur-3xl" />
+
           <div
             className={[
               "pointer-events-none absolute right-8 top-8 hidden items-end gap-2 md:flex",
-              isVisible ? "readable-reveal [animation-delay:160ms]" : "opacity-0",
+              isVisible ? "readable-reveal" : "opacity-0",
             ].join(" ")}
+            style={{ animationDelay: "160ms" }}
           >
             <span className="contact-bar h-8 w-2 rounded-full bg-pink-300" />
             <span className="contact-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
@@ -61,7 +71,7 @@ export default function Contact() {
             <span className="contact-bar h-12 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
           </div>
 
-          <div className="grid gap-12 md:grid-cols-[1.05fr_0.95fr]">
+          <div className="relative grid gap-12 md:grid-cols-[1.05fr_0.95fr]">
             <div>
               <p
                 className={[
@@ -74,8 +84,8 @@ export default function Contact() {
 
               <h2
                 className={[
-                  "max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.06em] text-[#24151d] md:text-7xl",
-                  isVisible ? "contact-heading-wipe" : "opacity-0",
+                  "contact-glow-heading max-w-5xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.07em] md:text-7xl lg:text-8xl",
+                  isVisible ? "contact-heading-glow-in" : "opacity-0",
                 ].join(" ")}
               >
                 Let&apos;s build the next creative campaign.
@@ -84,8 +94,9 @@ export default function Contact() {
               <p
                 className={[
                   "mt-8 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                  isVisible ? "contact-reveal-left [animation-delay:180ms]" : "opacity-0",
+                  isVisible ? "contact-reveal-left" : "opacity-0",
                 ].join(" ")}
+                style={{ animationDelay: "220ms" }}
               >
                 Open to music label, entertainment, creative agency, and brand
                 campaign opportunities where communication, coordination, and
@@ -94,9 +105,10 @@ export default function Contact() {
 
               <div
                 className={[
-                  "mt-10 rounded-[2rem] border border-pink-200 bg-pink-50/80 p-5 shadow-sm",
-                  isVisible ? "contact-reveal-left [animation-delay:280ms]" : "opacity-0",
+                  "contact-info-box mt-10 rounded-[2rem] border border-pink-200 bg-pink-50/80 p-5 shadow-sm backdrop-blur",
+                  isVisible ? "contact-reveal-left" : "opacity-0",
                 ].join(" ")}
+                style={{ animationDelay: "360ms" }}
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
                   Contact Me
@@ -190,66 +202,92 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex flex-col justify-end">
-              <div
-                className={[
-                  "rounded-[2rem] border border-pink-200 bg-[#24151d] p-6 text-pink-50 shadow-[0_24px_70px_rgba(36,21,29,0.22)]",
-                  isVisible ? "contact-reveal-right [animation-delay:240ms]" : "opacity-0",
-                ].join(" ")}
-              >
-                <div className="mb-8 flex items-center justify-between">
-                  <p className="text-xs uppercase tracking-[0.28em] text-pink-100/50">
+            <div
+              className={[
+                "flex flex-col justify-center",
+                isVisible ? "contact-reveal-right" : "opacity-0",
+              ].join(" ")}
+              style={{ animationDelay: "280ms" }}
+            >
+              <div className="contact-console-glow relative overflow-hidden rounded-[2.25rem] border border-pink-200/90 bg-white/82 p-6 shadow-[0_28px_90px_rgba(219,39,119,0.18)] backdrop-blur">
+                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-20 left-6 h-56 w-56 rounded-full bg-fuchsia-100/70 blur-3xl" />
+
+                <div className="relative mb-8 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
                     Contact Card
                   </p>
 
                   <div className="flex gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-pink-300" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-fuchsia-300" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-pink-300 shadow-[0_0_12px_rgba(247,45,154,0.55)]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-rose-300 shadow-[0_0_12px_rgba(251,113,133,0.45)]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-fuchsia-300 shadow-[0_0_12px_rgba(217,70,239,0.45)]" />
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-pink-100/40">
+                <div className="contact-orbit-stage relative mb-8 flex h-64 items-center justify-center">
+                  <div className="contact-orbit contact-orbit-1" />
+                  <div className="contact-orbit contact-orbit-2" />
+                  <div className="contact-orbit contact-orbit-3" />
+
+                  <div className="contact-core">
+                    <span className="contact-core-note">♪</span>
+                  </div>
+
+                  <div className="contact-badge contact-badge-1">
+                    Email
+                  </div>
+
+                  <div className="contact-badge contact-badge-2">
+                    Call
+                  </div>
+
+                  <div className="contact-badge contact-badge-3">
+                    LinkedIn
+                  </div>
+                </div>
+
+                <div className="relative space-y-5">
+                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
                       Email
                     </p>
                     <a
                       href={mailHref}
-                      className="mt-2 block break-words text-lg text-pink-50 underline-offset-4 transition hover:text-pink-300 hover:underline"
+                      className="mt-2 block break-words text-base font-semibold text-[#24151d] underline-offset-4 transition hover:text-[#F72D9A] hover:underline"
                     >
                       {profile.email}
                     </a>
                   </div>
 
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-pink-100/40">
+                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
                       Phone
                     </p>
                     <a
                       href={phoneHref}
-                      className="mt-2 block text-lg text-pink-50 underline-offset-4 transition hover:text-pink-300 hover:underline"
+                      className="mt-2 block text-base font-semibold text-[#24151d] underline-offset-4 transition hover:text-[#F72D9A] hover:underline"
                     >
                       {profile.phone}
                     </a>
                   </div>
 
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-pink-100/40">
+                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
                       Location
                     </p>
-                    <p className="mt-2 text-lg text-pink-50">
+                    <p className="mt-2 text-base font-semibold text-[#24151d]">
                       {profile.location}
                     </p>
                   </div>
 
-                  <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-pink-100">
                     <div className="contact-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
                   </div>
 
                   <a
                     href={mailHref}
-                    className="inline-flex rounded-full bg-pink-400 px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(244,114,182,0.35)] transition hover:-translate-y-1 hover:bg-pink-500"
+                    className="inline-flex rounded-full bg-pink-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(244,114,182,0.35)] transition hover:-translate-y-1 hover:bg-pink-600"
                   >
                     Contact Me
                   </a>
@@ -262,8 +300,9 @@ export default function Contact() {
         <footer
           className={[
             "mt-8 flex flex-col justify-between gap-4 border-t border-pink-200/70 pt-8 text-sm text-[#8a6475] md:flex-row",
-            isVisible ? "readable-reveal [animation-delay:480ms]" : "opacity-0",
+            isVisible ? "readable-reveal" : "opacity-0",
           ].join(" ")}
+          style={{ animationDelay: "520ms" }}
         >
           <p>© 2026 · Maddie Nguyen</p>
           <p>Creative Account Executive Portfolio</p>

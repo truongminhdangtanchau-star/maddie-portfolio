@@ -34,9 +34,15 @@ export default function Skills() {
       id="skills"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
-      <div className="pointer-events-none absolute -left-24 top-20 h-96 w-96 rounded-full bg-pink-200/45 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-fuchsia-200/35 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/50 blur-3xl" />
+      <div className="pointer-events-none absolute -left-28 top-20 h-[34rem] w-[34rem] rounded-full bg-pink-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute -right-28 bottom-10 h-[36rem] w-[36rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/55 blur-3xl" />
+
+      <div className="pointer-events-none absolute inset-0">
+        <div className="skills-float-note skills-float-note-1">♬</div>
+        <div className="skills-float-note skills-float-note-2">♪</div>
+        <div className="skills-float-note skills-float-note-3">♫</div>
+      </div>
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
@@ -44,7 +50,7 @@ export default function Skills() {
             <p
               className={[
                 "text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
-                isVisible ? "readable-reveal" : "opacity-0",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
             >
               [ Skills ]
@@ -53,8 +59,9 @@ export default function Skills() {
             <div
               className={[
                 "mt-8 hidden items-end gap-2 md:flex",
-                isVisible ? "readable-reveal [animation-delay:120ms]" : "opacity-0",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
+              style={{ animationDelay: "120ms" }}
             >
               <span className="skill-bar h-10 w-2 rounded-full bg-pink-300" />
               <span className="skill-bar h-20 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
@@ -67,8 +74,8 @@ export default function Skills() {
           <div>
             <h2
               className={[
-                "max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl",
-                isVisible ? "headline-wipe" : "opacity-0",
+                "skills-glow-heading max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-[-0.065em] md:text-6xl lg:text-7xl",
+                isVisible ? "about-heading-glow-in" : "opacity-0",
               ].join(" ")}
             >
               Skills for campaign execution, client communication, and creative
@@ -77,9 +84,10 @@ export default function Skills() {
 
             <p
               className={[
-                "mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                isVisible ? "readable-reveal [animation-delay:180ms]" : "opacity-0",
+                "mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
+                isVisible ? "about-reveal-left" : "opacity-0",
               ].join(" ")}
+              style={{ animationDelay: "220ms" }}
             >
               A focused skill set for account work, reporting, research,
               coordination, and team communication.
@@ -94,7 +102,7 @@ export default function Skills() {
             icon="technical"
             items={skills.technical}
             isVisible={isVisible}
-            delay={300}
+            delay={320}
           />
 
           <SkillColumn
@@ -103,7 +111,7 @@ export default function Skills() {
             icon="soft"
             items={skills.soft}
             isVisible={isVisible}
-            delay={460}
+            delay={500}
           />
         </div>
       </div>
@@ -129,12 +137,13 @@ function SkillColumn({
   return (
     <article
       className={[
-        "skill-card group relative overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.22)] md:p-8",
+        "skill-card-glow group relative overflow-hidden rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_36px_110px_rgba(219,39,119,0.24)] md:p-8",
         isVisible ? "skill-card-enter" : "opacity-0",
       ].join(" ")}
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/70" />
+      <div className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/75" />
+      <div className="pointer-events-none absolute -bottom-16 left-6 h-40 w-40 rounded-full bg-rose-100/60 blur-2xl" />
 
       <div
         className={[
@@ -143,7 +152,7 @@ function SkillColumn({
         ].join(" ")}
         style={{ animationDelay: `${delay + 120}ms` }}
       >
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
+        <div className="skill-icon-glow flex h-14 w-14 items-center justify-center rounded-2xl bg-[#24151d] text-pink-100 shadow-[0_14px_35px_rgba(36,21,29,0.18)] transition duration-300 group-hover:scale-105">
           {icon === "technical" ? (
             <svg
               className="h-7 w-7"
@@ -177,7 +186,7 @@ function SkillColumn({
           )}
         </div>
 
-        <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A]">
+        <span className="rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A] shadow-sm">
           {icon === "technical" ? "Left Track" : "Right Track"}
         </span>
       </div>
@@ -185,8 +194,8 @@ function SkillColumn({
       <div className="relative">
         <h3
           className={[
-            "text-3xl font-black tracking-[-0.045em] text-[#24151d]",
-            isVisible ? "headline-wipe" : "opacity-0",
+            "skills-title-glow text-3xl font-black tracking-[-0.045em]",
+            isVisible ? "skills-title-wipe" : "opacity-0",
           ].join(" ")}
           style={{ animationDelay: `${delay + 180}ms` }}
         >
@@ -198,7 +207,7 @@ function SkillColumn({
             "mt-4 max-w-xl text-base font-medium leading-7 text-[#6f4a5d]",
             isVisible ? "readable-reveal" : "opacity-0",
           ].join(" ")}
-          style={{ animationDelay: `${delay + 280}ms` }}
+          style={{ animationDelay: `${delay + 300}ms` }}
         >
           {subtitle}
         </p>
@@ -208,10 +217,10 @@ function SkillColumn({
             <span
               key={skill}
               className={[
-                "skill-pill rounded-full border border-pink-200 bg-pink-50/85 px-4 py-2 text-sm font-semibold text-[#6f4a5d] transition duration-300 hover:-translate-y-0.5 hover:border-pink-300 hover:bg-pink-100 hover:text-[#F72D9A]",
+                "skill-pill-glow rounded-full border border-pink-200 bg-pink-50/85 px-4 py-2 text-sm font-semibold text-[#6f4a5d] transition duration-300 hover:-translate-y-0.5 hover:border-pink-300 hover:bg-pink-100 hover:text-[#F72D9A]",
                 isVisible ? "skill-pill-enter" : "opacity-0",
               ].join(" ")}
-              style={{ animationDelay: `${delay + 360 + index * 45}ms` }}
+              style={{ animationDelay: `${delay + 390 + index * 45}ms` }}
             >
               {skill}
             </span>
@@ -223,7 +232,7 @@ function SkillColumn({
             "mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100",
             isVisible ? "readable-reveal" : "opacity-0",
           ].join(" ")}
-          style={{ animationDelay: `${delay + 760}ms` }}
+          style={{ animationDelay: `${delay + 780}ms` }}
         >
           <div className="skill-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
         </div>
