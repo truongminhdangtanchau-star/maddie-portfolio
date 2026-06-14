@@ -1,9 +1,37 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { about, profile } from "../data/portfolio";
 
 export default function About() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.28,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="about"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
@@ -13,13 +41,23 @@ export default function About() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 flex items-center justify-between gap-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]">
+          <p
+            className={[
+              "text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
+              isVisible ? "readable-reveal" : "opacity-0",
+            ].join(" ")}
+          >
             [ {about.label} ]
           </p>
 
           <div className="hidden h-px flex-1 bg-gradient-to-r from-pink-300 to-transparent md:block" />
 
-          <p className="hidden text-sm font-semibold italic text-[#F72D9A] md:block">
+          <p
+            className={[
+              "hidden text-sm font-semibold italic text-[#F72D9A] md:block",
+              isVisible ? "readable-reveal" : "opacity-0",
+            ].join(" ")}
+          >
             Client servicing · Campaign coordination · Entertainment focus
           </p>
         </div>
@@ -72,15 +110,20 @@ export default function About() {
                     </p>
                   </div>
 
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-400 text-white shadow-[0_12px_30px_rgba(244,114,182,0.45)]">
-                    <svg
-                      className="ml-0.5 h-5 w-5"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path d="M8 5v14l11-7L8 5Z" />
-                    </svg>
+                  <div className="about-mini-vinyl-wrap">
+                    <div className="about-mini-vinyl-disc">
+                      <div className="about-mini-vinyl-ring about-mini-vinyl-ring-1" />
+                      <div className="about-mini-vinyl-ring about-mini-vinyl-ring-2" />
+
+                      <div className="about-mini-vinyl-center">
+                        <Image
+                          src="/maddie.png"
+                          alt="Maddie Nguyen mini portrait"
+                          fill
+                          className="rounded-full object-cover object-top"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -115,21 +158,44 @@ export default function About() {
           </div>
 
           <div className="about-content-reveal">
-            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
+            <p
+              className={[
+                "mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]",
+                isVisible ? "readable-reveal" : "opacity-0",
+              ].join(" ")}
+            >
               Client servicing meets creative execution
             </p>
 
-            <h2 className="headline-wipe max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
+            <h2
+              className={[
+                "max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl",
+                isVisible ? "headline-wipe" : "opacity-0",
+              ].join(" ")}
+            >
               {about.headline}
             </h2>
 
             <div className="mt-8 max-w-3xl space-y-5 text-lg font-medium leading-8 text-[#6f4a5d]">
-              {about.paragraphs.slice(0, 2).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {about.paragraphs.slice(0, 2).map((paragraph, index) => (
+                <p
+                  key={paragraph}
+                  className={[
+                    isVisible ? "readable-reveal" : "opacity-0",
+                    index === 1 ? "[animation-delay:160ms]" : "",
+                  ].join(" ")}
+                >
+                  {paragraph}
+                </p>
               ))}
             </div>
 
-            <div className="mt-9 flex flex-wrap gap-4">
+            <div
+              className={[
+                "mt-9 flex flex-wrap gap-4",
+                isVisible ? "readable-reveal [animation-delay:240ms]" : "opacity-0",
+              ].join(" ")}
+            >
               <a
                 href={profile.linkedin}
                 target="_blank"
@@ -149,26 +215,25 @@ export default function About() {
             </div>
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
-              <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-black text-[#F72D9A]">12</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
-                  client accounts managed
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-black text-[#F72D9A]">2+</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
-                  years in client-facing work
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur">
-                <p className="text-3xl font-black text-[#F72D9A]">4</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
-                  focus areas: accounts, campaigns, reports, coordination
-                </p>
-              </div>
+              {[
+                ["12", "client accounts managed"],
+                ["2+", "years in client-facing work"],
+                ["4", "focus areas: accounts, campaigns, reports, coordination"],
+              ].map(([value, label], index) => (
+                <div
+                  key={value}
+                  className={[
+                    "rounded-3xl border border-pink-200 bg-white/70 p-5 shadow-sm backdrop-blur",
+                    isVisible ? "readable-reveal" : "opacity-0",
+                  ].join(" ")}
+                  style={{ animationDelay: `${320 + index * 120}ms` }}
+                >
+                  <p className="text-3xl font-black text-[#F72D9A]">{value}</p>
+                  <p className="mt-2 text-sm font-medium leading-6 text-[#7b5a69]">
+                    {label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

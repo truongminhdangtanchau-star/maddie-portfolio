@@ -1,11 +1,39 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/portfolio";
 
 export default function Contact() {
   const phoneHref = "tel:+84905089503";
   const mailHref = `mailto:${profile.email}?subject=Creative%20Opportunity%20for%20Maddie%20Nguyen`;
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.24,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
@@ -14,37 +42,67 @@ export default function Contact() {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/60 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="contact-card relative overflow-hidden rounded-[2.5rem] border border-pink-200/80 bg-white/75 p-7 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-12">
-          <div className="pointer-events-none absolute right-8 top-8 hidden items-end gap-2 md:flex">
+        <div
+          className={[
+            "contact-card relative overflow-hidden rounded-[2.5rem] border border-pink-200/80 bg-white/75 p-7 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-12",
+            isVisible ? "readable-reveal" : "opacity-0",
+          ].join(" ")}
+        >
+          <div
+            className={[
+              "pointer-events-none absolute right-8 top-8 hidden items-end gap-2 md:flex",
+              isVisible ? "readable-reveal [animation-delay:160ms]" : "opacity-0",
+            ].join(" ")}
+          >
             <span className="contact-bar h-8 w-2 rounded-full bg-pink-300" />
             <span className="contact-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
             <span className="contact-bar h-10 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
-            <span className="contact-bar h-20 w-2 rounded-full bg-pink-400 [animation-delay:360ms]" />
+            <span className="contact-bar h-20 w-2 rounded-full bg-pink-500 [animation-delay:360ms]" />
             <span className="contact-bar h-12 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
           </div>
 
           <div className="grid gap-12 md:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <p className="mb-5 text-sm uppercase tracking-[0.32em] text-pink-500">
+              <p
+                className={[
+                  "mb-5 text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
+                  isVisible ? "contact-reveal-left" : "opacity-0",
+                ].join(" ")}
+              >
                 [ Contact ]
               </p>
 
-              <h2 className="max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.06em] text-[#24151d] md:text-7xl">
+              <h2
+                className={[
+                  "max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.06em] text-[#24151d] md:text-7xl",
+                  isVisible ? "contact-heading-wipe" : "opacity-0",
+                ].join(" ")}
+              >
                 Let&apos;s build the next creative campaign.
               </h2>
 
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-[#6f4a5d]">
+              <p
+                className={[
+                  "mt-8 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
+                  isVisible ? "contact-reveal-left [animation-delay:180ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 Open to music label, entertainment, creative agency, and brand
                 campaign opportunities where communication, coordination, and
                 execution discipline can support stronger creative work.
               </p>
 
-              <div className="mt-10 rounded-[2rem] border border-pink-200 bg-pink-50/80 p-5 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-pink-500">
+              <div
+                className={[
+                  "mt-10 rounded-[2rem] border border-pink-200 bg-pink-50/80 p-5 shadow-sm",
+                  isVisible ? "contact-reveal-left [animation-delay:280ms]" : "opacity-0",
+                ].join(" ")}
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
                   Contact Me
                 </p>
 
-                <p className="mt-3 text-base leading-7 text-[#6f4a5d]">
+                <p className="mt-3 text-base font-medium leading-7 text-[#6f4a5d]">
                   For collaboration, interview, creative coordination, or
                   entertainment campaign opportunities, contact Maddie directly
                   through email, call, or LinkedIn.
@@ -76,7 +134,7 @@ export default function Contact() {
                     className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
                   >
                     <svg
-                      className="h-5 w-5 text-pink-500 transition group-hover:scale-110"
+                      className="h-5 w-5 text-[#F72D9A] transition group-hover:scale-110"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -97,7 +155,7 @@ export default function Contact() {
                     className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
                   >
                     <svg
-                      className="h-5 w-5 text-pink-500 transition group-hover:scale-110"
+                      className="h-5 w-5 text-[#F72D9A] transition group-hover:scale-110"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                       aria-hidden="true"
@@ -113,7 +171,7 @@ export default function Contact() {
                     className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
                   >
                     <svg
-                      className="h-5 w-5 text-pink-500 transition group-hover:translate-y-0.5"
+                      className="h-5 w-5 text-[#F72D9A] transition group-hover:translate-y-0.5"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -133,7 +191,12 @@ export default function Contact() {
             </div>
 
             <div className="flex flex-col justify-end">
-              <div className="rounded-[2rem] border border-pink-200 bg-[#24151d] p-6 text-pink-50 shadow-[0_24px_70px_rgba(36,21,29,0.22)]">
+              <div
+                className={[
+                  "rounded-[2rem] border border-pink-200 bg-[#24151d] p-6 text-pink-50 shadow-[0_24px_70px_rgba(36,21,29,0.22)]",
+                  isVisible ? "contact-reveal-right [animation-delay:240ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 <div className="mb-8 flex items-center justify-between">
                   <p className="text-xs uppercase tracking-[0.28em] text-pink-100/50">
                     Contact Card
@@ -181,7 +244,7 @@ export default function Contact() {
                   </div>
 
                   <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                    <div className="contact-progress h-full rounded-full bg-gradient-to-r from-pink-300 via-rose-300 to-fuchsia-300" />
+                    <div className="contact-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
                   </div>
 
                   <a
@@ -196,7 +259,12 @@ export default function Contact() {
           </div>
         </div>
 
-        <footer className="mt-8 flex flex-col justify-between gap-4 border-t border-pink-200/70 pt-8 text-sm text-[#8a6475] md:flex-row">
+        <footer
+          className={[
+            "mt-8 flex flex-col justify-between gap-4 border-t border-pink-200/70 pt-8 text-sm text-[#8a6475] md:flex-row",
+            isVisible ? "readable-reveal [animation-delay:480ms]" : "opacity-0",
+          ].join(" ")}
+        >
           <p>© 2026 · Maddie Nguyen</p>
           <p>Creative Account Executive Portfolio</p>
         </footer>

@@ -15,29 +15,47 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("about");
 
   useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.id))
-      .filter(Boolean) as HTMLElement[];
+    const handleScroll = () => {
+      const triggerPoint = window.scrollY + window.innerHeight * 0.38;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: "-32% 0px -52% 0px",
-        threshold: 0.12,
+      let current = "about";
+
+      navItems.forEach((item) => {
+        const section = document.getElementById(item.id);
+
+        if (!section) return;
+
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+
+        if (triggerPoint >= top && triggerPoint < bottom) {
+          current = item.id;
+        }
+      });
+
+      const contactSection = document.getElementById("contact");
+
+      if (contactSection) {
+        const nearBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 80;
+
+        if (nearBottom) {
+          current = "contact";
+        }
       }
-    );
 
-    sections.forEach((section) => observer.observe(section));
+      setActiveSection(current);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
@@ -46,9 +64,11 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-pink-200/70 bg-white/75 px-4 py-3 shadow-[0_18px_60px_rgba(219,39,119,0.16)] backdrop-blur-xl">
         <a
           href="#"
-          className="group flex items-center gap-3 rounded-full bg-[#24151d] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-pink-50 shadow-[0_12px_35px_rgba(36,21,29,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(36,21,29,0.24)]"
+          className="brand-logo group relative flex items-center gap-3 overflow-hidden rounded-full bg-[#24151d] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-pink-50 shadow-[0_12px_35px_rgba(36,21,29,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(36,21,29,0.24)]"
         >
-          <span className="brand-vinyl-wrap flex h-7 w-7 items-center justify-center rounded-full">
+          <span className="brand-orbit" />
+
+          <span className="brand-vinyl-wrap flex h-8 w-8 items-center justify-center rounded-full">
             <span className="brand-vinyl-disc">
               <span className="brand-vinyl-ring brand-vinyl-ring-1" />
               <span className="brand-vinyl-ring brand-vinyl-ring-2" />
@@ -56,7 +76,7 @@ export default function Navbar() {
             </span>
           </span>
 
-          <span>Maddie</span>
+          <span className="brand-word relative z-10">Maddie</span>
         </a>
 
         <div className="hidden items-end overflow-hidden rounded-2xl border border-pink-200 bg-[#24151d] p-1 shadow-inner md:flex">
@@ -68,7 +88,7 @@ export default function Navbar() {
                 key={item.id}
                 href={`#${item.id}`}
                 className={[
-                  "piano-key group relative flex h-14 min-w-[110px] items-center justify-center border-r border-black/10 px-4 text-xs font-semibold uppercase tracking-[0.18em] transition duration-300 last:border-r-0",
+                  "piano-key group relative flex h-14 min-w-[110px] items-center justify-center border-r border-black/10 px-4 text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-500 last:border-r-0",
                   index % 2 === 0
                     ? "bg-[#fff7fb] text-[#24151d]"
                     : "bg-[#f8d9e8] text-[#24151d]",

@@ -1,12 +1,40 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { certificates } from "../data/portfolio";
 
 export default function Certificates() {
   const education = certificates[0];
   const certificateList = certificates.slice(1);
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.24,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="certificates"
       className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
     >
@@ -17,11 +45,21 @@ export default function Certificates() {
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]">
+            <p
+              className={[
+                "text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
+                isVisible ? "readable-reveal" : "opacity-0",
+              ].join(" ")}
+            >
               [ Education & Certificates ]
             </p>
 
-            <div className="mt-8 hidden items-end gap-2 md:flex">
+            <div
+              className={[
+                "mt-8 hidden items-end gap-2 md:flex",
+                isVisible ? "readable-reveal [animation-delay:120ms]" : "opacity-0",
+              ].join(" ")}
+            >
               <span className="music-bar h-8 w-2 rounded-full bg-pink-300" />
               <span className="music-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
               <span className="music-bar h-10 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
@@ -31,19 +69,34 @@ export default function Certificates() {
           </div>
 
           <div>
-            <h2 className="headline-wipe max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl">
+            <h2
+              className={[
+                "max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.055em] text-[#24151d] md:text-6xl",
+                isVisible ? "headline-wipe" : "opacity-0",
+              ].join(" ")}
+            >
               Education background with practical certificates for client-facing
               creative work.
             </h2>
 
-            <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]">
+            <p
+              className={[
+                "mt-6 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
+                isVisible ? "readable-reveal [animation-delay:180ms]" : "opacity-0",
+              ].join(" ")}
+            >
               A focused view of business education, office capability, English
               communication, and professional learning discipline.
             </p>
           </div>
         </div>
 
-        <div className="education-feature-card readable-reveal relative mb-8 overflow-hidden rounded-[2.75rem] border border-pink-200/80 bg-white/85 p-6 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-8">
+        <div
+          className={[
+            "education-feature-card relative mb-8 overflow-hidden rounded-[2.75rem] border border-pink-200/80 bg-white/85 p-6 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-8",
+            isVisible ? "readable-reveal [animation-delay:260ms]" : "opacity-0",
+          ].join(" ")}
+        >
           <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-pink-200/50 blur-3xl" />
 
           <div className="grid items-center gap-8 md:grid-cols-[0.9fr_1.1fr]">
@@ -64,16 +117,31 @@ export default function Certificates() {
               </div>
             </div>
 
-            <div className="readable-reveal">
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
+            <div>
+              <p
+                className={[
+                  "mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-[#F72D9A]",
+                  isVisible ? "readable-reveal [animation-delay:340ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 Ton Duc Thang University
               </p>
 
-              <h3 className="max-w-3xl text-4xl font-black leading-tight tracking-[-0.05em] text-[#24151d] md:text-5xl">
+              <h3
+                className={[
+                  "max-w-3xl text-4xl font-black leading-tight tracking-[-0.05em] text-[#24151d] md:text-5xl",
+                  isVisible ? "headline-wipe [animation-delay:420ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 {education.name}
               </h3>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div
+                className={[
+                  "mt-6 flex flex-wrap gap-3",
+                  isVisible ? "readable-reveal [animation-delay:500ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 <span className="rounded-full bg-pink-100 px-4 py-2 text-sm font-semibold text-[#F72D9A]">
                   {education.issuer}
                 </span>
@@ -87,13 +155,23 @@ export default function Certificates() {
                 </span>
               </div>
 
-              <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]">
+              <p
+                className={[
+                  "mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
+                  isVisible ? "readable-reveal [animation-delay:580ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 A business foundation for client communication, campaign
                 coordination, documentation, reporting, and multicultural
                 teamwork.
               </p>
 
-              <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100">
+              <div
+                className={[
+                  "mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100",
+                  isVisible ? "readable-reveal [animation-delay:660ms]" : "opacity-0",
+                ].join(" ")}
+              >
                 <div className="education-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
               </div>
             </div>
@@ -104,7 +182,11 @@ export default function Certificates() {
           {certificateList.map((item, index) => (
             <article
               key={item.name}
-              className="certificate-card group relative overflow-hidden rounded-[2rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_24px_70px_rgba(219,39,119,0.12)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_30px_90px_rgba(219,39,119,0.20)]"
+              className={[
+                "certificate-card group relative overflow-hidden rounded-[2rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_24px_70px_rgba(219,39,119,0.12)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_30px_90px_rgba(219,39,119,0.20)]",
+                isVisible ? "readable-reveal" : "opacity-0",
+              ].join(" ")}
+              style={{ animationDelay: `${760 + index * 120}ms` }}
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-pink-200/50 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/60" />
 
