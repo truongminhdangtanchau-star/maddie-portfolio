@@ -1,268 +1,47 @@
-"use client";
+@import "tailwindcss";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { about, profile } from "../data/portfolio";
+:root {
+  --background: #e8ded1;
+  --foreground: #20171a;
+}
 
-export default function About() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+* {
+  box-sizing: border-box;
+}
 
-  useEffect(() => {
-    const section = sectionRef.current;
+html {
+  scroll-behavior: smooth;
+}
 
-    if (!section) return;
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.22 }
-    );
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-    observer.observe(section);
+::selection {
+  background: rgba(231, 143, 173, 0.35);
+  color: #20171a;
+}
 
-    return () => observer.disconnect();
-  }, []);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-  return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="relative min-h-screen overflow-hidden px-5 py-28 md:px-8"
-    >
-      <div className="pointer-events-none absolute left-8 top-24 text-[10rem] font-black leading-none text-white/20 md:text-[18rem]">
-        STORY
-      </div>
-
-      <div className="pointer-events-none absolute bottom-16 right-8 text-[8rem] font-black leading-none text-white/20 md:text-[14rem]">
-        WORK
-      </div>
-
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-10 flex items-center justify-between gap-6">
-          <p
-            className={[
-              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
-              isVisible ? "readable-reveal" : "opacity-0",
-            ].join(" ")}
-          >
-            [ {about.label} ]
-          </p>
-
-          <div className="hidden h-px flex-1 bg-[#20171a]/20 md:block" />
-
-          <p
-            className={[
-              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
-              isVisible ? "readable-reveal [animation-delay:100ms]" : "opacity-0",
-            ].join(" ")}
-          >
-            Client Creative Execution
-          </p>
-        </div>
-
-        <div
-          className={[
-            "editorial-paper relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 p-5 md:p-8",
-            isVisible ? "editorial-card-enter" : "opacity-0",
-          ].join(" ")}
-        >
-          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
-            <div className="relative min-h-[34rem] overflow-hidden rounded-[1.5rem] bg-[#20171a] md:min-h-[43rem]">
-              <Image
-                src="/maddie.png"
-                alt="Maddie Nguyen"
-                fill
-                priority
-                className="editorial-photo object-cover object-[center_32%]"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#20171a]/55 via-transparent to-white/5" />
-
-              <div className="absolute left-6 top-6 max-w-xs">
-                <p className="editorial-script text-2xl md:text-3xl">
-                  Hi, since you&apos;re here,
-                </p>
-                <p className="editorial-script mt-2 pl-10 text-lg md:text-xl">
-                  let me be your tour guide.
-                </p>
-              </div>
-
-              <div className="absolute inset-x-0 bottom-12 rotate-[-4deg] text-center">
-                <p className="editorial-pink-word text-7xl font-black leading-none tracking-[-0.08em] md:text-[8.5rem]">
-                  story
-                </p>
-                <p className="editorial-pink-word -mt-6 text-7xl font-black leading-none tracking-[-0.08em] md:text-[8.5rem]">
-                  work
-                </p>
-              </div>
-
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
-                <p className="max-w-sm text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-                  Account · Campaign · Creative Flow
-                </p>
-
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-                  By Maddie Nguyen
-                </p>
-              </div>
-            </div>
-
-            <div className="grid gap-6">
-              <div
-                className={[
-                  "editorial-grid-card relative overflow-hidden rounded-[1.5rem] p-6 md:p-8",
-                  isVisible ? "readable-reveal" : "opacity-0",
-                ].join(" ")}
-                style={{ animationDelay: "180ms" }}
-              >
-                <p className="mb-5 text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
-                  Client Creative Execution
-                </p>
-
-                <h1 className="editorial-title max-w-3xl text-5xl font-black uppercase leading-[0.88] tracking-[-0.075em] md:text-7xl">
-                  I connect creative ideas with campaign execution.
-                </h1>
-
-                <div className="mt-7 max-w-2xl space-y-4 text-base font-semibold leading-7 text-[#6b5d58] md:text-lg md:leading-8">
-                  {about.paragraphs.slice(0, 2).map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                <div
-                  className={[
-                    "editorial-grid-card relative min-h-[16rem] overflow-hidden rounded-[1.5rem] p-5",
-                    isVisible ? "readable-reveal" : "opacity-0",
-                  ].join(" ")}
-                  style={{ animationDelay: "260ms" }}
-                >
-                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
-                    Snapshot
-                  </p>
-
-                  <div className="mt-8 grid grid-cols-3 gap-3">
-                    {[
-                      ["12", "client accounts"],
-                      ["2+", "years"],
-                      ["4", "focus areas"],
-                    ].map(([value, label]) => (
-                      <div key={value}>
-                        <p className="text-4xl font-black leading-none text-[#20171a]">
-                          {value}
-                        </p>
-                        <p className="mt-2 text-xs font-semibold leading-5 text-[#6b5d58]">
-                          {label}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="absolute bottom-5 left-5 right-5 h-px bg-[#20171a]/15" />
-
-                  <p className="absolute bottom-7 right-5 text-5xl font-black tracking-[-0.08em] text-[#e78fad]/55">
-                    flow
-                  </p>
-                </div>
-
-                <div
-                  className={[
-                    "editorial-grid-card relative min-h-[16rem] overflow-hidden rounded-[1.5rem] p-5",
-                    isVisible ? "readable-reveal" : "opacity-0",
-                  ].join(" ")}
-                  style={{ animationDelay: "340ms" }}
-                >
-                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
-                    Contact
-                  </p>
-
-                  <div className="mt-7 space-y-3 text-sm font-bold text-[#20171a]">
-                    <p>{profile.email}</p>
-                    <p>{profile.phone}</p>
-                    <p>{profile.location}</p>
-                  </div>
-
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <a
-                      href="#projects"
-                      className="editorial-button-dark inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
-                    >
-                      View Work
-                    </a>
-
-                    <a
-                      href={profile.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="editorial-button-light inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
-                    >
-                      LinkedIn
-                    </a>
-
-                    <a
-                      href={profile.resume}
-                      download
-                      className="editorial-button-light inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
-                    >
-                      Resume
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={[
-                  "editorial-grid-card relative grid gap-5 rounded-[1.5rem] p-5 md:grid-cols-[0.9fr_1.1fr]",
-                  isVisible ? "readable-reveal" : "opacity-0",
-                ].join(" ")}
-                style={{ animationDelay: "420ms" }}
-              >
-                <div className="relative min-h-[13rem] overflow-hidden rounded-[1.1rem] bg-[#20171a]">
-                  <Image
-                    src="/vnhi.png"
-                    alt="Maddie Nguyen visual"
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 420px"
-                  />
-                </div>
-
-                <div className="flex flex-col justify-between">
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
-                      Working Style
-                    </p>
-
-                    <h3 className="mt-4 text-4xl font-black leading-[0.9] tracking-[-0.06em] text-[#20171a]">
-                      It&apos;s not just coordination,
-                      <br />
-                      it&apos;s vibing with visuals.
-                    </h3>
-                  </div>
-
-                  <p className="mt-6 text-sm font-semibold leading-6 text-[#6b5d58]">
-                    Built for client communication, reporting discipline,
-                    cross-team handover, and campaign clarity.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p
-          className={[
-            "mx-auto mt-8 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#20171a]/45",
-            isVisible ? "readable-reveal" : "opacity-0",
-          ].join(" ")}
-          style={{ animationDelay: "520ms" }}
-        >
-          and that&apos;s a wrap.
-        </p>
-      </div>
-    </section>
-  );
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
