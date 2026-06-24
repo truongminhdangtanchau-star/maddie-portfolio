@@ -6,7 +6,7 @@ export const profile = {
   email: "maddie.nguyen0202@gmail.com",
   phone: "0905 089 503",
   linkedin: "https://www.linkedin.com/in/maddienguyenn/",
-  resume: "/Van%20Nhi%20Nguyen_Business%20Development%20Executive_CV.pdf",
+  resume: "/maddie-resume.pdf",
   location: "Ho Chi Minh City, Vietnam",
   timezone: "UTC+7",
   availability: "Open to creative opportunities",
@@ -92,7 +92,7 @@ export const education = {
   name: "Bachelor of International Business, English Program",
   issuer: "Ton Duc Thang University",
   year: "2020 – 2024",
-  image: "/Tôn Đức Thắng.png",
+  image: "/ton-duc-thang.png",
   summary:
     "A business foundation in international markets, English communication, and professional coordination.",
 };

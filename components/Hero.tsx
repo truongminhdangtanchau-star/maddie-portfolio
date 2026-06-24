@@ -1,193 +1,309 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/portfolio";
 
 export default function Hero() {
-  return (
-    <section className="hero-stage relative flex min-h-screen items-center overflow-hidden bg-[#fff7fb] px-5 py-28 md:px-8">
-      <div className="pointer-events-none absolute -left-28 top-20 h-96 w-96 rounded-full bg-pink-200/60 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-10 h-[28rem] w-[28rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/70 blur-3xl" />
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="music-symbol music-symbol-1">♪</div>
-        <div className="music-symbol music-symbol-2">♫</div>
-        <div className="music-symbol music-symbol-3">♬</div>
-        <div className="music-symbol music-symbol-4">♩</div>
-        <div className="music-symbol music-symbol-5">𝄞</div>
-        <div className="music-symbol music-symbol-6">♭</div>
-        <div className="music-symbol music-symbol-7">♯</div>
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      {
+        threshold: 0.18,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const motionBase =
+    "transition-all duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform";
+
+  const reveal = (from: "up" | "left" | "right" = "up") => {
+    const hidden =
+      from === "left"
+        ? "-translate-x-8 translate-y-3"
+        : from === "right"
+          ? "translate-x-8 translate-y-3"
+          : "translate-y-8";
+
+    return [
+      motionBase,
+      isVisible
+        ? "translate-x-0 translate-y-0 opacity-100 blur-0"
+        : `${hidden} opacity-0 blur-sm`,
+    ].join(" ");
+  };
+
+  const delay = (ms: number) => ({
+    transitionDelay: `${ms}ms`,
+  });
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-screen items-center overflow-hidden border-b border-[#20171a]/10 px-5 py-28 md:px-8"
+      style={{
+        background:
+          "radial-gradient(circle at 12% 18%, rgba(255,255,255,0.44), transparent 30%), radial-gradient(circle at 86% 14%, rgba(231,143,173,0.16), transparent 34%), #e8ded1",
+      }}
+    >
+      <div className="pointer-events-none absolute left-6 top-16 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[15rem]">
+        CREATIVE
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-16 md:grid-cols-[1.05fr_0.95fr]">
-        <div className="hero-reveal">
-          <p className="mb-5 text-sm uppercase tracking-[0.35em] text-pink-500">
-            {profile.name}
+      <div className="pointer-events-none absolute bottom-12 right-6 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[13rem]">
+        FLOW
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span className="absolute left-[7%] top-[20%] text-6xl font-black text-[#20171a]/[0.055] md:text-8xl">
+          ♪
+        </span>
+        <span className="absolute right-[12%] top-[18%] text-5xl font-black text-[#20171a]/[0.05] md:text-7xl">
+          ♫
+        </span>
+        <span className="absolute left-[48%] top-[12%] text-4xl font-black text-[#20171a]/[0.045] md:text-6xl">
+          ♬
+        </span>
+        <span className="absolute bottom-[18%] left-[16%] text-5xl font-black text-[#20171a]/[0.05] md:text-7xl">
+          ♭
+        </span>
+        <span className="absolute bottom-[16%] right-[22%] text-5xl font-black text-[#20171a]/[0.045] md:text-7xl">
+          ♯
+        </span>
+      </div>
+
+      <div className="relative mx-auto w-full max-w-7xl">
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <p
+            className={[
+              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
+              reveal("left"),
+            ].join(" ")}
+            style={delay(0)}
+          >
+            [ {profile.name} ]
           </p>
 
-          <div className="hero-marquee-wrap mb-8 overflow-hidden rounded-full border border-pink-200 bg-white/70 py-2 backdrop-blur">
-            <div className="hero-marquee">
-              MUSIC LABELS ✦ ENTERTAINMENT ✦ BRAND CAMPAIGNS ✦ CREATIVE COORDINATION ✦ ACCOUNT FLOW ✦ MUSIC LABELS ✦ ENTERTAINMENT ✦ BRAND CAMPAIGNS ✦
-            </div>
-          </div>
+          <div
+            className={[
+              "hidden h-px flex-1 bg-[#20171a]/20 md:block",
+              reveal("up"),
+            ].join(" ")}
+            style={delay(80)}
+          />
 
-          <h1 className="hero-glow-title max-w-5xl text-6xl font-black uppercase leading-[0.9] tracking-[-0.08em] text-[#24151d] md:text-[7.6rem]">
-            Creative
-            <br />
-            Account
-            <br />
-            Executive
-          </h1>
-
-          <p className="mt-8 max-w-2xl text-xl leading-9 text-[#6f4a5d]">
-            {profile.intro}
+          <p
+            className={[
+              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
+              reveal("right"),
+            ].join(" ")}
+            style={delay(120)}
+          >
+            Creative Account Executive
           </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-3 rounded-full bg-pink-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(236,72,153,0.35)] transition hover:-translate-y-1 hover:bg-pink-600"
-            >
-              <svg
-                className="h-5 w-5 transition group-hover:scale-110"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M9 18V5l12-2v13" />
-                <circle cx="6" cy="18" r="3" />
-                <circle cx="18" cy="16" r="3" />
-              </svg>
-              View Work
-            </a>
-
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/80 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
-            >
-              <svg
-                className="h-5 w-5 text-pink-500 transition group-hover:scale-110"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z" />
-              </svg>
-              LinkedIn
-            </a>
-
-            <a
-              href={profile.resume}
-              download
-              className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/80 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
-            >
-              <svg
-                className="h-5 w-5 text-pink-500 transition group-hover:translate-y-0.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 3v12" />
-                <path d="m7 10 5 5 5-5" />
-                <path d="M5 21h14" />
-              </svg>
-              Resume
-            </a>
-          </div>
         </div>
 
-        <div className="hero-card-float relative">
-          <div className="absolute -left-5 -top-5 h-full w-full rounded-[2.5rem] border border-pink-300/70" />
+        <div
+          className={[
+            "relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 bg-[#f7f1e8]/90 p-5 shadow-[0_26px_70px_rgba(32,23,26,0.12)] md:p-8",
+            reveal("up"),
+          ].join(" ")}
+          style={delay(140)}
+        >
+          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+            <div
+              className={[
+                "relative min-h-[38rem] overflow-hidden rounded-[1.5rem] bg-[#20171a] p-6 text-[#fff8ef] shadow-[0_24px_70px_rgba(32,23,26,0.18)] md:p-8",
+                reveal("left"),
+              ].join(" ")}
+              style={delay(260)}
+            >
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-white/55">
+                Music · Entertainment · Brand Campaigns
+              </p>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-pink-200 bg-[#24151d] p-5 text-pink-50 shadow-[0_35px_110px_rgba(219,39,119,0.28)]">
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-pink-100/45">
-                  Now Playing
-                </p>
-                <p className="mt-2 text-lg font-medium">Maddie Nguyen</p>
-              </div>
+              <h1 className="mt-8 max-w-4xl text-6xl font-black uppercase leading-[0.84] tracking-[-0.085em] text-[#fff8ef] md:text-[7.8rem]">
+                Creative
+                <br />
+                Account
+                <br />
+                Executive
+              </h1>
 
-              <div className="hero-play-pulse flex h-14 w-14 items-center justify-center rounded-full bg-pink-400 text-white shadow-[0_16px_40px_rgba(244,114,182,0.45)]">
-                <svg
-                  className="ml-0.5 h-6 w-6"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
+              <p className="mt-8 max-w-2xl text-base font-semibold leading-7 text-white/68 md:text-lg md:leading-8">
+                {profile.intro}
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  className="inline-flex rounded-full bg-[#fff8ef] px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
                 >
-                  <path d="M8 5v14l11-7L8 5Z" />
-                </svg>
+                  View Work
+                </a>
+
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-black text-[#fff8ef] backdrop-blur transition duration-300 hover:-translate-y-1"
+                >
+                  LinkedIn
+                </a>
+
+                <a
+                  href={profile.resume}
+                  download
+                  className="inline-flex rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-black text-[#fff8ef] backdrop-blur transition duration-300 hover:-translate-y-1"
+                >
+                  Resume
+                </a>
               </div>
+
+              <p className="absolute bottom-8 right-8 rotate-[-4deg] text-7xl font-black italic leading-none tracking-[-0.08em] text-[#e78fad] md:text-[8rem]">
+                hello
+              </p>
+
+              <div className="absolute bottom-8 left-8 right-8 h-px bg-white/15" />
             </div>
 
-            <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-white/5 p-6 md:grid-cols-[1fr_0.95fr]">
-              <div>
-                <p className="text-sm uppercase tracking-[0.28em] text-pink-100/45">
-                  Focus
+            <div className="grid gap-6">
+              <div
+                className={[
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)] md:p-8",
+                  reveal("right"),
+                ].join(" ")}
+                style={delay(340)}
+              >
+                <p className="text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                  Portfolio Focus
                 </p>
 
-                <h2 className="mt-5 text-4xl font-black leading-tight tracking-[-0.05em] md:text-5xl">
-                  Music · Entertainment · Brand Campaigns
+                <h2 className="mt-6 max-w-3xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.075em] text-[#20171a] md:text-7xl">
+                  Soft visuals. Clear execution. Creative flow.
                 </h2>
 
-                <p className="mt-6 leading-7 text-pink-100/60">
-                  A soft but structured portfolio for creative coordination,
-                  account support, and campaign execution.
+                <p className="mt-7 max-w-2xl text-base font-semibold leading-7 text-[#6b5d58] md:text-lg md:leading-8">
+                  A structured portfolio for client servicing, account support,
+                  campaign coordination, and creative team collaboration.
                 </p>
 
-                <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div className="hero-progress h-full rounded-full bg-gradient-to-r from-pink-300 via-rose-300 to-fuchsia-300" />
+                <p className="absolute bottom-5 right-6 rotate-[-4deg] text-5xl font-black italic tracking-[-0.08em] text-[#e78fad]/50">
+                  flow
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <div
+                  className={[
+                    "relative min-h-[15rem] overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                    reveal("up"),
+                  ].join(" ")}
+                  style={delay(460)}
+                >
+                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                    Core Areas
+                  </p>
+
+                  <div className="mt-7 grid gap-3 text-sm font-bold text-[#6b5d58]">
+                    <p>01 · Client servicing</p>
+                    <p>02 · Campaign flow</p>
+                    <p>03 · Creative coordination</p>
+                    <p>04 · Brand communication</p>
+                  </div>
+
+                  <div className="absolute bottom-5 left-5 right-5 h-px bg-[#20171a]/15" />
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-pink-100/70">
-                    Client Servicing
-                  </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-pink-100/70">
-                    Campaign Flow
-                  </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-pink-100/70">
-                    Creative Teams
-                  </span>
+                <div
+                  className={[
+                    "relative min-h-[15rem] overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                    reveal("up"),
+                  ].join(" ")}
+                  style={delay(540)}
+                >
+                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                    Direction
+                  </p>
+
+                  <h3 className="mt-6 text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#20171a]">
+                    Music labels, entertainment, and brand campaigns.
+                  </h3>
+
+                  <p className="absolute bottom-5 right-5 rotate-[-4deg] text-5xl font-black italic tracking-[-0.08em] text-[#e78fad]/45">
+                    work
+                  </p>
                 </div>
               </div>
 
-              <div className="record-player flex items-center justify-center">
-                <div className="vinyl-shell">
-                  <div className="vinyl-disc">
-                    <div className="vinyl-ring vinyl-ring-1" />
-                    <div className="vinyl-ring vinyl-ring-2" />
-                    <div className="vinyl-ring vinyl-ring-3" />
-                    <div className="vinyl-center">
-                      <span>MADDIE</span>
-                    </div>
+              <div
+                className={[
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                  reveal("right"),
+                ].join(" ")}
+                style={delay(640)}
+              >
+                <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                      Now Playing
+                    </p>
+
+                    <h3 className="mt-4 text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#20171a] md:text-5xl">
+                      Maddie Nguyen
+                    </h3>
                   </div>
 
-                  <div className="tonearm">
-                    <div className="tonearm-head" />
+                  <div className="flex gap-2">
+                    <span className="h-10 w-2 rounded-full bg-[#20171a]/70" />
+                    <span className="h-16 w-2 rounded-full bg-[#e78fad]" />
+                    <span className="h-12 w-2 rounded-full bg-[#20171a]/45" />
+                    <span className="h-20 w-2 rounded-full bg-[#20171a]" />
+                    <span className="h-14 w-2 rounded-full bg-[#e78fad]/70" />
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="mt-6 flex items-end gap-1.5">
-              <span className="hero-bar h-5 w-1.5 rounded-full bg-pink-300" />
-              <span className="hero-bar h-10 w-1.5 rounded-full bg-rose-300 [animation-delay:100ms]" />
-              <span className="hero-bar h-7 w-1.5 rounded-full bg-fuchsia-300 [animation-delay:200ms]" />
-              <span className="hero-bar h-12 w-1.5 rounded-full bg-pink-400 [animation-delay:300ms]" />
-              <span className="hero-bar h-8 w-1.5 rounded-full bg-rose-300 [animation-delay:400ms]" />
-              <span className="hero-bar h-14 w-1.5 rounded-full bg-fuchsia-300 [animation-delay:500ms]" />
+                <div className="mt-6 h-px bg-[#20171a]/15" />
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Client Servicing", "Campaign Flow", "Creative Teams"].map(
+                    (item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-3 py-1.5 text-xs font-bold text-[#20171a]/70"
+                      >
+                        {item}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <p
+          className={[
+            "mx-auto mt-8 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#20171a]/45",
+            reveal("up"),
+          ].join(" ")}
+          style={delay(820)}
+        >
+          music symbols stay in the background, because UI deserves peace.
+        </p>
       </div>
     </section>
   );

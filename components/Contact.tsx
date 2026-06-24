@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/portfolio";
 
@@ -18,12 +17,11 @@ export default function Contact() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       {
-        threshold: 0.24,
+        threshold: 0.22,
+        rootMargin: "0px 0px -12% 0px",
       }
     );
 
@@ -32,256 +30,244 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
+  const motionBase =
+    "transition-all duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform";
+
+  const reveal = (from: "up" | "left" | "right" = "up") => {
+    const hidden =
+      from === "left"
+        ? "-translate-x-8 translate-y-3"
+        : from === "right"
+          ? "translate-x-8 translate-y-3"
+          : "translate-y-8";
+
+    return [
+      motionBase,
+      isVisible
+        ? "translate-x-0 translate-y-0 opacity-100 blur-0"
+        : `${hidden} opacity-0 blur-sm`,
+    ].join(" ");
+  };
+
+  const delay = (ms: number) => ({
+    transitionDelay: `${ms}ms`,
+  });
+
   return (
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
+      className="relative overflow-hidden border-t border-[#20171a]/10 px-5 py-28 md:px-8"
+      style={{
+        background:
+          "radial-gradient(circle at 12% 18%, rgba(255,255,255,0.42), transparent 30%), radial-gradient(circle at 88% 12%, rgba(231,143,173,0.18), transparent 34%), #e8ded1",
+      }}
     >
-      <div className="pointer-events-none absolute -left-28 bottom-10 h-[34rem] w-[34rem] rounded-full bg-pink-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute -right-28 top-20 h-[36rem] w-[36rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/60 blur-3xl" />
+      <div className="pointer-events-none absolute left-6 top-20 text-[8rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[15rem]">
+        HELLO
+      </div>
 
-      <div className="pointer-events-none absolute inset-0">
-        <div className="contact-float-note contact-float-note-1">♪</div>
-        <div className="contact-float-note contact-float-note-2">♫</div>
-        <div className="contact-float-note contact-float-note-3">♬</div>
+      <div className="pointer-events-none absolute bottom-16 right-6 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[13rem]">
+        WORK
       </div>
 
       <div className="relative mx-auto max-w-7xl">
-        <div
-          className={[
-            "contact-shell-glow relative overflow-hidden rounded-[2.75rem] border border-pink-200/80 bg-white/78 p-7 shadow-[0_35px_110px_rgba(219,39,119,0.18)] backdrop-blur md:p-12",
-            isVisible ? "contact-card-enter" : "opacity-0",
-          ].join(" ")}
-        >
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-pink-200/55 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-fuchsia-100/70 blur-3xl" />
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <p
+            className={[
+              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
+              reveal("left"),
+            ].join(" ")}
+            style={delay(0)}
+          >
+            [ Contact ]
+          </p>
 
           <div
             className={[
-              "pointer-events-none absolute right-8 top-8 hidden items-end gap-2 md:flex",
-              isVisible ? "readable-reveal" : "opacity-0",
+              "hidden h-px flex-1 bg-[#20171a]/20 md:block",
+              reveal("up"),
             ].join(" ")}
-            style={{ animationDelay: "160ms" }}
-          >
-            <span className="contact-bar h-8 w-2 rounded-full bg-pink-300" />
-            <span className="contact-bar h-14 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
-            <span className="contact-bar h-10 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
-            <span className="contact-bar h-20 w-2 rounded-full bg-pink-500 [animation-delay:360ms]" />
-            <span className="contact-bar h-12 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
-          </div>
+            style={delay(80)}
+          />
 
-          <div className="relative grid gap-12 md:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <p
-                className={[
-                  "mb-5 text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
-                  isVisible ? "contact-reveal-left" : "opacity-0",
-                ].join(" ")}
-              >
-                [ Contact ]
+          <p
+            className={[
+              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
+              reveal("right"),
+            ].join(" ")}
+            style={delay(120)}
+          >
+            Let&apos;s build something clear
+          </p>
+        </div>
+
+        <div
+          className={[
+            "relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 bg-[#f7f1e8]/90 p-5 shadow-[0_26px_70px_rgba(32,23,26,0.12)] md:p-8",
+            reveal("up"),
+          ].join(" ")}
+          style={delay(140)}
+        >
+          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+            <div
+              className={[
+                "relative min-h-[36rem] overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#20171a] p-6 text-[#fff8ef] shadow-[0_24px_70px_rgba(32,23,26,0.18)] md:p-8",
+                reveal("left"),
+              ].join(" ")}
+              style={delay(260)}
+            >
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-white/55">
+                Creative opportunity
               </p>
 
-              <h2
-                className={[
-                  "contact-glow-heading max-w-5xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.07em] md:text-7xl lg:text-8xl",
-                  isVisible ? "contact-heading-glow-in" : "opacity-0",
-                ].join(" ")}
-              >
+              <h2 className="mt-8 max-w-4xl text-6xl font-black uppercase leading-[0.86] tracking-[-0.08em] text-[#fff8ef] md:text-8xl">
                 Let&apos;s build the next creative campaign.
               </h2>
 
-              <p
-                className={[
-                  "mt-8 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                  isVisible ? "contact-reveal-left" : "opacity-0",
-                ].join(" ")}
-                style={{ animationDelay: "220ms" }}
-              >
+              <p className="mt-8 max-w-2xl text-base font-semibold leading-7 text-white/68 md:text-lg md:leading-8">
                 Open to music label, entertainment, creative agency, and brand
                 campaign opportunities where communication, coordination, and
                 execution discipline can support stronger creative work.
               </p>
 
+              <p className="absolute bottom-8 right-8 rotate-[-4deg] text-7xl font-black italic leading-none tracking-[-0.08em] text-[#e78fad] md:text-[8rem]">
+                contact
+              </p>
+
+              <div className="absolute bottom-8 left-8 right-8 h-px bg-white/15" />
+            </div>
+
+            <div className="grid gap-6">
               <div
                 className={[
-                  "contact-info-box mt-10 rounded-[2rem] border border-pink-200 bg-pink-50/80 p-5 shadow-sm backdrop-blur",
-                  isVisible ? "contact-reveal-left" : "opacity-0",
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)] md:p-8",
+                  reveal("right"),
                 ].join(" ")}
-                style={{ animationDelay: "360ms" }}
+                style={delay(340)}
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
-                  Contact Me
+                <p className="text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                  Contact details
                 </p>
 
-                <p className="mt-3 text-base font-medium leading-7 text-[#6f4a5d]">
-                  For collaboration, interview, creative coordination, or
-                  entertainment campaign opportunities, contact Maddie directly
-                  through email, call, or LinkedIn.
+                <div className="mt-8 space-y-5">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.26em] text-[#20171a]/45">
+                      Email
+                    </p>
+
+                    <a
+                      href={mailHref}
+                      className="mt-2 block break-words text-xl font-black leading-tight text-[#20171a] underline-offset-4 transition hover:text-[#e78fad] hover:underline md:text-2xl"
+                    >
+                      {profile.email}
+                    </a>
+                  </div>
+
+                  <div className="h-px bg-[#20171a]/15" />
+
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.26em] text-[#20171a]/45">
+                      Phone
+                    </p>
+
+                    <a
+                      href={phoneHref}
+                      className="mt-2 block text-xl font-black leading-tight text-[#20171a] underline-offset-4 transition hover:text-[#e78fad] hover:underline md:text-2xl"
+                    >
+                      {profile.phone}
+                    </a>
+                  </div>
+
+                  <div className="h-px bg-[#20171a]/15" />
+
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.26em] text-[#20171a]/45">
+                      Location
+                    </p>
+
+                    <p className="mt-2 text-xl font-black leading-tight text-[#20171a] md:text-2xl">
+                      {profile.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={[
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                  reveal("right"),
+                ].join(" ")}
+                style={delay(460)}
+              >
+                <p className="text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                  Quick actions
                 </p>
 
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-7 flex flex-wrap gap-3">
                   <a
                     href={mailHref}
-                    className="group inline-flex items-center gap-3 rounded-full bg-pink-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(236,72,153,0.35)] transition hover:-translate-y-1 hover:bg-pink-600"
+                    className="inline-flex rounded-full bg-[#20171a] px-5 py-3 text-sm font-black text-[#fff8ef] transition duration-300 hover:-translate-y-1"
                   >
-                    <svg
-                      className="h-5 w-5 transition group-hover:scale-110"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M4 4h16v16H4z" />
-                      <path d="m22 6-10 7L2 6" />
-                    </svg>
                     Email Maddie
                   </a>
 
                   <a
                     href={phoneHref}
-                    className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
+                    className="inline-flex rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
                   >
-                    <svg
-                      className="h-5 w-5 text-[#F72D9A] transition group-hover:scale-110"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.31 1.85.53 2.81.66A2 2 0 0 1 22 16.92Z" />
-                    </svg>
-                    Call Maddie
+                    Call
                   </a>
 
                   <a
                     href={profile.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
+                    className="inline-flex rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
                   >
-                    <svg
-                      className="h-5 w-5 text-[#F72D9A] transition group-hover:scale-110"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z" />
-                    </svg>
                     LinkedIn
                   </a>
 
                   <a
                     href={profile.resume}
                     download
-                    className="group inline-flex items-center gap-3 rounded-full border border-pink-200 bg-white/85 px-6 py-3 text-sm font-semibold text-[#24151d] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-pink-300 hover:bg-pink-50"
+                    className="inline-flex rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
                   >
-                    <svg
-                      className="h-5 w-5 text-[#F72D9A] transition group-hover:translate-y-0.5"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M12 3v12" />
-                      <path d="m7 10 5 5 5-5" />
-                      <path d="M5 21h14" />
-                    </svg>
                     Resume
                   </a>
                 </div>
+
+                <p className="mt-8 max-w-md text-sm font-semibold leading-6 text-[#6b5d58]">
+                  For collaboration, interview, creative coordination, or
+                  entertainment campaign opportunities, contact Maddie directly.
+                </p>
+
+                <p className="absolute bottom-5 right-6 rotate-[-4deg] text-5xl font-black italic tracking-[-0.08em] text-[#e78fad]/55">
+                  hello
+                </p>
               </div>
-            </div>
 
-            <div
-              className={[
-                "flex flex-col justify-center",
-                isVisible ? "contact-reveal-right" : "opacity-0",
-              ].join(" ")}
-              style={{ animationDelay: "280ms" }}
-            >
-              <div className="contact-console-glow relative overflow-hidden rounded-[2.25rem] border border-pink-200/90 bg-white/82 p-6 shadow-[0_28px_90px_rgba(219,39,119,0.18)] backdrop-blur">
-                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-20 left-6 h-56 w-56 rounded-full bg-fuchsia-100/70 blur-3xl" />
+              <div
+                className={[
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                  reveal("right"),
+                ].join(" ")}
+                style={delay(580)}
+              >
+                <p className="text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                  Availability
+                </p>
 
-                <div className="relative mb-8 flex items-center justify-between">
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F72D9A]">
-                    Contact Card
-                  </p>
+                <h3 className="mt-5 text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#20171a] md:text-5xl">
+                  Open to creative teams.
+                </h3>
 
-                  <div className="flex gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-pink-300 shadow-[0_0_12px_rgba(247,45,154,0.55)]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-300 shadow-[0_0_12px_rgba(251,113,133,0.45)]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-fuchsia-300 shadow-[0_0_12px_rgba(217,70,239,0.45)]" />
-                  </div>
-                </div>
+                <div className="mt-7 h-px bg-[#20171a]/15" />
 
-                <div className="relative mb-8 overflow-hidden rounded-[1.75rem] border border-pink-200 bg-pink-50/70 p-3 shadow-sm">
-                  <div className="relative h-64 w-full overflow-hidden rounded-[1.35rem]">
-                    <Image
-                      src="/vnhi.png"
-                      alt="Vnhi"
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 768px) 100vw, 500px"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative space-y-5">
-                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
-                      Email
-                    </p>
-                    <a
-                      href={mailHref}
-                      className="mt-2 block break-words text-base font-semibold text-[#24151d] underline-offset-4 transition hover:text-[#F72D9A] hover:underline"
-                    >
-                      {profile.email}
-                    </a>
-                  </div>
-
-                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
-                      Phone
-                    </p>
-                    <a
-                      href={phoneHref}
-                      className="mt-2 block text-base font-semibold text-[#24151d] underline-offset-4 transition hover:text-[#F72D9A] hover:underline"
-                    >
-                      {profile.phone}
-                    </a>
-                  </div>
-
-                  <div className="rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F72D9A]">
-                      Location
-                    </p>
-                    <p className="mt-2 text-base font-semibold text-[#24151d]">
-                      {profile.location}
-                    </p>
-                  </div>
-
-                  <div className="h-1.5 overflow-hidden rounded-full bg-pink-100">
-                    <div className="contact-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
-                  </div>
-
-                  <a
-                    href={mailHref}
-                    className="inline-flex rounded-full bg-pink-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(244,114,182,0.35)] transition hover:-translate-y-1 hover:bg-pink-600"
-                  >
-                    Contact Me
-                  </a>
+                <div className="mt-5 grid gap-3 text-sm font-bold text-[#6b5d58] md:grid-cols-3">
+                  <p>Music labels</p>
+                  <p>Entertainment</p>
+                  <p>Brand campaigns</p>
                 </div>
               </div>
             </div>
@@ -290,10 +276,10 @@ export default function Contact() {
 
         <footer
           className={[
-            "mt-8 flex flex-col justify-between gap-4 border-t border-pink-200/70 pt-8 text-sm text-[#8a6475] md:flex-row",
-            isVisible ? "readable-reveal" : "opacity-0",
+            "mt-8 flex flex-col justify-between gap-4 border-t border-[#20171a]/15 pt-8 text-sm font-semibold text-[#20171a]/50 md:flex-row",
+            reveal("up"),
           ].join(" ")}
-          style={{ animationDelay: "520ms" }}
+          style={delay(740)}
         >
           <p>© 2026 · Maddie Nguyen</p>
           <p>Creative Account Executive Portfolio</p>

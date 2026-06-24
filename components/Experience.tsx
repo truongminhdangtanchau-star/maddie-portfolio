@@ -24,12 +24,11 @@ export default function Experience() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       {
         threshold: 0.22,
+        rootMargin: "0px 0px -12% 0px",
       }
     );
 
@@ -38,202 +37,239 @@ export default function Experience() {
     return () => observer.disconnect();
   }, []);
 
+  const motionBase =
+    "transition-all duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform";
+
+  const reveal = (from: "up" | "left" | "right" = "up") => {
+    const hidden =
+      from === "left"
+        ? "-translate-x-8 translate-y-3"
+        : from === "right"
+          ? "translate-x-8 translate-y-3"
+          : "translate-y-8";
+
+    return [
+      motionBase,
+      isVisible
+        ? "translate-x-0 translate-y-0 opacity-100 blur-0"
+        : `${hidden} opacity-0 blur-sm`,
+    ].join(" ");
+  };
+
+  const delay = (ms: number) => ({
+    transitionDelay: `${ms}ms`,
+  });
+
   return (
     <section
       ref={sectionRef}
       id="experience"
-      className="relative overflow-hidden border-t border-pink-200/60 bg-[#fff7fb] px-5 py-28 md:px-8"
+      className="relative overflow-hidden border-t border-[#20171a]/10 px-5 py-28 md:px-8"
+      style={{
+        background:
+          "radial-gradient(circle at 12% 18%, rgba(255,255,255,0.42), transparent 30%), radial-gradient(circle at 86% 14%, rgba(231,143,173,0.16), transparent 34%), #e8ded1",
+      }}
     >
-      <div className="pointer-events-none absolute -left-32 top-20 h-[34rem] w-[34rem] rounded-full bg-pink-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 bottom-10 h-[36rem] w-[36rem] rounded-full bg-fuchsia-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-100/55 blur-3xl" />
+      <div className="pointer-events-none absolute left-6 top-20 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[14rem]">
+        WORK
+      </div>
 
-      <div className="pointer-events-none absolute inset-0">
-        <div className="experience-float-note experience-float-note-1">♫</div>
-        <div className="experience-float-note experience-float-note-2">♬</div>
-        <div className="experience-float-note experience-float-note-3">♪</div>
+      <div className="pointer-events-none absolute bottom-16 right-6 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[13rem]">
+        FLOW
       </div>
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="mb-16 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <p
-              className={[
-                "text-sm font-semibold uppercase tracking-[0.32em] text-[#F72D9A]",
-                isVisible ? "about-reveal-left" : "opacity-0",
-              ].join(" ")}
-            >
-              [ Experience ]
-            </p>
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <p
+            className={[
+              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
+              reveal("left"),
+            ].join(" ")}
+            style={delay(0)}
+          >
+            [ Experience ]
+          </p>
 
-            <div
-              className={[
-                "mt-8 hidden items-end gap-2 md:flex",
-                isVisible ? "about-reveal-left" : "opacity-0",
-              ].join(" ")}
-              style={{ animationDelay: "120ms" }}
-            >
-              <span className="experience-bar h-10 w-2 rounded-full bg-pink-300" />
-              <span className="experience-bar h-20 w-2 rounded-full bg-rose-300 [animation-delay:120ms]" />
-              <span className="experience-bar h-14 w-2 rounded-full bg-fuchsia-300 [animation-delay:240ms]" />
-              <span className="experience-bar h-24 w-2 rounded-full bg-pink-500 [animation-delay:360ms]" />
-              <span className="experience-bar h-16 w-2 rounded-full bg-rose-300 [animation-delay:480ms]" />
-            </div>
-          </div>
-
-          <div>
-            <h2
-              className={[
-                "experience-glow-heading max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-[-0.065em] md:text-6xl lg:text-7xl",
-                isVisible ? "about-heading-glow-in" : "opacity-0",
-              ].join(" ")}
-            >
-              Account experience built around clients, campaigns, and execution.
-            </h2>
-
-            <p
-              className={[
-                "mt-7 max-w-2xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                isVisible ? "about-reveal-left" : "opacity-0",
-              ].join(" ")}
-              style={{ animationDelay: "220ms" }}
-            >
-              My work covers client communication, campaign updates, reporting,
-              handover documents, review meetings, and cross-team coordination.
-            </p>
-          </div>
-        </div>
-
-        <div className="relative">
           <div
             className={[
-              "experience-timeline-line absolute left-6 top-0 hidden h-full w-px md:block",
-              isVisible ? "experience-line-grow" : "opacity-0",
+              "hidden h-px flex-1 bg-[#20171a]/20 md:block",
+              reveal("up"),
             ].join(" ")}
+            style={delay(80)}
           />
 
-          <div className="space-y-8">
-            {experienceList.map((item, index) => (
-              <article
-                key={item.role}
+          <p
+            className={[
+              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
+              reveal("right"),
+            ].join(" ")}
+            style={delay(120)}
+          >
+            Clients · Campaigns · Execution
+          </p>
+        </div>
+
+        <div
+          className={[
+            "relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 bg-[#f7f1e8]/90 p-5 shadow-[0_26px_70px_rgba(32,23,26,0.12)] md:p-8",
+            reveal("up"),
+          ].join(" ")}
+          style={delay(140)}
+        >
+          <div className="grid gap-6 md:grid-cols-[0.82fr_1.18fr]">
+            <div
+              className={[
+                "relative min-h-[34rem] overflow-hidden rounded-[1.5rem] bg-[#20171a] p-6 text-[#fff8ef] shadow-[0_24px_70px_rgba(32,23,26,0.18)] md:min-h-[42rem] md:p-8",
+                reveal("left"),
+              ].join(" ")}
+              style={delay(260)}
+            >
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-white/55">
+                Work Experience
+              </p>
+
+              <h2 className="mt-8 max-w-4xl text-6xl font-black uppercase leading-[0.86] tracking-[-0.08em] text-[#fff8ef] md:text-8xl">
+                Built around clients, campaigns, and execution.
+              </h2>
+
+              <p className="mt-8 max-w-xl text-base font-semibold leading-7 text-white/68 md:text-lg md:leading-8">
+                My work covers client communication, campaign updates,
+                reporting, handover documents, review meetings, and cross-team
+                coordination.
+              </p>
+
+              <div className="mt-10 grid gap-3 text-sm font-bold text-white/70">
+                <p>01 · Account management</p>
+                <p>02 · Campaign coordination</p>
+                <p>03 · Reporting and handover</p>
+                <p>04 · Cross-team communication</p>
+              </div>
+
+              <p className="absolute bottom-8 right-8 rotate-[-4deg] text-7xl font-black italic leading-none tracking-[-0.08em] text-[#e78fad] md:text-[8rem]">
+                track
+              </p>
+
+              <div className="absolute bottom-8 left-8 right-8 h-px bg-white/15" />
+            </div>
+
+            <div className="grid gap-5">
+              {experienceList.map((item, index) => (
+                <article
+                  key={`${item.role}-${item.company}`}
+                  className={[
+                    "group relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(32,23,26,0.13)] md:p-7",
+                    reveal("right"),
+                  ].join(" ")}
+                  style={delay(340 + index * 140)}
+                >
+                  <div className="flex flex-col gap-6 md:grid md:grid-cols-[0.36fr_0.64fr]">
+                    <div>
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="rounded-full border border-[#20171a]/15 bg-[#20171a] px-4 py-2 text-xs font-black tracking-[0.22em] text-[#fff8ef]">
+                          0{index + 1}
+                        </span>
+
+                        <span className="rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#20171a]/65">
+                          Track
+                        </span>
+                      </div>
+
+                      <p className="mt-8 text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/45">
+                        Period
+                      </p>
+
+                      <p className="mt-3 text-lg font-black leading-tight text-[#20171a]">
+                        {item.period}
+                      </p>
+
+                      <div className="mt-6 h-px bg-[#20171a]/15" />
+
+                      <p className="mt-6 text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/45">
+                        Company
+                      </p>
+
+                      <p className="mt-3 text-lg font-black leading-tight text-[#20171a]">
+                        {item.company}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/45">
+                        Role
+                      </p>
+
+                      <h3 className="mt-4 max-w-3xl text-4xl font-black uppercase leading-[0.92] tracking-[-0.065em] text-[#20171a] md:text-5xl">
+                        {item.role}
+                      </h3>
+
+                      <p className="mt-6 max-w-3xl text-base font-semibold leading-7 text-[#6b5d58] md:text-lg md:leading-8">
+                        {item.description}
+                      </p>
+
+                      {item.bullets && item.bullets.length > 0 && (
+                        <ul className="mt-7 grid gap-3">
+                          {item.bullets.slice(0, 3).map((bullet, bulletIndex) => (
+                            <li
+                              key={bullet}
+                              className={[
+                                "flex gap-3 rounded-2xl border border-[#20171a]/10 bg-[#fff8ef]/60 p-4 text-sm font-semibold leading-6 text-[#6b5d58]",
+                                reveal("up"),
+                              ].join(" ")}
+                              style={delay(
+                                520 + index * 140 + bulletIndex * 90
+                              )}
+                            >
+                              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#20171a]" />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+
+                  <p className="pointer-events-none absolute bottom-4 right-6 rotate-[-4deg] text-5xl font-black italic tracking-[-0.08em] text-[#e78fad]/35">
+                    work
+                  </p>
+                </article>
+              ))}
+
+              <div
                 className={[
-                  "experience-card-glow group relative grid gap-6 rounded-[2.25rem] border border-pink-200/80 bg-white/80 p-7 shadow-[0_28px_80px_rgba(219,39,119,0.14)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-[0_34px_100px_rgba(219,39,119,0.24)] md:grid-cols-[0.75fr_1.25fr] md:p-8 md:pl-16",
-                  isVisible ? "experience-card-enter" : "opacity-0",
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
+                  reveal("right"),
                 ].join(" ")}
-                style={{ animationDelay: `${320 + index * 190}ms` }}
+                style={delay(680)}
               >
-                <div className="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-pink-200/45 blur-2xl transition duration-300 group-hover:bg-fuchsia-200/65" />
+                <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                  Work Style
+                </p>
 
-                <div className="absolute left-0 top-8 hidden -translate-x-1/2 md:block">
-                  <div className="experience-dot-glow flex h-12 w-12 items-center justify-center rounded-full border border-pink-200 bg-[#24151d] text-sm font-black text-pink-100 shadow-[0_16px_40px_rgba(36,21,29,0.22)]">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
+                <h3 className="mt-4 text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#20171a] md:text-5xl">
+                  Clear handover. Fast follow-up. Practical campaign flow.
+                </h3>
+
+                <div className="mt-7 h-px bg-[#20171a]/15" />
+
+                <div className="mt-5 grid gap-3 text-sm font-bold text-[#6b5d58] md:grid-cols-3">
+                  <p>Client updates</p>
+                  <p>Timeline tracking</p>
+                  <p>Execution discipline</p>
                 </div>
-
-                <div className="relative">
-                  <div
-                    className={[
-                      "mb-6 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#F72D9A] shadow-sm",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${460 + index * 190}ms` }}
-                  >
-                    <span className="h-2 w-2 rounded-full bg-[#F72D9A] shadow-[0_0_14px_rgba(247,45,154,0.65)]" />
-                    Track {String(index + 1).padStart(2, "0")}
-                  </div>
-
-                  <p
-                    className={[
-                      "text-sm font-semibold uppercase tracking-[0.22em] text-[#8a6475]",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${540 + index * 190}ms` }}
-                  >
-                    {item.period}
-                  </p>
-
-                  <p
-                    className={[
-                      "mt-4 text-lg font-black text-[#F72D9A]",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${620 + index * 190}ms` }}
-                  >
-                    {item.company}
-                  </p>
-
-                  <div
-                    className={[
-                      "mt-8 flex items-end gap-1.5",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${700 + index * 190}ms` }}
-                  >
-                    <span className="experience-mini-bar h-5 w-1.5 rounded-full bg-pink-300" />
-                    <span className="experience-mini-bar h-9 w-1.5 rounded-full bg-rose-300 [animation-delay:100ms]" />
-                    <span className="experience-mini-bar h-6 w-1.5 rounded-full bg-fuchsia-300 [animation-delay:200ms]" />
-                    <span className="experience-mini-bar h-11 w-1.5 rounded-full bg-pink-500 [animation-delay:300ms]" />
-                    <span className="experience-mini-bar h-7 w-1.5 rounded-full bg-rose-300 [animation-delay:400ms]" />
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <h3
-                    className={[
-                      "experience-role-glow text-3xl font-black leading-tight tracking-[-0.045em] md:text-5xl",
-                      isVisible ? "experience-role-wipe" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${460 + index * 190}ms` }}
-                  >
-                    {item.role}
-                  </h3>
-
-                  <p
-                    className={[
-                      "mt-5 max-w-3xl text-lg font-medium leading-8 text-[#6f4a5d]",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${600 + index * 190}ms` }}
-                  >
-                    {item.description}
-                  </p>
-
-                  {item.bullets && item.bullets.length > 0 && (
-                    <ul className="mt-7 grid gap-3">
-                      {item.bullets.slice(0, 3).map((bullet, bulletIndex) => (
-                        <li
-                          key={bullet}
-                          className={[
-                            "experience-bullet-glow flex gap-3 rounded-2xl border border-pink-100 bg-pink-50/75 p-4 text-sm font-medium leading-6 text-[#6f4a5d] transition duration-300 group-hover:border-pink-200",
-                            isVisible ? "readable-reveal" : "opacity-0",
-                          ].join(" ")}
-                          style={{
-                            animationDelay: `${
-                              720 + index * 190 + bulletIndex * 90
-                            }ms`,
-                          }}
-                        >
-                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#F72D9A] shadow-[0_0_14px_rgba(247,45,154,0.55)]" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  <div
-                    className={[
-                      "mt-8 h-1.5 overflow-hidden rounded-full bg-pink-100",
-                      isVisible ? "readable-reveal" : "opacity-0",
-                    ].join(" ")}
-                    style={{ animationDelay: `${980 + index * 190}ms` }}
-                  >
-                    <div className="experience-progress h-full rounded-full bg-gradient-to-r from-pink-400 via-rose-300 to-fuchsia-400" />
-                  </div>
-                </div>
-              </article>
-            ))}
+              </div>
+            </div>
           </div>
         </div>
+
+        <p
+          className={[
+            "mx-auto mt-8 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#20171a]/45",
+            reveal("up"),
+          ].join(" ")}
+          style={delay(860)}
+        >
+          experience is useful when it turns messy work into clear next steps.
+        </p>
       </div>
     </section>
   );

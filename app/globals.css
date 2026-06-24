@@ -1,1723 +1,268 @@
-@import "tailwindcss";
+"use client";
 
-:root {
-  --hot-pink: #f72d9a;
-  --pink: #ec4899;
-  --soft-pink: #fce7f3;
-  --page-pink: #fdebf4;
-  --ink: #24151d;
-  --muted: #6f4a5d;
-  --line: rgba(244, 114, 182, 0.35);
-}
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { about, profile } from "../data/portfolio";
 
-* {
-  box-sizing: border-box;
-}
+export default function About() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-html {
-  scroll-behavior: smooth;
-}
+  useEffect(() => {
+    const section = sectionRef.current;
 
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background: var(--page-pink);
-  color: var(--ink);
-}
+    if (!section) return;
 
-section {
-  scroll-margin-top: 112px;
-}
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.22 }
+    );
 
-::selection {
-  background: rgba(247, 45, 154, 0.22);
-  color: var(--ink);
-}
+    observer.observe(section);
 
-/* =========================================================
-   GLOBAL MOTION SYSTEM
-   ========================================================= */
+    return () => observer.disconnect();
+  }, []);
 
-@keyframes readableReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(22px);
-    filter: blur(5px);
-  }
+  return (
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative min-h-screen overflow-hidden px-5 py-28 md:px-8"
+    >
+      <div className="pointer-events-none absolute left-8 top-24 text-[10rem] font-black leading-none text-white/20 md:text-[18rem]">
+        STORY
+      </div>
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
+      <div className="pointer-events-none absolute bottom-16 right-8 text-[8rem] font-black leading-none text-white/20 md:text-[14rem]">
+        WORK
+      </div>
 
-.readable-reveal {
-  animation: readableReveal 820ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <p
+            className={[
+              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
+              isVisible ? "readable-reveal" : "opacity-0",
+            ].join(" ")}
+          >
+            [ {about.label} ]
+          </p>
 
-@keyframes headlineWipe {
-  0% {
-    opacity: 0;
-    clip-path: inset(0 100% 0 0);
-    transform: translateX(-18px);
-  }
+          <div className="hidden h-px flex-1 bg-[#20171a]/20 md:block" />
 
-  100% {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-    transform: translateX(0);
-  }
-}
+          <p
+            className={[
+              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
+              isVisible ? "readable-reveal [animation-delay:100ms]" : "opacity-0",
+            ].join(" ")}
+          >
+            Client Creative Execution
+          </p>
+        </div>
 
-.headline-wipe {
-  opacity: 0;
-  clip-path: inset(0 100% 0 0);
-  animation: headlineWipe 1050ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 180ms;
-}
+        <div
+          className={[
+            "editorial-paper relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 p-5 md:p-8",
+            isVisible ? "editorial-card-enter" : "opacity-0",
+          ].join(" ")}
+        >
+          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+            <div className="relative min-h-[34rem] overflow-hidden rounded-[1.5rem] bg-[#20171a] md:min-h-[43rem]">
+              <Image
+                src="/maddie.png"
+                alt="Maddie Nguyen"
+                fill
+                priority
+                className="editorial-photo object-cover object-[center_32%]"
+              />
 
-.motion-pink {
-  color: var(--hot-pink);
-}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#20171a]/55 via-transparent to-white/5" />
 
-/* =========================================================
-   UNIFIED SECTION BACKGROUND
-   ========================================================= */
+              <div className="absolute left-6 top-6 max-w-xs">
+                <p className="editorial-script text-2xl md:text-3xl">
+                  Hi, since you&apos;re here,
+                </p>
+                <p className="editorial-script mt-2 pl-10 text-lg md:text-xl">
+                  let me be your tour guide.
+                </p>
+              </div>
 
-.hero-stage,
-#about,
-#experience,
-#projects,
-#certificates,
-#skills,
-#contact {
-  background:
-    radial-gradient(circle at 18% 20%, rgba(249, 168, 212, 0.34), transparent 34%),
-    radial-gradient(circle at 82% 18%, rgba(217, 70, 239, 0.18), transparent 32%),
-    radial-gradient(circle at 50% 80%, rgba(251, 207, 232, 0.32), transparent 36%),
-    var(--page-pink);
-}
+              <div className="absolute inset-x-0 bottom-12 rotate-[-4deg] text-center">
+                <p className="editorial-pink-word text-7xl font-black leading-none tracking-[-0.08em] md:text-[8.5rem]">
+                  story
+                </p>
+                <p className="editorial-pink-word -mt-6 text-7xl font-black leading-none tracking-[-0.08em] md:text-[8.5rem]">
+                  work
+                </p>
+              </div>
 
-/* =========================================================
-   UNIFIED GLOW HEADINGS
-   ========================================================= */
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+                <p className="max-w-sm text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
+                  Account · Campaign · Creative Flow
+                </p>
 
-.hero-glow-title,
-.about-glow-heading,
-.experience-glow-heading,
-.projects-glow-heading,
-.skills-glow-heading,
-.certificates-glow-heading,
-.contact-glow-heading,
-.hero-card-title-glow,
-.experience-role-glow,
-.projects-title-glow,
-.skills-title-glow,
-.certificates-title-glow,
-.certificates-card-title-glow {
-  color: var(--hot-pink);
-  background: linear-gradient(
-    110deg,
-    #f72d9a 0%,
-    #ec4899 28%,
-    #f9a8d4 52%,
-    #ffffff 62%,
-    #f72d9a 82%,
-    #be185d 100%
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
+                  By Maddie Nguyen
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-6">
+              <div
+                className={[
+                  "editorial-grid-card relative overflow-hidden rounded-[1.5rem] p-6 md:p-8",
+                  isVisible ? "readable-reveal" : "opacity-0",
+                ].join(" ")}
+                style={{ animationDelay: "180ms" }}
+              >
+                <p className="mb-5 text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                  Client Creative Execution
+                </p>
+
+                <h1 className="editorial-title max-w-3xl text-5xl font-black uppercase leading-[0.88] tracking-[-0.075em] md:text-7xl">
+                  I connect creative ideas with campaign execution.
+                </h1>
+
+                <div className="mt-7 max-w-2xl space-y-4 text-base font-semibold leading-7 text-[#6b5d58] md:text-lg md:leading-8">
+                  {about.paragraphs.slice(0, 2).map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <div
+                  className={[
+                    "editorial-grid-card relative min-h-[16rem] overflow-hidden rounded-[1.5rem] p-5",
+                    isVisible ? "readable-reveal" : "opacity-0",
+                  ].join(" ")}
+                  style={{ animationDelay: "260ms" }}
+                >
+                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                    Snapshot
+                  </p>
+
+                  <div className="mt-8 grid grid-cols-3 gap-3">
+                    {[
+                      ["12", "client accounts"],
+                      ["2+", "years"],
+                      ["4", "focus areas"],
+                    ].map(([value, label]) => (
+                      <div key={value}>
+                        <p className="text-4xl font-black leading-none text-[#20171a]">
+                          {value}
+                        </p>
+                        <p className="mt-2 text-xs font-semibold leading-5 text-[#6b5d58]">
+                          {label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="absolute bottom-5 left-5 right-5 h-px bg-[#20171a]/15" />
+
+                  <p className="absolute bottom-7 right-5 text-5xl font-black tracking-[-0.08em] text-[#e78fad]/55">
+                    flow
+                  </p>
+                </div>
+
+                <div
+                  className={[
+                    "editorial-grid-card relative min-h-[16rem] overflow-hidden rounded-[1.5rem] p-5",
+                    isVisible ? "readable-reveal" : "opacity-0",
+                  ].join(" ")}
+                  style={{ animationDelay: "340ms" }}
+                >
+                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                    Contact
+                  </p>
+
+                  <div className="mt-7 space-y-3 text-sm font-bold text-[#20171a]">
+                    <p>{profile.email}</p>
+                    <p>{profile.phone}</p>
+                    <p>{profile.location}</p>
+                  </div>
+
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <a
+                      href="#projects"
+                      className="editorial-button-dark inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
+                    >
+                      View Work
+                    </a>
+
+                    <a
+                      href={profile.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="editorial-button-light inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
+                    >
+                      LinkedIn
+                    </a>
+
+                    <a
+                      href={profile.resume}
+                      download
+                      className="editorial-button-light inline-flex rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-1"
+                    >
+                      Resume
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={[
+                  "editorial-grid-card relative grid gap-5 rounded-[1.5rem] p-5 md:grid-cols-[0.9fr_1.1fr]",
+                  isVisible ? "readable-reveal" : "opacity-0",
+                ].join(" ")}
+                style={{ animationDelay: "420ms" }}
+              >
+                <div className="relative min-h-[13rem] overflow-hidden rounded-[1.1rem] bg-[#20171a]">
+                  <Image
+                    src="/vnhi.png"
+                    alt="Maddie Nguyen visual"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 420px"
+                  />
+                </div>
+
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                      Working Style
+                    </p>
+
+                    <h3 className="mt-4 text-4xl font-black leading-[0.9] tracking-[-0.06em] text-[#20171a]">
+                      It&apos;s not just coordination,
+                      <br />
+                      it&apos;s vibing with visuals.
+                    </h3>
+                  </div>
+
+                  <p className="mt-6 text-sm font-semibold leading-6 text-[#6b5d58]">
+                    Built for client communication, reporting discipline,
+                    cross-team handover, and campaign clarity.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p
+          className={[
+            "mx-auto mt-8 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#20171a]/45",
+            isVisible ? "readable-reveal" : "opacity-0",
+          ].join(" ")}
+          style={{ animationDelay: "520ms" }}
+        >
+          and that&apos;s a wrap.
+        </p>
+      </div>
+    </section>
   );
-  background-size: 240% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  text-shadow:
-    0 0 1px rgba(36, 21, 29, 0.65),
-    0 0 18px rgba(247, 45, 154, 0.22),
-    0 0 42px rgba(247, 45, 154, 0.18);
-  -webkit-text-stroke: 1px rgba(36, 21, 29, 0.14);
-  animation: unifiedHeadingGlowShift 5.5s ease-in-out infinite;
-}
-
-.hero-card-title-glow,
-.experience-role-glow,
-.projects-title-glow,
-.skills-title-glow,
-.certificates-title-glow,
-.certificates-card-title-glow {
-  text-transform: none;
-  -webkit-text-stroke: 0.7px rgba(36, 21, 29, 0.12);
-}
-
-@keyframes unifiedHeadingGlowShift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes unifiedHeadingGlowIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-32px) scale(0.98);
-    filter: blur(8px);
-    clip-path: inset(0 100% 0 0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-.about-heading-glow-in,
-.contact-heading-glow-in {
-  animation:
-    unifiedHeadingGlowIn 1150ms cubic-bezier(0.16, 1, 0.3, 1) both,
-    unifiedHeadingGlowShift 5.5s ease-in-out infinite 1150ms;
-}
-
-@keyframes unifiedTitleWipe {
-  0% {
-    opacity: 0;
-    clip-path: inset(0 100% 0 0);
-    transform: translateX(-22px);
-    filter: blur(6px);
-  }
-
-  100% {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-    transform: translateX(0);
-    filter: blur(0);
-  }
-}
-
-.experience-role-wipe,
-.projects-title-wipe,
-.skills-title-wipe,
-.certificates-title-wipe {
-  animation:
-    unifiedTitleWipe 960ms cubic-bezier(0.16, 1, 0.3, 1) both,
-    unifiedHeadingGlowShift 5.5s ease-in-out infinite 960ms;
-}
-
-/* =========================================================
-   SHARED REVEALS
-   ========================================================= */
-
-@keyframes unifiedRevealLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-28px);
-    filter: blur(5px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes unifiedRevealRight {
-  0% {
-    opacity: 0;
-    transform: translateX(32px) scale(0.98);
-    filter: blur(6px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-.about-reveal-left,
-.contact-reveal-left {
-  animation: unifiedRevealLeft 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.about-reveal-right,
-.contact-reveal-right {
-  animation: unifiedRevealRight 950ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes unifiedCardEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.97);
-    filter: blur(5px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-.experience-card-enter,
-.project-card-enter,
-.skill-card-enter,
-.certificate-card-enter,
-.contact-card-enter {
-  animation: unifiedCardEnter 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes aboutStatEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.96);
-    filter: blur(4px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-.about-stat-enter {
-  animation: aboutStatEnter 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* =========================================================
-   SHARED GLOW CARDS
-   ========================================================= */
-
-.hero-card-glow,
-.experience-card-glow,
-.project-card-glow,
-.skill-card-glow,
-.education-feature-glow,
-.certificate-card-glow,
-.contact-shell-glow,
-.contact-console-glow {
-  position: relative;
-  isolation: isolate;
-}
-
-.hero-card-glow::before,
-.experience-card-glow::before,
-.project-card-glow::before,
-.skill-card-glow::before,
-.education-feature-glow::before,
-.certificate-card-glow::before,
-.contact-shell-glow::before,
-.contact-console-glow::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(247, 45, 154, 0.24),
-      rgba(249, 168, 212, 0.08),
-      rgba(217, 70, 239, 0.2)
-    );
-  opacity: 0;
-  transition: opacity 320ms ease;
-}
-
-.hero-card-glow::before {
-  opacity: 0.75;
-}
-
-.experience-card-glow:hover::before,
-.project-card-glow:hover::before,
-.skill-card-glow:hover::before,
-.education-feature-glow:hover::before,
-.certificate-card-glow:hover::before,
-.contact-shell-glow:hover::before,
-.contact-console-glow:hover::before {
-  opacity: 1;
-}
-
-/* =========================================================
-   SHARED ICON + PILL GLOW
-   ========================================================= */
-
-.project-icon-glow,
-.skill-icon-glow,
-.certificate-icon-glow {
-  color: #fce7f3;
-  box-shadow:
-    0 14px 35px rgba(36, 21, 29, 0.18),
-    0 0 0 rgba(247, 45, 154, 0);
-  animation: unifiedIconGlow 4.2s ease-in-out infinite;
-}
-
-@keyframes unifiedIconGlow {
-  0% {
-    box-shadow:
-      0 14px 35px rgba(36, 21, 29, 0.18),
-      0 0 0 rgba(247, 45, 154, 0);
-  }
-
-  50% {
-    box-shadow:
-      0 14px 35px rgba(36, 21, 29, 0.18),
-      0 0 26px rgba(247, 45, 154, 0.5);
-  }
-
-  100% {
-    box-shadow:
-      0 14px 35px rgba(36, 21, 29, 0.18),
-      0 0 0 rgba(247, 45, 154, 0);
-  }
-}
-
-.skill-pill-glow,
-.experience-bullet-glow {
-  box-shadow: 0 10px 28px rgba(219, 39, 119, 0.04);
-}
-
-.skill-pill-glow:hover,
-.experience-bullet-glow:hover {
-  box-shadow: 0 14px 34px rgba(219, 39, 119, 0.13);
-}
-
-@keyframes skillPillEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(12px) scale(0.94);
-    filter: blur(3px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-.skill-pill-enter {
-  animation: skillPillEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* =========================================================
-   MARQUEE + TYPEWRITER
-   ========================================================= */
-
-.hero-marquee-wrap {
-  position: relative;
-}
-
-.hero-marquee-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: heroMarqueeMove 26s linear infinite;
-}
-
-.hero-marquee-track span {
-  display: inline-flex;
-  flex-shrink: 0;
-  padding-right: 2.5rem;
-  white-space: nowrap;
-  color: var(--hot-pink);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-@keyframes heroMarqueeMove {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.typewriter-line {
-  display: block;
-  width: 0;
-  max-width: var(--typing-target);
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 0.06em solid rgba(247, 45, 154, 0.95);
-  will-change: width;
-  animation:
-    typewriterReveal 900ms steps(18, end) forwards,
-    typewriterCursor 850ms step-end infinite;
-  animation-delay: var(--typing-delay);
-}
-
-.typewriter-line span {
-  display: inline-block;
-}
-
-.hero-title-line-1 {
-  --typing-target: 8ch;
-  --typing-delay: 120ms;
-}
-
-.hero-title-line-2 {
-  --typing-target: 7ch;
-  --typing-delay: 560ms;
-}
-
-.hero-title-line-3 {
-  --typing-target: 9ch;
-  --typing-delay: 1000ms;
-}
-
-.focus-title-line-1 {
-  --typing-target: 23ch;
-  --typing-delay: 1250ms;
-}
-
-.focus-title-line-2 {
-  --typing-target: 15ch;
-  --typing-delay: 1750ms;
-}
-
-@keyframes typewriterReveal {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: var(--typing-target);
-  }
-}
-
-@keyframes typewriterCursor {
-  0%,
-  100% {
-    border-color: rgba(247, 45, 154, 0.95);
-  }
-
-  50% {
-    border-color: transparent;
-  }
-}
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-@keyframes heroReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(28px);
-    filter: blur(5px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes heroCardFloat {
-  0% {
-    transform: translateY(0) rotate(1deg);
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(-0.8deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(1deg);
-  }
-}
-
-@keyframes heroBar {
-  0% {
-    transform: scaleY(0.45);
-    opacity: 0.58;
-  }
-
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0.55);
-    opacity: 0.68;
-  }
-}
-
-@keyframes heroProgress {
-  0% {
-    width: 20%;
-  }
-
-  45% {
-    width: 92%;
-  }
-
-  100% {
-    width: 66%;
-  }
-}
-
-@keyframes playPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.35);
-  }
-
-  70% {
-    box-shadow: 0 0 0 18px rgba(244, 114, 182, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(244, 114, 182, 0);
-  }
-}
-
-.hero-reveal {
-  animation: heroReveal 900ms ease-out both;
-}
-
-.hero-card-float {
-  will-change: transform;
-  animation: heroCardFloat 7s ease-in-out infinite;
-}
-
-.hero-bar {
-  transform-origin: bottom;
-  animation: heroBar 1.35s ease-in-out infinite;
-}
-
-.hero-progress {
-  animation: heroProgress 6.2s ease-in-out infinite;
-}
-
-.hero-play-pulse {
-  animation: playPulse 2.6s ease-in-out infinite;
-}
-
-/* =========================================================
-   SLOW FALLING MUSIC RAIN
-   ========================================================= */
-
-.hero-rain-icon,
-.music-rain-icon {
-  position: absolute;
-  top: -14%;
-  z-index: 0;
-  user-select: none;
-  pointer-events: none;
-  color: rgba(247, 45, 154, 0.16);
-  text-shadow:
-    0 0 12px rgba(247, 45, 154, 0.12),
-    0 0 28px rgba(247, 45, 154, 0.08);
-  will-change: transform, opacity;
-  animation-name: musicRainFall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-@keyframes musicRainFall {
-  0% {
-    transform: translate3d(0, -15vh, 0) rotate(0deg);
-    opacity: 0;
-  }
-
-  8% {
-    opacity: 0.12;
-  }
-
-  30% {
-    transform: translate3d(14px, 30vh, 0) rotate(8deg);
-    opacity: 0.16;
-  }
-
-  60% {
-    transform: translate3d(-12px, 65vh, 0) rotate(-10deg);
-    opacity: 0.2;
-  }
-
-  85% {
-    opacity: 0.15;
-  }
-
-  100% {
-    transform: translate3d(10px, 115vh, 0) rotate(12deg);
-    opacity: 0;
-  }
-}
-
-.hero-rain-1,
-.music-rain-1 {
-  left: 3%;
-  font-size: 3rem;
-  animation-duration: 28s;
-  animation-delay: -4s;
-}
-
-.hero-rain-2,
-.music-rain-2 {
-  left: 9%;
-  font-size: 3.6rem;
-  animation-duration: 34s;
-  animation-delay: -16s;
-}
-
-.hero-rain-3,
-.music-rain-3 {
-  left: 16%;
-  font-size: 2.6rem;
-  animation-duration: 31s;
-  animation-delay: -9s;
-}
-
-.hero-rain-4,
-.music-rain-4 {
-  left: 24%;
-  font-size: 3.2rem;
-  animation-duration: 38s;
-  animation-delay: -23s;
-}
-
-.hero-rain-5,
-.music-rain-5 {
-  left: 33%;
-  font-size: 4.2rem;
-  animation-duration: 35s;
-  animation-delay: -13s;
-}
-
-.hero-rain-6,
-.music-rain-6 {
-  left: 43%;
-  font-size: 2.5rem;
-  animation-duration: 41s;
-  animation-delay: -28s;
-}
-
-.hero-rain-7,
-.music-rain-7 {
-  left: 52%;
-  font-size: 2.8rem;
-  animation-duration: 30s;
-  animation-delay: -7s;
-}
-
-.hero-rain-8,
-.music-rain-8 {
-  left: 61%;
-  font-size: 2.5rem;
-  animation-duration: 37s;
-  animation-delay: -19s;
-}
-
-.hero-rain-9,
-.music-rain-9 {
-  left: 69%;
-  font-size: 3.1rem;
-  animation-duration: 33s;
-  animation-delay: -11s;
-}
-
-.hero-rain-10,
-.music-rain-10 {
-  left: 77%;
-  font-size: 2.7rem;
-  animation-duration: 43s;
-  animation-delay: -31s;
-}
-
-.hero-rain-11,
-.music-rain-11 {
-  left: 85%;
-  font-size: 3.8rem;
-  animation-duration: 36s;
-  animation-delay: -15s;
-}
-
-.hero-rain-12,
-.music-rain-12 {
-  left: 93%;
-  font-size: 2.5rem;
-  animation-duration: 40s;
-  animation-delay: -25s;
-}
-
-.hero-rain-13 {
-  left: 47%;
-  font-size: 2.8rem;
-  animation-duration: 45s;
-  animation-delay: -34s;
-}
-
-.hero-rain-14 {
-  left: 72%;
-  font-size: 3.4rem;
-  animation-duration: 39s;
-  animation-delay: -22s;
-}
-
-/* =========================================================
-   GENERIC VINYL RECORD PLAYER
-   ========================================================= */
-
-.record-player {
-  position: relative;
-  min-height: 280px;
-}
-
-.vinyl-shell {
-  position: relative;
-  display: flex;
-  width: 260px;
-  height: 260px;
-  align-items: center;
-  justify-content: center;
-}
-
-.vinyl-disc {
-  position: relative;
-  width: 230px;
-  height: 230px;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at center, #3a2431 0 18%, #171217 19% 100%);
-  box-shadow:
-    inset 0 0 0 10px rgba(255, 255, 255, 0.03),
-    inset 0 0 0 22px rgba(255, 255, 255, 0.02),
-    0 24px 60px rgba(0, 0, 0, 0.35);
-  will-change: transform;
-  animation: vinylSpin 7s linear infinite;
-}
-
-.vinyl-disc::before {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 9999px;
-}
-
-.vinyl-disc::after {
-  content: "";
-  position: absolute;
-  inset: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 9999px;
-}
-
-.vinyl-ring {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.045);
-  border-radius: 9999px;
-}
-
-.vinyl-ring-1 {
-  inset: 52px;
-}
-
-.vinyl-ring-2 {
-  inset: 70px;
-}
-
-.vinyl-ring-3 {
-  inset: 88px;
-}
-
-.vinyl-center {
-  position: absolute;
-  inset: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #f472b6, #ec4899, #f9a8d4);
-  color: white;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  box-shadow: 0 0 30px rgba(244, 114, 182, 0.35);
-}
-
-.tonearm {
-  position: absolute;
-  top: 30px;
-  right: 18px;
-  width: 110px;
-  height: 8px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, #f3d2df, #ffffff);
-  transform: rotate(28deg);
-  transform-origin: right center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.tonearm::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  width: 22px;
-  height: 22px;
-  border-radius: 9999px;
-  background: #f9d3e2;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-}
-
-.tonearm-head {
-  position: absolute;
-  top: -5px;
-  left: -8px;
-  width: 18px;
-  height: 18px;
-  border-radius: 6px;
-  background: #f472b6;
-  box-shadow: 0 0 18px rgba(244, 114, 182, 0.45);
-}
-
-@keyframes vinylSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* =========================================================
-   NAVBAR PIANO + BRAND VINYL
-   ========================================================= */
-
-@keyframes pianoGlow {
-  0% {
-    box-shadow: 0 0 0 rgba(236, 72, 153, 0);
-  }
-
-  50% {
-    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.28);
-  }
-
-  100% {
-    box-shadow: 0 0 0 rgba(236, 72, 153, 0);
-  }
-}
-
-.piano-key {
-  box-shadow:
-    inset 0 -8px 14px rgba(36, 21, 29, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
-}
-
-.piano-key:hover {
-  animation: pianoGlow 900ms ease-in-out;
-}
-
-@keyframes navNoteBurst {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 8px) scale(0.7) rotate(-8deg);
-  }
-
-  45% {
-    opacity: 1;
-    transform: translate(-50%, -8px) scale(1.1) rotate(8deg);
-  }
-
-  100% {
-    opacity: 0.15;
-    transform: translate(-50%, -20px) scale(1.25) rotate(-6deg);
-  }
-}
-
-@keyframes navNoteBurstTwo {
-  0% {
-    opacity: 0;
-    transform: translateY(8px) scale(0.7) rotate(8deg);
-  }
-
-  50% {
-    opacity: 0.85;
-    transform: translateY(-8px) scale(1) rotate(-10deg);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-18px) scale(1.15) rotate(8deg);
-  }
-}
-
-.nav-note-burst {
-  animation: navNoteBurst 1.25s ease-in-out infinite;
-  text-shadow: 0 0 18px rgba(236, 72, 153, 0.45);
-}
-
-.nav-note-burst-2 {
-  animation: navNoteBurstTwo 1.1s ease-in-out infinite;
-  animation-delay: 240ms;
-  text-shadow: 0 0 14px rgba(236, 72, 153, 0.35);
-}
-
-.brand-logo {
-  isolation: isolate;
-}
-
-.brand-orbit {
-  position: absolute;
-  left: 0.8rem;
-  top: 50%;
-  z-index: 0;
-  width: 2.8rem;
-  height: 2.8rem;
-  border-radius: 9999px;
-  background:
-    conic-gradient(
-      from 0deg,
-      rgba(247, 45, 154, 0),
-      rgba(247, 45, 154, 0.55),
-      rgba(249, 168, 212, 0.75),
-      rgba(247, 45, 154, 0)
-    );
-  transform: translateY(-50%);
-  filter: blur(0.5px);
-  opacity: 0.95;
-  will-change: transform;
-  animation: brandOrbitSpin 3.4s linear infinite;
-}
-
-.brand-vinyl-wrap {
-  position: relative;
-  z-index: 2;
-  box-shadow:
-    0 0 0 0 rgba(247, 45, 154, 0.35),
-    0 8px 22px rgba(247, 45, 154, 0.28);
-  animation: brandVinylPulse 2.8s ease-in-out infinite;
-}
-
-.brand-vinyl-disc {
-  position: relative;
-  display: flex;
-  width: 2rem;
-  height: 2rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background:
-    radial-gradient(
-      circle at center,
-      #ffffff 0 7%,
-      #fce7f3 8% 13%,
-      #f72d9a 14% 36%,
-      #ec4899 37% 55%,
-      #be185d 56% 100%
-    );
-  will-change: transform;
-  animation: brandVinylSpin 2.2s linear infinite;
-}
-
-.brand-vinyl-disc::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 9999px;
-}
-
-.brand-vinyl-disc::after {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 9999px;
-}
-
-.brand-vinyl-ring {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 9999px;
-}
-
-.brand-vinyl-ring-1 {
-  inset: 5px;
-}
-
-.brand-vinyl-ring-2 {
-  inset: 10px;
-}
-
-.brand-vinyl-center {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 0.95rem;
-  height: 0.95rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: var(--hot-pink);
-  color: white;
-  font-size: 0.72rem;
-  line-height: 1;
-  box-shadow: 0 0 12px rgba(247, 45, 154, 0.55);
-  animation: brandVinylReverseSpin 2.2s linear infinite;
-}
-
-.brand-word {
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 0 18px rgba(247, 45, 154, 0.25);
-}
-
-@keyframes brandOrbitSpin {
-  from {
-    transform: translateY(-50%) rotate(0deg);
-  }
-
-  to {
-    transform: translateY(-50%) rotate(360deg);
-  }
-}
-
-@keyframes brandVinylSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes brandVinylReverseSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes brandVinylPulse {
-  0% {
-    box-shadow:
-      0 0 0 0 rgba(247, 45, 154, 0.35),
-      0 8px 22px rgba(247, 45, 154, 0.28);
-  }
-
-  70% {
-    box-shadow:
-      0 0 0 10px rgba(247, 45, 154, 0),
-      0 8px 22px rgba(247, 45, 154, 0.28);
-  }
-
-  100% {
-    box-shadow:
-      0 0 0 0 rgba(247, 45, 154, 0),
-      0 8px 22px rgba(247, 45, 154, 0.28);
-  }
-}
-
-/* =========================================================
-   SHARED MUSIC BARS + PROGRESS
-   ========================================================= */
-
-@keyframes musicBar {
-  0% {
-    transform: scaleY(0.45);
-    opacity: 0.58;
-  }
-
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0.55);
-    opacity: 0.68;
-  }
-}
-
-.music-bar,
-.experience-bar,
-.experience-mini-bar,
-.project-bar,
-.project-mini-bar,
-.skill-bar,
-.contact-bar {
-  transform-origin: bottom;
-  animation: musicBar 1.35s ease-in-out infinite;
-}
-
-@keyframes sharedProgress {
-  0% {
-    width: 18%;
-  }
-
-  50% {
-    width: 90%;
-  }
-
-  100% {
-    width: 64%;
-  }
-}
-
-.experience-progress,
-.project-progress,
-.skill-progress,
-.certificate-progress,
-.education-progress,
-.contact-progress {
-  animation: sharedProgress 6s ease-in-out infinite;
-}
-
-/* =========================================================
-   EXPERIENCE
-   ========================================================= */
-
-@keyframes experiencePulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.35);
-  }
-
-  70% {
-    box-shadow: 0 0 0 16px rgba(236, 72, 153, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
-  }
-}
-
-.experience-dot,
-.experience-dot-glow {
-  animation:
-    experiencePulse 2.6s ease-in-out infinite,
-    unifiedIconGlow 4s ease-in-out infinite;
-}
-
-@keyframes experienceLineGrow {
-  0% {
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  100% {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-}
-
-.experience-line-grow {
-  transform-origin: top;
-  animation: experienceLineGrow 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* =========================================================
-   BACKGROUND FLOAT NOTES
-   ========================================================= */
-
-.about-float-note,
-.experience-float-note,
-.projects-float-note,
-.skills-float-note,
-.certificates-float-note,
-.contact-float-note,
-.project-symbol {
-  position: absolute;
-  color: rgba(247, 45, 154, 0.16);
-  font-weight: 900;
-  line-height: 1;
-  animation: floatNote 7s ease-in-out infinite;
-}
-
-@keyframes floatNote {
-  0% {
-    transform: translateY(0) rotate(-8deg);
-    opacity: 0.12;
-  }
-
-  50% {
-    transform: translateY(-18px) rotate(8deg);
-    opacity: 0.24;
-  }
-
-  100% {
-    transform: translateY(0) rotate(-8deg);
-    opacity: 0.12;
-  }
-}
-
-.about-float-note-1,
-.experience-float-note-1,
-.projects-float-note-1,
-.skills-float-note-1,
-.certificates-float-note-1,
-.contact-float-note-1,
-.project-symbol-1 {
-  left: 8%;
-  top: 18%;
-  font-size: 5rem;
-}
-
-.about-float-note-2,
-.experience-float-note-2,
-.projects-float-note-2,
-.skills-float-note-2,
-.certificates-float-note-2,
-.contact-float-note-2,
-.project-symbol-2 {
-  right: 10%;
-  top: 20%;
-  font-size: 4.3rem;
-  animation-delay: 900ms;
-}
-
-.about-float-note-3,
-.experience-float-note-3,
-.projects-float-note-3,
-.skills-float-note-3,
-.certificates-float-note-3,
-.contact-float-note-3,
-.project-symbol-3 {
-  right: 24%;
-  bottom: 14%;
-  font-size: 5.5rem;
-  animation-delay: 1.6s;
-}
-
-/* =========================================================
-   ABOUT CLEAN VINYL VERSION - BIG AVATAR
-   ========================================================= */
-
-.about-clean-vinyl-stage {
-  min-height: 38rem;
-}
-
-.about-clean-vinyl-glow {
-  position: absolute;
-  width: 28rem;
-  height: 28rem;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle, rgba(247, 45, 154, 0.28), rgba(247, 45, 154, 0) 68%);
-  filter: blur(30px);
-}
-
-.about-clean-vinyl-disc {
-  position: relative;
-  display: flex;
-  width: 24.5rem;
-  height: 24.5rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at center, #fce7f3 0 15%, #f72d9a 16% 19%, #3a1d2b 20% 42%, #171217 43% 100%);
-  box-shadow:
-    inset 0 0 0 10px rgba(255, 255, 255, 0.045),
-    inset 0 0 0 24px rgba(255, 255, 255, 0.026),
-    inset 0 0 0 46px rgba(255, 255, 255, 0.016),
-    0 30px 90px rgba(36, 21, 29, 0.28),
-    0 0 48px rgba(247, 45, 154, 0.2);
-  animation: aboutCleanVinylSpin 7s linear infinite;
-  will-change: transform;
-}
-
-.about-clean-vinyl-disc::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  background:
-    conic-gradient(
-      from 0deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 0.025),
-      rgba(247, 45, 154, 0.12),
-      rgba(255, 255, 255, 0.02)
-    );
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.about-clean-vinyl-ring {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  border-radius: 9999px;
-}
-
-.about-clean-vinyl-ring-1 {
-  inset: 1.1rem;
-}
-
-.about-clean-vinyl-ring-2 {
-  inset: 2.25rem;
-}
-
-.about-clean-vinyl-ring-3 {
-  inset: 3.4rem;
-}
-
-.about-clean-vinyl-ring-4 {
-  inset: 4.55rem;
-}
-
-.about-clean-vinyl-photo {
-  position: relative;
-  z-index: 3;
-  width: 13rem;
-  height: 13rem;
-  overflow: hidden;
-  border: 5px solid #f9a8d4;
-  border-radius: 9999px;
-  background: #fce7f3;
-  box-shadow:
-    0 0 0 9px rgba(255, 255, 255, 0.08),
-    0 0 0 15px rgba(247, 45, 154, 0.12),
-    0 0 35px rgba(247, 45, 154, 0.38);
-  animation: aboutCleanVinylCounterSpin 7s linear infinite;
-  will-change: transform;
-}
-
-.about-clean-vinyl-photo img {
-  object-position: center 38% !important;
-}
-
-.about-clean-tonearm {
-  position: absolute;
-  top: 6.35rem;
-  right: 3.5rem;
-  z-index: 5;
-  width: 9rem;
-  height: 0.65rem;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, #f5d4e2, #ffffff);
-  transform: rotate(28deg);
-  transform-origin: right center;
-  box-shadow: 0 8px 18px rgba(36, 21, 29, 0.16);
-}
-
-.about-clean-tonearm::before {
-  content: "";
-  position: absolute;
-  top: -0.55rem;
-  right: -0.55rem;
-  width: 1.6rem;
-  height: 1.6rem;
-  border-radius: 9999px;
-  background: #f7d7e5;
-  box-shadow: 0 8px 18px rgba(36, 21, 29, 0.18);
-}
-
-.about-clean-tonearm-head {
-  position: absolute;
-  left: -0.45rem;
-  top: -0.35rem;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.35rem;
-  background: #f472b6;
-  box-shadow: 0 0 18px rgba(244, 114, 182, 0.45);
-}
-
-@keyframes aboutCleanVinylSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes aboutCleanVinylCounterSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-/* =========================================================
-   SPOTIFY SHINE + CERTIFICATES IMAGE
-   ========================================================= */
-
-@keyframes spotifyShine {
-  0% {
-    transform: translateX(-120%) rotate(12deg);
-    opacity: 0;
-  }
-
-  35% {
-    opacity: 0.35;
-  }
-
-  70% {
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(120%) rotate(12deg);
-    opacity: 0;
-  }
-}
-
-.spotify-card {
-  isolation: isolate;
-}
-
-.spotify-shine::before,
-.certificate-image-shine::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: -35%;
-  height: 140%;
-  width: 28%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.35),
-    transparent
-  );
-  animation: spotifyShine 5.8s ease-in-out infinite;
-}
-
-@keyframes certificatesImageEnter {
-  0% {
-    opacity: 0;
-    transform: translateX(-26px) scale(0.97);
-    filter: blur(6px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-.certificates-image-enter {
-  animation: certificatesImageEnter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* =========================================================
-   CONTACT ORBIT
-   ========================================================= */
-
-.contact-orbit-stage {
-  isolation: isolate;
-}
-
-.contact-orbit {
-  position: absolute;
-  border-radius: 9999px;
-  border: 1px solid rgba(247, 45, 154, 0.24);
-  box-shadow:
-    0 0 26px rgba(247, 45, 154, 0.12),
-    inset 0 0 26px rgba(247, 45, 154, 0.08);
-}
-
-.contact-orbit-1 {
-  width: 13rem;
-  height: 13rem;
-  animation: orbitSpin 16s linear infinite;
-}
-
-.contact-orbit-2 {
-  width: 10rem;
-  height: 10rem;
-  border-style: dashed;
-  animation: orbitSpinReverse 12s linear infinite;
-}
-
-.contact-orbit-3 {
-  width: 7rem;
-  height: 7rem;
-  border-color: rgba(217, 70, 239, 0.28);
-  animation: orbitSpin 9s linear infinite;
-}
-
-@keyframes orbitSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbitSpinReverse {
-  from {
-    transform: rotate(360deg);
-  }
-
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.contact-core {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 6.6rem;
-  height: 6.6rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at center, #ffffff 0 18%, #fce7f3 19% 38%, var(--hot-pink) 39% 72%, #be185d 73% 100%);
-  box-shadow:
-    0 20px 60px rgba(219, 39, 119, 0.28),
-    0 0 42px rgba(247, 45, 154, 0.34);
-  animation: contactCorePulse 3.6s ease-in-out infinite;
-}
-
-.contact-core-note {
-  color: white;
-  font-size: 2.5rem;
-  font-weight: 900;
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
-}
-
-@keyframes contactCorePulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.045);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-.contact-badge {
-  position: absolute;
-  z-index: 3;
-  border: 1px solid rgba(244, 114, 182, 0.38);
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.82);
-  padding: 0.55rem 0.8rem;
-  color: var(--hot-pink);
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  box-shadow: 0 14px 42px rgba(219, 39, 119, 0.16);
-  backdrop-filter: blur(14px);
-  animation: badgeFloat 4.8s ease-in-out infinite;
-}
-
-.contact-badge-1 {
-  left: 1.2rem;
-  top: 2.5rem;
-}
-
-.contact-badge-2 {
-  right: 1.4rem;
-  top: 4.3rem;
-  animation-delay: 700ms;
-}
-
-.contact-badge-3 {
-  bottom: 2.4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  animation-delay: 1.2s;
-}
-
-@keyframes badgeFloat {
-  0% {
-    translate: 0 0;
-  }
-
-  50% {
-    translate: 0 -8px;
-  }
-
-  100% {
-    translate: 0 0;
-  }
-}
-
-/* =========================================================
-   MOBILE CLEANUP
-   ========================================================= */
-
-@media (max-width: 768px) {
-  .about-clean-vinyl-stage {
-    min-height: 30rem;
-  }
-
-  .about-clean-vinyl-glow {
-    width: 21rem;
-    height: 21rem;
-  }
-
-  .about-clean-vinyl-disc {
-    width: 19rem;
-    height: 19rem;
-  }
-
-  .about-clean-vinyl-photo {
-    width: 9.75rem;
-    height: 9.75rem;
-  }
-
-  .about-clean-tonearm {
-    top: 5.25rem;
-    right: 1.8rem;
-    width: 6.8rem;
-  }
-
-  .hero-rain-10,
-  .hero-rain-11,
-  .hero-rain-12,
-  .hero-rain-13,
-  .hero-rain-14,
-  .music-rain-10,
-  .music-rain-11,
-  .music-rain-12 {
-    display: none;
-  }
-}
-
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
 }
