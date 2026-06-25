@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { about, profile } from "../data/portfolio";
+import { about, profile, stats } from "../data/portfolio";
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -29,21 +29,21 @@ export default function About() {
   }, []);
 
   const motionBase =
-    "transition-all duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform";
+    "transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform";
 
   const reveal = (from: "up" | "left" | "right" = "up") => {
     const hidden =
       from === "left"
-        ? "-translate-x-8 translate-y-3"
+        ? "-translate-x-12 translate-y-4"
         : from === "right"
-          ? "translate-x-8 translate-y-3"
-          : "translate-y-8";
+          ? "translate-x-12 translate-y-4"
+          : "translate-y-10";
 
     return [
       motionBase,
       isVisible
-        ? "translate-x-0 translate-y-0 opacity-100 blur-0"
-        : `${hidden} opacity-0 blur-sm`,
+        ? "translate-x-0 translate-y-0 scale-100 opacity-100 blur-0"
+        : `${hidden} scale-[0.98] opacity-0 blur-sm`,
     ].join(" ");
   };
 
@@ -55,25 +55,37 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen overflow-hidden border-t border-[#20171a]/10 px-5 py-28 md:px-8"
+      className="relative min-h-screen overflow-hidden border-t border-[#7a3a4d]/10 px-5 py-24 md:px-8"
       style={{
         background:
-          "radial-gradient(circle at 12% 18%, rgba(255,255,255,0.42), transparent 30%), radial-gradient(circle at 88% 12%, rgba(231,143,173,0.20), transparent 32%), #e8ded1",
+          "radial-gradient(circle at 12% 18%, rgba(255,244,240,0.86), transparent 30%), radial-gradient(circle at 88% 12%, rgba(236,157,181,0.30), transparent 34%), linear-gradient(135deg, #f8e7df 0%, #f4d6dc 48%, #f7ebe2 100%)",
       }}
     >
-      <div className="pointer-events-none absolute left-6 top-20 text-[9rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[17rem]">
+      <div className="pointer-events-none absolute left-6 top-20 text-[7rem] font-black leading-none tracking-[-0.08em] text-white/25 md:text-[13rem]">
         STORY
       </div>
 
-      <div className="pointer-events-none absolute bottom-16 right-6 text-[8rem] font-black leading-none tracking-[-0.08em] text-white/20 md:text-[14rem]">
+      <div className="pointer-events-none absolute bottom-16 right-6 text-[6rem] font-black leading-none tracking-[-0.08em] text-white/25 md:text-[11rem]">
         WORK
       </div>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-10 flex items-center justify-between gap-6">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span className="absolute left-[8%] top-[23%] text-6xl font-black text-[#7a3a4d]/[0.055] md:text-8xl">
+          ♪
+        </span>
+        <span className="absolute right-[10%] top-[18%] text-5xl font-black text-[#7a3a4d]/[0.05] md:text-7xl">
+          ♫
+        </span>
+        <span className="absolute bottom-[16%] left-[18%] text-5xl font-black text-[#7a3a4d]/[0.05] md:text-7xl">
+          ♬
+        </span>
+      </div>
+
+      <div className="relative mx-auto max-w-6xl">
+        <div className="mb-9 flex items-center justify-between gap-6">
           <p
             className={[
-              "text-sm font-black uppercase tracking-[0.42em] text-[#20171a]",
+              "text-sm font-black uppercase tracking-[0.42em] text-[#7a3a4d]",
               reveal("left"),
             ].join(" ")}
             style={delay(0)}
@@ -83,7 +95,7 @@ export default function About() {
 
           <div
             className={[
-              "hidden h-px flex-1 bg-[#20171a]/20 md:block",
+              "hidden h-px flex-1 bg-[#7a3a4d]/20 md:block",
               reveal("up"),
             ].join(" ")}
             style={delay(80)}
@@ -91,7 +103,7 @@ export default function About() {
 
           <p
             className={[
-              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#20171a]/60 md:block",
+              "hidden text-sm font-bold uppercase tracking-[0.3em] text-[#7a3a4d]/60 md:block",
               reveal("right"),
             ].join(" ")}
             style={delay(120)}
@@ -102,15 +114,15 @@ export default function About() {
 
         <div
           className={[
-            "relative overflow-hidden rounded-[2rem] border border-[#20171a]/10 bg-[#f7f1e8]/90 p-5 shadow-[0_26px_70px_rgba(32,23,26,0.12)] md:p-8",
+            "relative overflow-hidden rounded-[2rem] border border-[#b96f86]/25 bg-[#fff4f0]/82 p-4 shadow-[0_24px_70px_rgba(122,58,77,0.14)] backdrop-blur md:p-6",
             reveal("up"),
           ].join(" ")}
-          style={delay(120)}
+          style={delay(140)}
         >
-          <div className="grid gap-6 md:grid-cols-[1fr_1fr]">
+          <div className="grid gap-5 md:grid-cols-[0.82fr_1.18fr]">
             <div
               className={[
-                "relative min-h-[34rem] overflow-hidden rounded-[1.5rem] bg-[#20171a] shadow-[0_24px_70px_rgba(32,23,26,0.18)] md:min-h-[43rem]",
+                "relative min-h-[28rem] overflow-hidden rounded-[1.5rem] border border-[#b96f86]/30 bg-[#f3c7d2] shadow-[0_22px_60px_rgba(122,58,77,0.16)] md:min-h-[34rem]",
                 reveal("left"),
               ].join(" ")}
               style={delay(240)}
@@ -120,64 +132,48 @@ export default function About() {
                 alt="Maddie Nguyen"
                 fill
                 priority
-                className="object-cover object-[center_32%] grayscale contrast-110"
+                className="object-cover object-[center_28%] saturate-[1.05] contrast-[1.02]"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#20171a]/60 via-transparent to-white/5" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#7a3a4d]/34 via-[#f6bfd0]/5 to-[#fff4f0]/12" />
 
-              <div className="absolute left-6 top-6 max-w-sm">
-                <p className="rotate-[-3deg] font-serif text-2xl italic text-[#20171a]/80 md:text-3xl">
-                  Hi, since you&apos;re here,
-                </p>
-
-                <p className="mt-2 rotate-[-2deg] pl-8 font-serif text-lg italic text-[#20171a]/70 md:text-xl">
-                  let me be your tour guide.
-                </p>
+              <div className="absolute left-5 top-5 rounded-full border border-white/35 bg-[#fff4f0]/30 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-white shadow-sm backdrop-blur">
+                Maddie Nguyen
               </div>
 
-              <div className="absolute inset-x-0 bottom-14 rotate-[-4deg] text-center">
-                <p className="text-7xl font-black italic leading-none tracking-[-0.08em] text-[#e78fad] md:text-[8.5rem]">
-                  story
-                </p>
-
-                <p className="-mt-6 text-7xl font-black italic leading-none tracking-[-0.08em] text-[#e78fad] md:text-[8.5rem]">
-                  work
-                </p>
-              </div>
-
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
-                <p className="max-w-sm text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
+              <div className="absolute bottom-7 left-6 right-6">
+                <p className="max-w-xs rounded-3xl border border-white/30 bg-[#7a3a4d]/28 px-5 py-4 text-sm font-bold leading-6 text-white shadow-[0_18px_45px_rgba(122,58,77,0.18)] backdrop-blur">
                   Account · Campaign · Creative Flow
                 </p>
-
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-                  By Maddie Nguyen
-                </p>
               </div>
+
+              <p className="absolute bottom-8 right-7 rotate-[-5deg] text-6xl font-black italic leading-none tracking-[-0.08em] text-[#ff9dbc] drop-shadow-sm md:text-7xl">
+                story
+              </p>
             </div>
 
-            <div className="grid gap-6">
+            <div className="grid gap-5">
               <div
                 className={[
-                  "relative overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-6 shadow-[0_18px_45px_rgba(32,23,26,0.08)] md:p-8",
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#b96f86]/25 bg-[#fff8f3]/78 p-6 shadow-[0_18px_45px_rgba(122,58,77,0.08)] md:p-7",
                   reveal("right"),
                 ].join(" ")}
-                style={delay(300)}
+                style={delay(320)}
               >
-                <p className="mb-5 text-xs font-black uppercase tracking-[0.34em] text-[#20171a]/55">
+                <p className="mb-4 text-xs font-black uppercase tracking-[0.34em] text-[#9a5268]/70">
                   Client Creative Execution
                 </p>
 
-                <h1 className="max-w-3xl text-5xl font-black uppercase leading-[0.88] tracking-[-0.075em] text-[#20171a] md:text-7xl">
+                <h1 className="max-w-3xl text-4xl font-black uppercase leading-[0.92] tracking-[-0.06em] text-[#2b1720] md:text-5xl lg:text-6xl">
                   I connect creative ideas with campaign execution.
                 </h1>
 
-                <div className="mt-7 max-w-2xl space-y-4 text-base font-semibold leading-7 text-[#6b5d58] md:text-lg md:leading-8">
+                <div className="mt-6 max-w-2xl space-y-3 text-sm font-semibold leading-7 text-[#765560] md:text-base md:leading-8">
                   {about.paragraphs.slice(0, 2).map((paragraph, index) => (
                     <p
                       key={paragraph}
-                      className={reveal("right")}
-                      style={delay(420 + index * 120)}
+                      className={reveal(index === 0 ? "right" : "left")}
+                      style={delay(460 + index * 120)}
                     >
                       {paragraph}
                     </p>
@@ -185,68 +181,71 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2">
-                <div
+              <div className="grid gap-5 md:grid-cols-[1fr_0.92fr]">
+                <a
+                  href="#experience"
                   className={[
-                    "relative min-h-[16rem] overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
-                    reveal("up"),
+                    "group relative min-h-[14rem] overflow-hidden rounded-[1.5rem] border border-[#b96f86]/25 bg-[#fde5eb]/82 p-5 shadow-[0_18px_45px_rgba(122,58,77,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#c95f83]/45 hover:bg-[#ffdce7]",
+                    reveal("left"),
                   ].join(" ")}
-                  style={delay(500)}
+                  style={delay(540)}
                 >
-                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
-                    Snapshot
-                  </p>
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#9a5268]/70">
+                      Snapshot
+                    </p>
 
-                  <div className="mt-8 grid grid-cols-3 gap-3">
-                    {[
-                      ["12", "client accounts"],
-                      ["2+", "years"],
-                      ["4", "focus areas"],
-                    ].map(([value, label], index) => (
+                    <span className="rounded-full border border-[#b96f86]/25 bg-[#fff8f3]/70 px-3 py-1 text-xs font-black text-[#7a3a4d] transition duration-300 group-hover:bg-[#7a3a4d] group-hover:text-white">
+                      View Experience
+                    </span>
+                  </div>
+
+                  <div className="mt-7 grid grid-cols-3 gap-3">
+                    {stats.map((item, index) => (
                       <div
-                        key={value}
+                        key={item.value}
                         className={reveal("up")}
-                        style={delay(620 + index * 90)}
+                        style={delay(660 + index * 90)}
                       >
-                        <p className="text-4xl font-black leading-none text-[#20171a]">
-                          {value}
+                        <p className="text-3xl font-black leading-none text-[#2b1720] md:text-4xl">
+                          {item.value}
                         </p>
 
-                        <p className="mt-2 text-xs font-semibold leading-5 text-[#6b5d58]">
-                          {label}
+                        <p className="mt-2 text-[11px] font-bold leading-4 text-[#765560]">
+                          {item.label}
                         </p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="absolute bottom-5 left-5 right-5 h-px bg-[#20171a]/15" />
+                  <div className="absolute bottom-5 left-5 right-5 h-px bg-[#7a3a4d]/15" />
 
-                  <p className="absolute bottom-7 right-5 text-5xl font-black tracking-[-0.08em] text-[#e78fad]/55">
+                  <p className="absolute bottom-7 right-5 rotate-[-4deg] text-4xl font-black italic tracking-[-0.08em] text-[#e991ad]/70">
                     flow
                   </p>
-                </div>
+                </a>
 
                 <div
                   className={[
-                    "relative min-h-[16rem] overflow-hidden rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)]",
-                    reveal("up"),
+                    "relative min-h-[14rem] overflow-hidden rounded-[1.5rem] border border-[#b96f86]/25 bg-[#fff8f3]/78 p-5 shadow-[0_18px_45px_rgba(122,58,77,0.08)]",
+                    reveal("right"),
                   ].join(" ")}
-                  style={delay(580)}
+                  style={delay(620)}
                 >
-                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
+                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#9a5268]/70">
                     Contact
                   </p>
 
-                  <div className="mt-7 space-y-3 text-sm font-bold text-[#20171a]">
-                    <p>{profile.email}</p>
+                  <div className="mt-6 space-y-2 text-xs font-black leading-5 text-[#2b1720]">
+                    <p className="break-words">{profile.email}</p>
                     <p>{profile.phone}</p>
                     <p>{profile.location}</p>
                   </div>
 
-                  <div className="mt-7 flex flex-wrap gap-3">
+                  <div className="mt-6 flex flex-wrap gap-3">
                     <a
                       href="#projects"
-                      className="inline-flex rounded-full bg-[#20171a] px-5 py-3 text-sm font-black text-[#fff8ef] transition duration-300 hover:-translate-y-1"
+                      className="inline-flex rounded-full bg-[#d96f91] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,111,145,0.28)] transition duration-300 hover:-translate-y-1 hover:bg-[#c95f83]"
                     >
                       View Work
                     </a>
@@ -255,7 +254,7 @@ export default function About() {
                       href={profile.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
+                      className="inline-flex rounded-full border border-[#b96f86]/30 bg-[#fff4f0] px-5 py-3 text-sm font-black text-[#7a3a4d] transition duration-300 hover:-translate-y-1 hover:bg-[#fde5eb]"
                     >
                       LinkedIn
                     </a>
@@ -263,7 +262,7 @@ export default function About() {
                     <a
                       href={profile.resume}
                       download
-                      className="inline-flex rounded-full border border-[#20171a]/15 bg-[#f7f1e8]/90 px-5 py-3 text-sm font-black text-[#20171a] transition duration-300 hover:-translate-y-1"
+                      className="inline-flex rounded-full border border-[#b96f86]/30 bg-[#fff4f0] px-5 py-3 text-sm font-black text-[#7a3a4d] transition duration-300 hover:-translate-y-1 hover:bg-[#fde5eb]"
                     >
                       Resume
                     </a>
@@ -273,37 +272,25 @@ export default function About() {
 
               <div
                 className={[
-                  "relative grid gap-5 rounded-[1.5rem] border border-[#20171a]/10 bg-[#f7f1e8]/85 p-5 shadow-[0_18px_45px_rgba(32,23,26,0.08)] md:grid-cols-[0.9fr_1.1fr]",
-                  reveal("right"),
+                  "relative overflow-hidden rounded-[1.5rem] border border-[#b96f86]/25 bg-[#fbd8e2]/72 p-5 shadow-[0_18px_45px_rgba(122,58,77,0.08)]",
+                  reveal("up"),
                 ].join(" ")}
-                style={delay(700)}
+                style={delay(740)}
               >
-                <div className="relative min-h-[13rem] overflow-hidden rounded-[1.1rem] bg-[#20171a]">
-                  <Image
-                    src="/vnhi.png"
-                    alt="Maddie Nguyen visual"
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 420px"
-                  />
-                </div>
-
-                <div className="flex flex-col justify-between">
+                <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#20171a]/55">
-                      Working Style
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#9a5268]/70">
+                      Direction
                     </p>
 
-                    <h3 className="mt-4 text-4xl font-black leading-[0.9] tracking-[-0.06em] text-[#20171a]">
-                      It&apos;s not just coordination,
-                      <br />
-                      it&apos;s vibing with visuals.
+                    <h3 className="mt-4 max-w-2xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.055em] text-[#2b1720] md:text-4xl">
+                      Music labels, entertainment companies, creative agencies,
+                      and brand campaign teams.
                     </h3>
                   </div>
 
-                  <p className="mt-6 text-sm font-semibold leading-6 text-[#6b5d58]">
-                    Built for client communication, reporting discipline,
-                    cross-team handover, and campaign clarity.
+                  <p className="rotate-[-4deg] text-5xl font-black italic tracking-[-0.08em] text-[#e991ad]">
+                    warm
                   </p>
                 </div>
               </div>
@@ -313,12 +300,12 @@ export default function About() {
 
         <p
           className={[
-            "mx-auto mt-8 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#20171a]/45",
+            "mx-auto mt-7 max-w-3xl text-center text-xs font-bold uppercase tracking-[0.36em] text-[#7a3a4d]/45",
             reveal("up"),
           ].join(" ")}
           style={delay(860)}
         >
-          and that&apos;s a wrap.
+          and that&apos;s a warmer wrap.
         </p>
       </div>
     </section>
